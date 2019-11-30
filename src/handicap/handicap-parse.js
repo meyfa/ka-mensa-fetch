@@ -23,7 +23,7 @@ const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/;
  *
  * @type {RegExp}
  */
-const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+)\s+\((\w{1,3}(?:,\w{1,3})*)\)\s*$/;
+const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\((\w{1,3}(?:,\w{1,3})*)\)\s*$/;
 
 
 // METHODS
