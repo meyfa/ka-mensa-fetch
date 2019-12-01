@@ -6,17 +6,14 @@ const parse = require("./handicap-parse");
 /**
  * Fetch the handicap plan and parse it.
  *
- * Options must contain:
- * - canteenId: the canteen plan to fetch (e.g. "adenauerring").
- * - weekId: the week number to fetch (1..52).
- *
- * @param {Object} options The options describing what to fetch.
+ * @param {String} canteenId The canteen to fetch.
+ * @param {String} weekId The calendar week to fetch.
  * @return {Object[]} Parsed results.
  */
-async function fetch(options) {
-    const html = await request(options.canteenId, options.weekId);
+async function fetch(canteenId, weekId) {
+    const html = await request(canteenId, weekId);
 
-    return parse(html, options.canteenId);
+    return parse(html, canteenId);
 }
 
 module.exports = fetch;

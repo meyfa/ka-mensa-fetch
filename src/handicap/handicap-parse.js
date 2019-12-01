@@ -176,7 +176,7 @@ function parse(html, canteenId) {
     const results = [];
 
     // remaining <h1> elements store plan dates
-    $("h1").slice(1, 5).each((_, el) => {
+    $("h1").slice(1, 6).each((_, el) => {
         const dateElement = $(el);
         const date = parseDatestamp(dateElement.text(), new Date());
 
