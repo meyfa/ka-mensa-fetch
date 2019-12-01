@@ -2,6 +2,7 @@
 
 const cheerio = require("cheerio");
 
+const canteens = require("../../data/canteens.json");
 const mergeWhitespace = require("../util/merge-whitespace");
 const parseDatestamp = require("../util/parse-datestamp");
 
@@ -25,6 +26,24 @@ const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/;
  */
 const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\((\w{1,3}(?:,\w{1,3})*)\)\s*$/;
 
+/**
+ * An object mapping canteen ids to objects mapping line names to line ids for
+ * backwards resolution.
+ *
+ * @type {Object}
+ */
+const LINE_IDS_MAPPING = (() => {
+    const mapping = {};
+    for (const canteen of canteens) {
+        const lineMapping = {};
+        for (const line of canteen.lines) {
+            lineMapping[line.name] = line.id;
+        }
+        mapping[canteen.id] = Object.freeze(lineMapping);
+    }
+    return Object.freeze(mapping);
+})();
+
 
 // METHODS
 
@@ -33,16 +52,17 @@ const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\((\w{1,3}(?:,\w{1,3})*)\)\s*$/
  *
  * @param {Object} $ Cheerio reference.
  * @param {Object} $table The table containing line info.
+ * @param {String} canteenId The id of the canteen currently being parsed.
  * @return {Object[]} Parsed line contents.
  */
-function parseLines($, $table) {
+function parseLines($, $table, canteenId) {
     const lines = [];
 
     const $rows = $table.children("tbody").children("tr");
     $rows.each((_, el) => {
         const $row = $(el);
         if ($row.children().length === 2) {
-            lines.push(parseLine($, $row));
+            lines.push(parseLine($, $row, canteenId));
         }
     });
 
@@ -54,20 +74,28 @@ function parseLines($, $table) {
  *
  * @param {Object} $ Cheerio reference.
  * @param {Object} $row The table row containing the line.
+ * @param {String} canteenId The id of the canteen currently being parsed.
  * @return {Object} Parsed line content.
  */
-function parseLine($, $row) {
+function parseLine($, $row, canteenId) {
     const $cells = $row.children();
 
-    const name = $cells.eq(0).text();
+    // replace <br> in name with newlines (cheerio issue #839)
+    // (important for "[pizza]Werk<br>Pizza" etc.)
+    $cells.eq(0).find("br").replaceWith("\n");
+
+    const name = mergeWhitespace($cells.eq(0).text());
+    // resolve id from name
+    const id = LINE_IDS_MAPPING[canteenId]
+        ? LINE_IDS_MAPPING[canteenId][name] || null : null;
 
     const $mealsTable = $cells.eq(1).children("table");
     if ($mealsTable.length === 1) {
         const meals = parseMeals($, $mealsTable);
-        return { name, meals };
+        return { id, name, meals };
     }
 
-    return { name, meals: [] };
+    return { id, name, meals: [] };
 }
 
 /**
@@ -181,7 +209,7 @@ function parse(html, canteenId) {
         const date = parseDatestamp(dateElement.text(), new Date());
 
         const tableElement = dateElement.next("table");
-        const lines = parseLines($, tableElement);
+        const lines = parseLines($, tableElement, canteenId);
 
         results.push({
             id: canteenId,

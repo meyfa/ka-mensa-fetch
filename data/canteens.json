@@ -94,9 +94,12 @@
     {
         "id": "x1moltkestrasse",
         "name": "Caféteria Moltkestraße 30",
-        "lines": {
-            "gut": "Gut & Günstig"
-        }
+        "lines": [
+            {
+                "id": "gut",
+                "name": "Gut & Günstig"
+            }
+        ]
     },
     {
         "id": "erzberger",
