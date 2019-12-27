@@ -29,7 +29,22 @@ function parseDatestamp(str, reference) {
     const day = parseInt(match[1], 10);
     const month = parseInt(match[2], 10);
 
-    return { day, month, year: reference.getFullYear() };
+    const refYear = reference.getFullYear();
+    // JS Date has month run from 0 to 11, inclusive
+    const refMonth = reference.getMonth() + 1;
+
+    // check for "half of year"-overlap, i.e. if both `month` and `refMonth`
+    // lie in same 6 month-chunk
+    // -> if they do, use reference year
+    // -> if not, the given datestamp will probably refer to previous/next year
+    let year;
+    if (month >= 7) {
+        year = refMonth >= 7 ? refYear : refYear - 1;
+    } else {
+        year = refMonth >= 7 ? refYear + 1 : refYear;
+    }
+
+    return { day, month, year };
 }
 
 module.exports = parseDatestamp;
