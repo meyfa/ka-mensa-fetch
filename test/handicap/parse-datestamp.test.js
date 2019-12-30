@@ -2,9 +2,9 @@
 
 const { expect } = require("chai");
 
-const parseDatestamp = require("../../src/util/parse-datestamp.js");
+const parseDatestamp = require("../../src/handicap/parse-datestamp.js");
 
-describe("util/parse-datestamp.js", function () {
+describe("handicap/parse-datestamp.js", function () {
 
     it("returns null for invalid input ('')", function () {
         const ref = new Date(2019, 10, 30);
