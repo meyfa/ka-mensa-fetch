@@ -2,34 +2,13 @@
 
 const cheerio = require("cheerio");
 
-const canteens = require("../../data/canteens.json");
-
 const mergeWhitespace = require("../util/merge-whitespace");
 
 const parseDatestamp = require("./parse-datestamp");
 const parseClassifiers = require("./parse-classifiers");
 const parseNameAndAdditives = require("./parse-name-and-additives");
 
-
-// CONSTANTS
-
-/**
- * An object mapping canteen ids to objects mapping line names to line ids for
- * backwards resolution.
- *
- * @type {Object}
- */
-const LINE_IDS_MAPPING = (() => {
-    const mapping = {};
-    for (const canteen of canteens) {
-        const lineMapping = {};
-        for (const line of canteen.lines) {
-            lineMapping[line.name] = line.id;
-        }
-        mapping[canteen.id] = Object.freeze(lineMapping);
-    }
-    return Object.freeze(mapping);
-})();
+const matchLineName = require("./match-line-name");
 
 
 // METHODS
@@ -72,9 +51,7 @@ function parseLine($, $row, canteenId) {
     $cells.eq(0).find("br").replaceWith("\n");
 
     const name = mergeWhitespace($cells.eq(0).text());
-    // resolve id from name
-    const id = LINE_IDS_MAPPING[canteenId]
-        ? LINE_IDS_MAPPING[canteenId][name] || null : null;
+    const id = matchLineName(canteenId, name);
 
     const $mealsTable = $cells.eq(1).children("table");
     if ($mealsTable.length === 1) {
@@ -145,14 +122,15 @@ function parseMeal($, $row) {
  */
 function parse(html, canteenId) {
     const $ = cheerio.load(html);
-
-    // canteen name is stored in first <h1>
-    const canteenName = $("h1").first().text();
+    const $titles = $("h1");
 
     const results = [];
 
+    // canteen name is stored in first <h1>
+    const canteenName = $titles.first().text();
+
     // remaining <h1> elements store plan dates
-    $("h1").slice(1, 6).each((_, el) => {
+    $titles.slice(1, 6).each((_, el) => {
         const dateElement = $(el);
         const date = parseDatestamp(dateElement.text(), new Date());
 
