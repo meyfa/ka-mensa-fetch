@@ -29,9 +29,11 @@ const LINE_IDS_MAPPING = (() => {
 /**
  * Match a line name for the given canteen, determining its id.
  *
+ * Returns null if the canteen id is invalid or the line could not be matched.
+ *
  * @param {String} canteenId The id of the canteen.
  * @param {String} name The human-readable line name.
- * @return {String} The line id.
+ * @return {?String} The line id.
  */
 function matchLineName(canteenId, name) {
     // sanity check canteenId

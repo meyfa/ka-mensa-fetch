@@ -22,7 +22,7 @@ const DATE_REGEXP = /^\s*(?:Mo|Di|Mi|Do|Fr|Sa|So)\s*(\d+)\.(\d+)\.\s*$/;
  *
  * @param {String} str String to be parsed.
  * @param {Date} reference The reference date for year guessing.
- * @return {Object?} An object containing integers: day, month, year.
+ * @return {?Object} An object containing integers: day, month, year.
  */
 function parseDatestamp(str, reference) {
     const match = str.match(DATE_REGEXP);

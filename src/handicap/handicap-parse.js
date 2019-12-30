@@ -26,9 +26,9 @@ function parseLines($, $table, canteenId) {
 
     const $rows = $table.children("tbody").children("tr");
     $rows.each((_, el) => {
-        const $row = $(el);
-        if ($row.children().length === 2) {
-            lines.push(parseLine($, $row, canteenId));
+        const line = parseLine($, $(el), canteenId);
+        if (line) {
+            lines.push(line);
         }
     });
 
@@ -38,13 +38,18 @@ function parseLines($, $table, canteenId) {
 /**
  * Parse a single line. The result is an object containing `name`, `meals`.
  *
+ * Returns null if unexpected content is encountered.
+ *
  * @param {Object} $ Cheerio reference.
  * @param {Object} $row The table row containing the line.
  * @param {String} canteenId The id of the canteen currently being parsed.
- * @return {Object} Parsed line content.
+ * @return {?Object} Parsed line content.
  */
 function parseLine($, $row, canteenId) {
     const $cells = $row.children();
+    if ($cells.length !== 2) {
+        return null;
+    }
 
     // replace <br> in name with newlines (cheerio issue #839)
     // (important for "[pizza]Werk<br>Pizza" etc.)
@@ -74,9 +79,9 @@ function parseMeals($, $table) {
 
     const $rows = $table.children("tbody").children("tr");
     $rows.each((_, el) => {
-        const $row = $(el);
-        if ($row.children().length === 3) {
-            meals.push(parseMeal($, $row));
+        const meal = parseMeal($, $(el));
+        if (meal) {
+            meals.push(meal);
         }
     });
 
@@ -87,12 +92,17 @@ function parseMeals($, $table) {
  * Parse a single meal. The result is an object containing `name`, `price`,
  * `classifiers` and `additives`.
  *
+ * Returns null if unexpected content is encountered.
+ *
  * @param {Object} $ Cheerio reference.
  * @param {Object} $row The table row containing the meal.
- * @return {Object} Parsed meal object.
+ * @return {?Object} Parsed meal object.
  */
 function parseMeal($, $row) {
     const $cells = $row.children();
+    if ($cells.length !== 3) {
+        return null;
+    }
 
     const classifiers = parseClassifiers($cells.eq(0).text());
     const { name, additives } = parseNameAndAdditives($cells.eq(1).text());
