@@ -41,8 +41,8 @@ const fetchMensa = require("ka-mensa-fetch");
   See `data/canteens.json` for possible values.
 - `Object[] dates`:
   Array of date specifiers for which plans are wanted. They can have any one of
-  the following forms:
-  - `{ year: 2019, month: 12, day: 1 }`
+  the following forms (remember, JavaScript uses 0-indexed months):
+  - `{ year: 2019, month: 11, day: 1 }`
   - `"2019-12-01"`
   - `new Date(2019, 11, 1)`
   - `1575158400`
@@ -59,7 +59,8 @@ Handle with care.*
 
 - `String id`: canteen identifier (e.g. `"adenauerring"`)
 - `String name`: canteen name (e.g. `"Mensa am Adenauerring"`), may be null
-- `Object date`: plan date (e.g. `{ day: 2, month: 12, year: 2019 }`)
+- `Object date`: plan date (e.g. `{ day: 2, month: 11, year: 2019 }`)
+  (note: month is 0-indexed)
 - `Object[] lines`: line array, containing objects of the following structure:
   - `String id`: line id (e.g. `"l1"`), may be null
   - `String name`: line name (e.g. `"Linie 1"`), may be null
@@ -83,7 +84,7 @@ Promise resolution value (shortened):
     {
         "id": "adenauerring",
         "name": "Mensa Am Adenauerring",
-        "date": { "day": 2, "month": 12, "year": 2019 },
+        "date": { "day": 2, "month": 11, "year": 2019 },
         "lines": [
             {
                 "id": "l1",
@@ -104,31 +105,31 @@ Promise resolution value (shortened):
     {
         "id": "adenauerring",
         "name": "Mensa Am Adenauerring",
-        "date": { "day": 3, "month": 12, "year": 2019 },
+        "date": { "day": 3, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     },
     {
         "id": "adenauerring",
         "name": "Mensa Am Adenauerring",
-        "date": { "day": 4, "month": 12, "year": 2019 },
+        "date": { "day": 4, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     },
     {
         "id": "adenauerring",
         "name": "Mensa Am Adenauerring",
-        "date": { "day": 5, "month": 12, "year": 2019 },
+        "date": { "day": 5, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     },
     {
         "id": "adenauerring",
         "name": "Mensa Am Adenauerring",
-        "date": { "day": 6, "month": 12, "year": 2019 },
+        "date": { "day": 6, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     },
     {
         "id": "moltke",
         "name": "Mensa Moltke",
-        "date": { "day": 2, "month": 12, "year": 2019 },
+        "date": { "day": 2, "month": 11, "year": 2019 },
         "lines": [
             {
                 "id": "wahl1",
@@ -149,25 +150,25 @@ Promise resolution value (shortened):
     {
         "id": "moltke",
         "name": "Mensa Moltke",
-        "date": { "day": 3, "month": 12, "year": 2019 },
+        "date": { "day": 3, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     },
     {
         "id": "moltke",
         "name": "Mensa Moltke",
-        "date": { "day": 4, "month": 12, "year": 2019 },
+        "date": { "day": 4, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     },
     {
         "id": "moltke",
         "name": "Mensa Moltke",
-        "date": { "day": 5, "month": 12, "year": 2019 },
+        "date": { "day": 5, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     },
     {
         "id": "moltke",
         "name": "Mensa Moltke",
-        "date": { "day": 6, "month": 12, "year": 2019 },
+        "date": { "day": 6, "month": 11, "year": 2019 },
         "lines": [ /* ... */ ]
     }
 ]
