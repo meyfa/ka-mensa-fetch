@@ -1,6 +1,8 @@
 # ka-mensa-fetch
 
 [![Build Status](https://travis-ci.com/meyfa/ka-mensa-fetch.svg?branch=master)](https://travis-ci.com/meyfa/ka-mensa-fetch)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/test_coverage)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/maintainability)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/maintainability)
 
 `ka-mensa-fetch` is a NodeJS package that fetches the Karlsruhe Mensa (canteen)
 meal plan. It supports all canteens operated by the Studierendenwerk.
