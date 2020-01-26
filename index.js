@@ -67,12 +67,14 @@ function convertToWeeks(dates) {
  * requested. It may also contain additional or even completely different plans.
  * Handle with care.
  *
- * @param {Object} options The fetcher options.
- * @return {Promise} Resolves to a set of meal plans.
+ * @param {?Object} options The fetcher options.
+ * @return {Promise<Object[]>} Resolves to a set of meal plans.
  */
 async function fetch(options) {
-    const ids = options.canteens || CANTEEN_IDS;
-    const weeks = options.dates
+    const ids = options && options.canteens
+        ? options.canteens
+        : CANTEEN_IDS;
+    const weeks = options && options.dates
         ? convertToWeeks(options.dates.filter(isDateSupported))
         : [getCurrentWeek()];
 
