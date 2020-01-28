@@ -20,7 +20,7 @@ const REQUEST_TIMEOUT = 30 * 1000; // 30s
  * Conservative number for maximum response length in bytes.
  * @type {Number}
  */
-const REQUEST_MAX_LENGTH = 100 * 1024; // 100kiB
+const REQUEST_MAX_LENGTH = 1024 * 1024; // 1 MiB
 
 
 // MAIN EXPORT
