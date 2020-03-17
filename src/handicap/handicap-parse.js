@@ -143,6 +143,9 @@ function parse(html, canteenId) {
     $titles.slice(1, 6).each((_, el) => {
         const dateElement = $(el);
         const date = parseDatestamp(dateElement.text(), new Date());
+        if (!date) {
+            return;
+        }
 
         const tableElement = dateElement.next("table");
         const lines = parseLines($, tableElement, canteenId);
