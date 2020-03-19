@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 /**
  * Replace every run of whitespace (at least one whitespace character) with a
@@ -6,11 +6,11 @@
  *
  * Effectively treats whitespace the way a browser would.
  *
- * @param {String} str Subject string.
- * @return {String} The string with all whitespaces merged.
+ * @param {string} str Subject string.
+ * @returns {string} The string with all whitespaces merged.
  */
-function mergeWhitespace(str) {
-    return str.replace(/\s+/g, " ");
+function mergeWhitespace (str) {
+  return str.replace(/\s+/g, ' ')
 }
 
-module.exports = mergeWhitespace;
+module.exports = mergeWhitespace

@@ -1,50 +1,52 @@
-"use strict";
+'use strict'
 
-const axios = require("axios");
+const axios = require('axios')
 
 // CONSTANTS
 
 /**
  * Handicap web view URL.
- * @type {String}
+ *
+ * @type {string}
  */
-const BASE_URL = "https://www.sw-ka.de/de/essen/";
+const BASE_URL = 'https://www.sw-ka.de/de/essen/'
 
 /**
  * Conservative request timeout in milliseconds.
- * @type {Number}
+ *
+ * @type {number}
  */
-const REQUEST_TIMEOUT = 30 * 1000; // 30s
+const REQUEST_TIMEOUT = 30 * 1000 // 30s
 
 /**
  * Conservative number for maximum response length in bytes.
- * @type {Number}
+ *
+ * @type {number}
  */
-const REQUEST_MAX_LENGTH = 1024 * 1024; // 1 MiB
-
+const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
 // MAIN EXPORT
 
 /**
  * Retrieve the handicap HTML view for the given canteen and week id.
  *
- * @param {String} canteenId The canteen, e.g. "adenauerring" or "moltke".
- * @param {String|Number} weekId The week number (1..52).
- * @return {Promise<String>} Resolves to HTML code on success (unprocessed).
+ * @param {string} canteenId The canteen, e.g. "adenauerring" or "moltke".
+ * @param {string|number} weekId The week number (1..52).
+ * @returns {Promise<string>} Resolves to HTML code on success (unprocessed).
  */
-async function request(canteenId, weekId) {
-    const response = await axios.get(BASE_URL, {
-        params: {
-            STYLE: "popup_plain",
-            view: "ok",
-            c: canteenId,
-            kw: weekId,
-        },
-        timeout: REQUEST_TIMEOUT,
-        maxContentLength: REQUEST_MAX_LENGTH,
-    });
+async function request (canteenId, weekId) {
+  const response = await axios.get(BASE_URL, {
+    params: {
+      STYLE: 'popup_plain',
+      view: 'ok',
+      c: canteenId,
+      kw: weekId
+    },
+    timeout: REQUEST_TIMEOUT,
+    maxContentLength: REQUEST_MAX_LENGTH
+  })
 
-    return response.data;
+  return response.data
 }
 
-module.exports = request;
+module.exports = request

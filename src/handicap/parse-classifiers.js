@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 // CONSTANTS
 
@@ -8,8 +8,7 @@
  *
  * @type {RegExp}
  */
-const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/;
-
+const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/
 
 // MAIN EXPORT
 
@@ -17,15 +16,15 @@ const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/;
  * Parse a classifiers string into its components
  * (e.g. "[VEG,LAB]" into ["VEG", "LAB"]).
  *
- * @param {String} str The classifiers string.
- * @return {String[]} The classifiers array.
+ * @param {string} str The classifiers string.
+ * @returns {string[]} The classifiers array.
  */
-function parseClassifiers(str) {
-    const match = str.match(CLASSIFIERS_REGEXP);
-    if (match) {
-        return match[1].split(/\s*,\s*/);
-    }
-    return [];
+function parseClassifiers (str) {
+  const match = str.match(CLASSIFIERS_REGEXP)
+  if (match) {
+    return match[1].split(/\s*,\s*/)
+  }
+  return []
 }
 
-module.exports = parseClassifiers;
+module.exports = parseClassifiers

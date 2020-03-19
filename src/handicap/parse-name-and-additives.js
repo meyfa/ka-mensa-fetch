@@ -1,7 +1,6 @@
-"use strict";
+'use strict'
 
-const mergeWhitespace = require("../util/merge-whitespace");
-
+const mergeWhitespace = require('../util/merge-whitespace')
 
 // CONSTANTS
 
@@ -12,8 +11,7 @@ const mergeWhitespace = require("../util/merge-whitespace");
  *
  * @type {RegExp}
  */
-const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\(\s*(\w{1,3}(?:\s*,\s*\w{1,3})*)\s*\)\s*$/;
-
+const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\(\s*(\w{1,3}(?:\s*,\s*\w{1,3})*)\s*\)\s*$/
 
 // MAIN EXPORT
 
@@ -25,21 +23,21 @@ const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\(\s*(\w{1,3}(?:\s*,\s*\w{1,3})
  * Where additives cannot be determined, the whole string is treated as the
  * meal name and the additives array will be empty.
  *
- * @param {String} str The string to parse.
- * @return {Object} The resulting name,additives object.
+ * @param {string} str The string to parse.
+ * @returns {object} The resulting name,additives object.
  */
-function parseNameAndAdditives(str) {
-    const match = str.match(NAME_ADDITIVES_REGEXP);
-    if (match) {
-        return {
-            name: mergeWhitespace(match[1]),
-            additives: match[2].split(/\s*,\s*/),
-        };
-    }
+function parseNameAndAdditives (str) {
+  const match = str.match(NAME_ADDITIVES_REGEXP)
+  if (match) {
     return {
-        name: mergeWhitespace(str.trim()),
-        additives: [],
-    };
+      name: mergeWhitespace(match[1]),
+      additives: match[2].split(/\s*,\s*/)
+    }
+  }
+  return {
+    name: mergeWhitespace(str.trim()),
+    additives: []
+  }
 }
 
-module.exports = parseNameAndAdditives;
+module.exports = parseNameAndAdditives

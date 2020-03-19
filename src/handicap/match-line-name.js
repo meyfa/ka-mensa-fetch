@@ -1,7 +1,6 @@
-"use strict";
+'use strict'
 
-const canteens = require("../../data/canteens.json");
-
+const canteens = require('../../data/canteens.json')
 
 // CONSTANTS
 
@@ -9,20 +8,19 @@ const canteens = require("../../data/canteens.json");
  * An object mapping canteen ids to objects mapping line names to line ids for
  * backwards resolution.
  *
- * @type {Object}
+ * @type {object}
  */
 const LINE_IDS_MAPPING = (() => {
-    const mapping = {};
-    for (const canteen of canteens) {
-        const lineMapping = {};
-        for (const line of canteen.lines) {
-            lineMapping[line.name] = line.id;
-        }
-        mapping[canteen.id] = Object.freeze(lineMapping);
+  const mapping = {}
+  for (const canteen of canteens) {
+    const lineMapping = {}
+    for (const line of canteen.lines) {
+      lineMapping[line.name] = line.id
     }
-    return Object.freeze(mapping);
-})();
-
+    mapping[canteen.id] = Object.freeze(lineMapping)
+  }
+  return Object.freeze(mapping)
+})()
 
 // MAIN EXPORT
 
@@ -31,18 +29,18 @@ const LINE_IDS_MAPPING = (() => {
  *
  * Returns null if the canteen id is invalid or the line could not be matched.
  *
- * @param {String} canteenId The id of the canteen.
- * @param {String} name The human-readable line name.
- * @return {?String} The line id.
+ * @param {string} canteenId The id of the canteen.
+ * @param {string} name The human-readable line name.
+ * @returns {?string} The line id.
  */
-function matchLineName(canteenId, name) {
-    // sanity check canteenId
-    if (!LINE_IDS_MAPPING[canteenId]) {
-        return null;
-    }
-    // sanitize and lookup
-    const id = LINE_IDS_MAPPING[canteenId][name.trim()];
-    return id || null;
+function matchLineName (canteenId, name) {
+  // sanity check canteenId
+  if (!LINE_IDS_MAPPING[canteenId]) {
+    return null
+  }
+  // sanitize and lookup
+  const id = LINE_IDS_MAPPING[canteenId][name.trim()]
+  return id || null
 }
 
-module.exports = matchLineName;
+module.exports = matchLineName
