@@ -8,10 +8,11 @@ const parse = require('./handicap-parse')
  *
  * @param {string} canteenId The canteen to fetch.
  * @param {string} weekId The calendar week to fetch.
+ * @param {?string} sessionCookie Value of the session cookie.
  * @returns {Promise<object[]>} Parsed results.
  */
-async function fetch (canteenId, weekId) {
-  const html = await request(canteenId, weekId)
+async function fetch (canteenId, weekId, sessionCookie) {
+  const html = await request(canteenId, weekId, sessionCookie)
 
   return parse(html, canteenId)
 }

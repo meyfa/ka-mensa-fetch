@@ -48,6 +48,9 @@ const fetchMensa = require('ka-mensa-fetch')
   - `'2019-12-01'`
   - `new Date(2019, 11, 1)`
   - `1575158400`
+- `string sessionCookie`:
+  Optionally, a session cookie. Existence of the cookie could prevent redirects,
+  see note below.
 
 **Return values:**
 
@@ -189,6 +192,40 @@ Imagine Monday was requested but Monday-Friday were received, then Tuesday will
 already be available without making another request later.
 
 Implementing caching is the polite and resourceful thing to do.
+
+
+### Avoiding redirects with session cookies
+
+During the COVID-19 pandemic, the Studierendenwerk decided to redirect all
+requests site-wide to a press release informing about their measures. Obviously,
+this hinders data acquisition. The redirect can be averted though, by requesting
+a session cookie first and providing it with future requests. This is
+implemented in `ka-mensa-fetch`, to be used as follows:
+
+```js
+const fetchMensa = require('ka-mensa-fetch')
+
+(async () => {
+  const session = await fetchMensa.requestSessionCookie()
+  if (!session) {
+    console.error('could not retrieve session cookie')
+  }
+
+  const plans = await fetchMensa({
+    // ... other options ... followed by:
+    sessionCookie: session
+  })
+
+  console.log(plans)
+})()
+```
+
+Multiple requests can be made with the same session cookie. Its lifetime is
+limited server-side, but I suspect it will be valid for at least 30 minutes.
+It might be valid much longer.
+
+Again, exercise resourcefulness — obtaining a cookie has the overhead of an
+additional full request.
 
 
 ## Packaged Data

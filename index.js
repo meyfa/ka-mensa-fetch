@@ -3,6 +3,7 @@
 const moment = require('moment')
 
 const fetchHandicap = require('./src/handicap')
+const requestSessionCookie = require('./src/cookies/request-session-cookie')
 const canteens = require('./data/canteens.json')
 
 // CONSTANTS
@@ -58,6 +59,7 @@ function convertToWeeks (dates) {
  * Options:
  * - canteens: array of canteen ids. Default: (all)
  * - dates: array of date specifications. Default: (current week)
+ * - sessionCookie: optional session cookie
  *
  * The result is an array containing meal plans.
  *
@@ -75,12 +77,15 @@ async function fetch (options) {
   const weeks = options && options.dates
     ? convertToWeeks(options.dates.filter(isDateSupported))
     : [getCurrentWeek()]
+  const sessionCookie = options && options.sessionCookie
+    ? options.sessionCookie
+    : null
 
   const combinedResults = []
 
   for (const week of weeks) {
     for (const id of ids) {
-      const results = await fetchHandicap(id, week)
+      const results = await fetchHandicap(id, week, sessionCookie)
       combinedResults.push(...results)
     }
   }
@@ -89,3 +94,5 @@ async function fetch (options) {
 }
 
 module.exports = fetch
+
+module.exports.requestSessionCookie = requestSessionCookie

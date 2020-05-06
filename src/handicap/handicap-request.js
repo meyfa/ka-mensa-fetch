@@ -32,9 +32,15 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
  *
  * @param {string} canteenId The canteen, e.g. "adenauerring" or "moltke".
  * @param {string|number} weekId The week number (1..52).
+ * @param {?string} sessionCookie Value of the session cookie.
  * @returns {Promise<string>} Resolves to HTML code on success (unprocessed).
  */
-async function request (canteenId, weekId) {
+async function request (canteenId, weekId, sessionCookie) {
+  const headers = {}
+  if (typeof sessionCookie === 'string' && sessionCookie !== '') {
+    headers.Cookie = 'platoCMS=' + sessionCookie
+  }
+
   const response = await axios.get(BASE_URL, {
     params: {
       STYLE: 'popup_plain',
@@ -42,6 +48,7 @@ async function request (canteenId, weekId) {
       c: canteenId,
       kw: weekId
     },
+    headers,
     timeout: REQUEST_TIMEOUT,
     maxContentLength: REQUEST_MAX_LENGTH
   })
