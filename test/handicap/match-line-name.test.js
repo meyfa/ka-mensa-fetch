@@ -32,4 +32,9 @@ describe('handicap/match-line-name.js', function () {
   it('ignores leading/trailing whitespace', function () {
     return expect(matchLineName('x1moltkestrasse', ' \n Gut & Günstig \n ')).to.equal('gut')
   })
+
+  it('matches alternative names', function () {
+    expect(matchLineName('adenauerring', 'Cafeteria')).to.equal('heisstheke')
+    expect(matchLineName('adenauerring', 'Cafeteria 11-14 Uhr')).to.equal('nmtisch')
+  })
 })

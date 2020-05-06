@@ -37,11 +37,13 @@
             },
             {
                 "id": "heisstheke",
-                "name": "Cafeteria Heiße Theke"
+                "name": "Cafeteria Heiße Theke",
+                "alternativeNames": ["Cafeteria"]
             },
             {
                 "id": "nmtisch",
-                "name": "Cafeteria ab 14:30"
+                "name": "Cafeteria ab 14:30",
+                "alternativeNames": ["Cafeteria 11-14 Uhr"]
             },
             {
                 "id": "pizza",

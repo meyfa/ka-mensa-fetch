@@ -16,6 +16,12 @@ const LINE_IDS_MAPPING = (() => {
     const lineMapping = {}
     for (const line of canteen.lines) {
       lineMapping[line.name] = line.id
+      if (!line.alternativeNames) {
+        continue
+      }
+      for (const alternative of line.alternativeNames) {
+        lineMapping[alternative] = line.id
+      }
     }
     mapping[canteen.id] = Object.freeze(lineMapping)
   }
