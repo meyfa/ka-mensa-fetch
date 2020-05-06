@@ -10,7 +10,7 @@ meal plan. It supports all canteens operated by the Studierendenwerk.
 This project is neither affiliated with nor endorsed by the Studierendenwerk
 Karlsruhe or the Karlsruhe Institute of Technology.
 
-If you see anything break, please feel free to open an issue!
+If you see anything break, please open an issue!
 
 
 ## Usage
@@ -20,32 +20,32 @@ If you see anything break, please feel free to open an issue!
 You can call the fetcher as follows:
 
 ```js
-const fetchMensa = require("ka-mensa-fetch");
+const fetchMensa = require('ka-mensa-fetch')
 
-let promise = fetchMensa(options);
-promise.then(plans => console.log(plans));
+const promise = fetchMensa(options)
+promise.then(plans => console.log(plans))
 ```
 
 or in an async context:
 
 ```js
-const fetchMensa = require("ka-mensa-fetch");
+const fetchMensa = require('ka-mensa-fetch')
 
 (async () => {
-    let plans = await fetchMensa(options);
-    console.log(plans);
-})();
+  const plans = await fetchMensa(options)
+  console.log(plans)
+})()
 ```
 
 **Options:**
 
-- `String[] canteens`: Array of canteen ids for which plans are wanted.
+- `string[] canteens`: Array of canteen ids for which plans are wanted.
   See `data/canteens.json` for possible values.
-- `Object[] dates`:
+- `object[] dates`:
   Array of date specifiers for which plans are wanted. They can have any one of
   the following forms (remember, JavaScript uses 0-indexed months):
   - `{ year: 2019, month: 11, day: 1 }`
-  - `"2019-12-01"`
+  - `'2019-12-01'`
   - `new Date(2019, 11, 1)`
   - `1575158400`
 
@@ -59,120 +59,120 @@ Handle with care.*
 
 **Plan structure**:
 
-- `String id`: canteen identifier (e.g. `"adenauerring"`)
-- `String name`: canteen name (e.g. `"Mensa am Adenauerring"`), may be null
+- `String id`: canteen identifier (e.g. `'adenauerring'`)
+- `String name`: canteen name (e.g. `'Mensa am Adenauerring'`), may be null
 - `Object date`: plan date (e.g. `{ day: 2, month: 11, year: 2019 }`)
   (note: month is 0-indexed)
 - `Object[] lines`: line array, containing objects of the following structure:
-  - `String id`: line id (e.g. `"l1"`), may be null
-  - `String name`: line name (e.g. `"Linie 1"`), may be null
+  - `String id`: line id (e.g. `'l1'`), may be null
+  - `String name`: line name (e.g. `'Linie 1'`), may be null
   - `Object[] meals`: meal array, containing objects of the following structure:
-    - `String name`: meal name (e.g. `"Käseknacker mit Ketchup und Pommes"`)
-    - `String price`: human-readable price (e.g. `"2,60 €"`), may be empty
-    - `String[] classifiers`: meal classifiers (e.g. `[ "SAT" ]`)
-    - `String[] additives`: meal additives (e.g. `[ "2", "3", "ML" ]`)
+    - `String name`: meal name (e.g. `'Käseknacker mit Ketchup und Pommes'`)
+    - `String price`: human-readable price (e.g. `'2,60 €'`), may be empty
+    - `String[] classifiers`: meal classifiers (e.g. `[ 'SAT' ]`)
+    - `String[] additives`: meal additives (e.g. `[ '2', '3', 'ML' ]`)
 
 <details>
   <summary>Code example</summary>
 
 ```js
-fetchMensa({ canteens: ["adenauerring", "moltke"] })
+fetchMensa({ canteens: ['adenauerring', 'moltke'] })
 ```
 
 Promise resolution value (shortened):
 
 ```js
 [
-    {
-        "id": "adenauerring",
-        "name": "Mensa Am Adenauerring",
-        "date": { "day": 2, "month": 11, "year": 2019 },
-        "lines": [
-            {
-                "id": "l1",
-                "name": "Linie 1",
-                "meals": [
-                    {
-                        "name": "Käseknacker mit Ketchup und Pommes",
-                        "price": "2,60 €",
-                        "classifiers": [ "SAT" ],
-                        "additives": [ "2", "3", "ML" ]
-                    },
-                    //...
-                ]
-            },
-            //...
+  {
+    "id": "adenauerring",
+    "name": "Mensa Am Adenauerring",
+    "date": { "day": 2, "month": 11, "year": 2019 },
+    "lines": [
+      {
+        "id": "l1",
+        "name": "Linie 1",
+        "meals": [
+          {
+            "name": "Käseknacker mit Ketchup und Pommes",
+            "price": "2,60 €",
+            "classifiers": [ "SAT" ],
+            "additives": [ "2", "3", "ML" ]
+          },
+          //...
         ]
-    },
-    {
-        "id": "adenauerring",
-        "name": "Mensa Am Adenauerring",
-        "date": { "day": 3, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    },
-    {
-        "id": "adenauerring",
-        "name": "Mensa Am Adenauerring",
-        "date": { "day": 4, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    },
-    {
-        "id": "adenauerring",
-        "name": "Mensa Am Adenauerring",
-        "date": { "day": 5, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    },
-    {
-        "id": "adenauerring",
-        "name": "Mensa Am Adenauerring",
-        "date": { "day": 6, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    },
-    {
-        "id": "moltke",
-        "name": "Mensa Moltke",
-        "date": { "day": 2, "month": 11, "year": 2019 },
-        "lines": [
-            {
-                "id": "wahl1",
-                "name": "Wahlessen 1",
-                "meals": [
-                    {
-                        "name": "Chicken Drum Sticks mit Sweet Chilli Soße",
-                        "price": "2,50 €",
-                        "classifiers": [],
-                        "additives": [ "5", "Se", "We" ]
-                    },
-                    //...
-                ]
-            },
-            //...
+      },
+      //...
+    ]
+  },
+  {
+    "id": "adenauerring",
+    "name": "Mensa Am Adenauerring",
+    "date": { "day": 3, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  },
+  {
+    "id": "adenauerring",
+    "name": "Mensa Am Adenauerring",
+    "date": { "day": 4, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  },
+  {
+    "id": "adenauerring",
+    "name": "Mensa Am Adenauerring",
+    "date": { "day": 5, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  },
+  {
+    "id": "adenauerring",
+    "name": "Mensa Am Adenauerring",
+    "date": { "day": 6, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  },
+  {
+    "id": "moltke",
+    "name": "Mensa Moltke",
+    "date": { "day": 2, "month": 11, "year": 2019 },
+    "lines": [
+      {
+        "id": "wahl1",
+        "name": "Wahlessen 1",
+        "meals": [
+          {
+            "name": "Chicken Drum Sticks mit Sweet Chilli Soße",
+            "price": "2,50 €",
+            "classifiers": [],
+            "additives": [ "5", "Se", "We" ]
+          },
+          //...
         ]
-    },
-    {
-        "id": "moltke",
-        "name": "Mensa Moltke",
-        "date": { "day": 3, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    },
-    {
-        "id": "moltke",
-        "name": "Mensa Moltke",
-        "date": { "day": 4, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    },
-    {
-        "id": "moltke",
-        "name": "Mensa Moltke",
-        "date": { "day": 5, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    },
-    {
-        "id": "moltke",
-        "name": "Mensa Moltke",
-        "date": { "day": 6, "month": 11, "year": 2019 },
-        "lines": [ /* ... */ ]
-    }
+      },
+      //...
+    ]
+  },
+  {
+    "id": "moltke",
+    "name": "Mensa Moltke",
+    "date": { "day": 3, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  },
+  {
+    "id": "moltke",
+    "name": "Mensa Moltke",
+    "date": { "day": 4, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  },
+  {
+    "id": "moltke",
+    "name": "Mensa Moltke",
+    "date": { "day": 5, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  },
+  {
+    "id": "moltke",
+    "name": "Mensa Moltke",
+    "date": { "day": 6, "month": 11, "year": 2019 },
+    "lines": [ /* ... */ ]
+  }
 ]
 ```
 </details>
@@ -187,6 +187,8 @@ plan is requested, a whole week or more might be obtained.
 To be efficient, that data should not be thrown away but instead cached.
 Imagine Monday was requested but Monday-Friday were received, then Tuesday will
 already be available without making another request later.
+
+Implementing caching is the polite and resourceful thing to do.
 
 
 ## Packaged Data
@@ -203,25 +205,24 @@ also has an id and a display name.
   <summary>Code example</summary>
 
 ```js
-const canteens = require("ka-mensa-fetch/data/canteens.json");
-
-console.log(canteens);
+const canteens = require('ka-mensa-fetch/data/canteens.json')
+console.log(canteens)
 ```
 
 Output (shortened):
 
 ```js
 [
-    {
-        "id": "adenauerring",
-        "name": "Mensa Am Adenauerring",
-        "lines": [
-            { "id": "l1", "name": "Linie 1" },
-            { "id": "l2", "name": "Linie 2" },
-            //...
-        }
-    },
-    //...
+  {
+    "id": "adenauerring",
+    "name": "Mensa Am Adenauerring",
+    "lines": [
+      { "id": "l1", "name": "Linie 1" },
+      { "id": "l2", "name": "Linie 2" },
+      //...
+    }
+  },
+  //...
 ]
 ```
 
@@ -235,21 +236,21 @@ A list of meal qualifiers / additives / warnings / etc.
   <summary>Code example</summary>
 
 ```js
-const canteens = require("ka-mensa-fetch/data/canteens.json");
-console.log(canteens);
+const legend = require('ka-mensa-fetch/data/legend.json')
+console.log(legend)
 ```
 
 Output (shortened):
 
 ```js
 [
-    { "short": "1", "label": "mit Farbstoff" },
-    //...
-    { "short": "VEG", "label": "vegetarisches Gericht" },
-    { "short": "VG", "label": "veganes Gericht (ohne Fleischzusatz)" },
-    //...
-    { "short": "Er", "label": "Erdnüsse" },
-    //...
+  { "short": "1", "label": "mit Farbstoff" },
+  //...
+  { "short": "VEG", "label": "vegetarisches Gericht" },
+  { "short": "VG", "label": "veganes Gericht (ohne Fleischzusatz)" },
+  //...
+  { "short": "Er", "label": "Erdnüsse" },
+  //...
 ]
 
 ```
@@ -267,7 +268,7 @@ structural changes.
 
 The URL used is as follows:
 
-```https://www.sw-ka.de/de/essen/?view=ok&STYLE=popup_plain&c=adenauerring&p=1&kw=49```
+`https://www.sw-ka.de/de/essen/?view=ok&STYLE=popup_plain&c=adenauerring&p=1&kw=49`
 
 Here, `adenauerring` is the canteen id and `kw=49` indicates that the plan for
 the 49th calendar week is requested (weeks _probably_ following ISO 8601).
