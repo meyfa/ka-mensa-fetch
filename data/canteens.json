@@ -33,7 +33,8 @@
             },
             {
                 "id": "aktion",
-                "name": "[kœri]werk"
+                "name": "[kœri]werk",
+                "alternativeNames": ["[kœri]werk 11-14 Uhr"]
             },
             {
                 "id": "heisstheke",
