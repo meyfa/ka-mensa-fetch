@@ -34,17 +34,24 @@
             {
                 "id": "aktion",
                 "name": "[kœri]werk",
-                "alternativeNames": ["[kœri]werk 11-14 Uhr"]
+                "alternativeNames": [
+                    "[kœri]werk 11-14 Uhr",
+                    "[kœri]werk 11-14:30 Uhr"
+                ]
             },
             {
                 "id": "heisstheke",
                 "name": "Cafeteria Heiße Theke",
-                "alternativeNames": ["Cafeteria"]
+                "alternativeNames": [
+                    "Cafeteria"
+                ]
             },
             {
                 "id": "nmtisch",
                 "name": "Cafeteria ab 14:30",
-                "alternativeNames": ["Cafeteria 11-14 Uhr"]
+                "alternativeNames": [
+                    "Cafeteria 11-14 Uhr"
+                ]
             },
             {
                 "id": "pizza",
