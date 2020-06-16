@@ -1,186 +1,186 @@
 [
-    {
-        "id": "adenauerring",
-        "name": "Mensa Am Adenauerring",
-        "lines": [
-            {
-                "id": "l1",
-                "name": "Linie 1"
-            },
-            {
-                "id": "l2",
-                "name": "Linie 2"
-            },
-            {
-                "id": "l3",
-                "name": "Linie 3"
-            },
-            {
-                "id": "l45",
-                "name": "Linie 4/5"
-            },
-            {
-                "id": "schnitzelbar",
-                "name": "Schnitzelbar"
-            },
-            {
-                "id": "update",
-                "name": "L6 Update"
-            },
-            {
-                "id": "abend",
-                "name": "Spätausgabe und Abendessen"
-            },
-            {
-                "id": "aktion",
-                "name": "[kœri]werk",
-                "alternativeNames": [
-                    "[kœri]werk 11-14 Uhr",
-                    "[kœri]werk 11-14:30 Uhr"
-                ]
-            },
-            {
-                "id": "heisstheke",
-                "name": "Cafeteria Heiße Theke",
-                "alternativeNames": [
-                    "Cafeteria"
-                ]
-            },
-            {
-                "id": "nmtisch",
-                "name": "Cafeteria ab 14:30",
-                "alternativeNames": [
-                    "Cafeteria 11-14 Uhr"
-                ]
-            },
-            {
-                "id": "pizza",
-                "name": "[pizza]werk Pizza"
-            },
-            {
-                "id": "pasta",
-                "name": "[pizza]werk Pasta"
-            },
-            {
-                "id": "salat_dessert",
-                "name": "[pizza]werk Salate / Vorspeisen"
-            }
+  {
+    "id": "adenauerring",
+    "name": "Mensa Am Adenauerring",
+    "lines": [
+      {
+        "id": "l1",
+        "name": "Linie 1"
+      },
+      {
+        "id": "l2",
+        "name": "Linie 2"
+      },
+      {
+        "id": "l3",
+        "name": "Linie 3"
+      },
+      {
+        "id": "l45",
+        "name": "Linie 4/5"
+      },
+      {
+        "id": "schnitzelbar",
+        "name": "Schnitzelbar"
+      },
+      {
+        "id": "update",
+        "name": "L6 Update"
+      },
+      {
+        "id": "abend",
+        "name": "Spätausgabe und Abendessen"
+      },
+      {
+        "id": "aktion",
+        "name": "[kœri]werk",
+        "alternativeNames": [
+          "[kœri]werk 11-14 Uhr",
+          "[kœri]werk 11-14:30 Uhr"
         ]
-    },
-    {
-        "id": "moltke",
-        "name": "Mensa Moltke",
-        "lines": [
-            {
-                "id": "wahl1",
-                "name": "Wahlessen 1"
-            },
-            {
-                "id": "wahl2",
-                "name": "Wahlessen 2"
-            },
-            {
-                "id": "aktion",
-                "name": "Aktionstheke"
-            },
-            {
-                "id": "gut",
-                "name": "Gut & Günstig"
-            },
-            {
-                "id": "buffet",
-                "name": "Buffet"
-            },
-            {
-                "id": "schnitzelbar",
-                "name": "Schnitzelbar"
-            },
-            {
-                "id": "curryqueen",
-                "name": "[Kœri]werk"
-            }
+      },
+      {
+        "id": "heisstheke",
+        "name": "Cafeteria Heiße Theke",
+        "alternativeNames": [
+          "Cafeteria"
         ]
-    },
-    {
-        "id": "x1moltkestrasse",
-        "name": "Caféteria Moltkestraße 30",
-        "lines": [
-            {
-                "id": "gut",
-                "name": "Gut & Günstig"
-            }
+      },
+      {
+        "id": "nmtisch",
+        "name": "Cafeteria ab 14:30",
+        "alternativeNames": [
+          "Cafeteria 11-14 Uhr"
         ]
-    },
-    {
-        "id": "erzberger",
-        "name": "Mensa Erzbergerstraße",
-        "lines": [
-            {
-                "id": "wahl1",
-                "name": "Wahlessen 1"
-            },
-            {
-                "id": "wahl2",
-                "name": "Wahlessen 2"
-            },
-            {
-                "id": "wahl3",
-                "name": "Wahlessen 3"
-            }
-        ]
-    },
-    {
-        "id": "gottesaue",
-        "name": "Mensa Schloss Gottesaue",
-        "lines": [
-            {
-                "id": "wahl1",
-                "name": "Wahlessen 1"
-            },
-            {
-                "id": "wahl2",
-                "name": "Wahlessen 2"
-            }
-        ]
-    },
-    {
-        "id": "tiefenbronner",
-        "name": "Mensa Tiefenbronnerstraße",
-        "lines": [
-            {
-                "id": "wahl1",
-                "name": "Wahlessen 1"
-            },
-            {
-                "id": "wahl2",
-                "name": "Wahlessen 2"
-            },
-            {
-                "id": "gut",
-                "name": "Gut & Günstig"
-            },
-            {
-                "id": "buffet",
-                "name": "Buffet"
-            },
-            {
-                "id": "curryqueen",
-                "name": "[Kœri]werk"
-            }
-        ]
-    },
-    {
-        "id": "holzgarten",
-        "name": "Mensa Holzgartenstraße",
-        "lines": [
-            {
-                "id": "gut1",
-                "name": "Gut & Günstig 1"
-            },
-            {
-                "id": "gut2",
-                "name": "Gut & Günstig 2"
-            }
-        ]
-    }
+      },
+      {
+        "id": "pizza",
+        "name": "[pizza]werk Pizza"
+      },
+      {
+        "id": "pasta",
+        "name": "[pizza]werk Pasta"
+      },
+      {
+        "id": "salat_dessert",
+        "name": "[pizza]werk Salate / Vorspeisen"
+      }
+    ]
+  },
+  {
+    "id": "moltke",
+    "name": "Mensa Moltke",
+    "lines": [
+      {
+        "id": "wahl1",
+        "name": "Wahlessen 1"
+      },
+      {
+        "id": "wahl2",
+        "name": "Wahlessen 2"
+      },
+      {
+        "id": "aktion",
+        "name": "Aktionstheke"
+      },
+      {
+        "id": "gut",
+        "name": "Gut & Günstig"
+      },
+      {
+        "id": "buffet",
+        "name": "Buffet"
+      },
+      {
+        "id": "schnitzelbar",
+        "name": "Schnitzelbar"
+      },
+      {
+        "id": "curryqueen",
+        "name": "[Kœri]werk"
+      }
+    ]
+  },
+  {
+    "id": "x1moltkestrasse",
+    "name": "Caféteria Moltkestraße 30",
+    "lines": [
+      {
+        "id": "gut",
+        "name": "Gut & Günstig"
+      }
+    ]
+  },
+  {
+    "id": "erzberger",
+    "name": "Mensa Erzbergerstraße",
+    "lines": [
+      {
+        "id": "wahl1",
+        "name": "Wahlessen 1"
+      },
+      {
+        "id": "wahl2",
+        "name": "Wahlessen 2"
+      },
+      {
+        "id": "wahl3",
+        "name": "Wahlessen 3"
+      }
+    ]
+  },
+  {
+    "id": "gottesaue",
+    "name": "Mensa Schloss Gottesaue",
+    "lines": [
+      {
+        "id": "wahl1",
+        "name": "Wahlessen 1"
+      },
+      {
+        "id": "wahl2",
+        "name": "Wahlessen 2"
+      }
+    ]
+  },
+  {
+    "id": "tiefenbronner",
+    "name": "Mensa Tiefenbronnerstraße",
+    "lines": [
+      {
+        "id": "wahl1",
+        "name": "Wahlessen 1"
+      },
+      {
+        "id": "wahl2",
+        "name": "Wahlessen 2"
+      },
+      {
+        "id": "gut",
+        "name": "Gut & Günstig"
+      },
+      {
+        "id": "buffet",
+        "name": "Buffet"
+      },
+      {
+        "id": "curryqueen",
+        "name": "[Kœri]werk"
+      }
+    ]
+  },
+  {
+    "id": "holzgarten",
+    "name": "Mensa Holzgartenstraße",
+    "lines": [
+      {
+        "id": "gut1",
+        "name": "Gut & Günstig 1"
+      },
+      {
+        "id": "gut2",
+        "name": "Gut & Günstig 2"
+      }
+    ]
+  }
 ]
