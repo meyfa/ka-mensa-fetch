@@ -50,4 +50,14 @@ describe('handicap/parse-datestamp.js', function () {
       year: 2020
     })
   })
+
+  it("parses 'Mi 01.07.' with reference 2020-06-30", function () {
+    // test for chunk overlap
+    const ref = new Date(2020, 5, 30)
+    return expect(parseDatestamp('Mi 01.07.', ref)).to.deep.equal({
+      day: 1,
+      month: 6,
+      year: 2020
+    })
+  })
 })
