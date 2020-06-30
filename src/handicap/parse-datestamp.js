@@ -10,6 +10,34 @@
  */
 const DATE_REGEXP = /^\s*(?:Mo|Di|Mi|Do|Fr|Sa|So)\s*(\d+)\.(\d+)\.\s*$/
 
+// METHODS
+
+/**
+ * Guess year information from a reference date and the month alone.
+ *
+ * @param {number} refYear The reference year (i.e. data acquisition date).
+ * @param {number} refMonth The reference month.
+ * @param {number} month The month for which year should be guessed.
+ * @returns {number} The most likely year.
+ */
+function guessYear (refYear, refMonth, month) {
+  // split the reference year into 3 sections and check whether the given month
+  // lies reasonably close to the reference third;
+  // if it does, year is probably the reference year;
+  // otherwise, it is the previous or the next year, depending on the section.
+
+  if (refMonth <= 3) {
+    // 0 .. 3; in range: 0 .. 7
+    return month < 8 ? refYear : refYear - 1
+  } else if (refMonth <= 7) {
+    // 4 .. 7; in range: 0 .. 11
+    return refYear
+  } else {
+    // 8 .. 11; in range: 4 .. 11
+    return month < 4 ? refYear + 1 : refYear
+  }
+}
+
 // MAIN EXPORT
 
 /**
@@ -39,17 +67,7 @@ function parseDatestamp (str, reference) {
 
   const refYear = reference.getFullYear()
   const refMonth = reference.getMonth()
-
-  // check for "half of year"-overlap, i.e. if both `month` and `refMonth`
-  // lie in same 6 month-chunk
-  // -> if they do, use reference year
-  // -> if not, the given datestamp will probably refer to previous/next year
-  let year
-  if (month >= 6) {
-    year = refMonth >= 6 ? refYear : refYear - 1
-  } else {
-    year = refMonth >= 6 ? refYear + 1 : refYear
-  }
+  const year = guessYear(refYear, refMonth, month)
 
   // JS Date has month run from 0 to 11, inclusive
   return { day, month, year }
