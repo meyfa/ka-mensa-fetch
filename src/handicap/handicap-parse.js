@@ -21,17 +21,8 @@ const matchLineName = require('./match-line-name')
  * @returns {object[]} Parsed line contents.
  */
 function parseLines ($, $table, canteenId) {
-  const lines = []
-
   const $rows = $table.children('tbody').children('tr')
-  $rows.each((_, el) => {
-    const line = parseLine($, $(el), canteenId)
-    if (line) {
-      lines.push(line)
-    }
-  })
-
-  return lines
+  return $rows.map((_, el) => parseLine($, $(el), canteenId)).get()
 }
 
 /**
@@ -74,17 +65,8 @@ function parseLine ($, $row, canteenId) {
  * @returns {object[]} Parsed meals.
  */
 function parseMeals ($, $table) {
-  const meals = []
-
   const $rows = $table.children('tbody').children('tr')
-  $rows.each((_, el) => {
-    const meal = parseMeal($, $(el))
-    if (meal) {
-      meals.push(meal)
-    }
-  })
-
-  return meals
+  return $rows.map((_, el) => parseMeal($, $(el))).get()
 }
 
 /**
@@ -133,31 +115,22 @@ function parse (html, canteenId, referenceDate) {
   const $ = cheerio.load(html)
   const $titles = $('h1')
 
-  const results = []
-
   // canteen name is stored in first <h1>
   const canteenName = $titles.first().text()
 
   // remaining <h1> elements store plan dates
-  $titles.slice(1, 6).each((_, el) => {
+  return $titles.slice(1, 6).map((_, el) => {
     const dateElement = $(el)
     const date = parseDatestamp(dateElement.text(), referenceDate)
-    if (!date) {
-      return
+    if (date) {
+      return {
+        id: canteenId,
+        name: canteenName,
+        date: date,
+        lines: parseLines($, dateElement.next('table'), canteenId)
+      }
     }
-
-    const tableElement = dateElement.next('table')
-    const lines = parseLines($, tableElement, canteenId)
-
-    results.push({
-      id: canteenId,
-      name: canteenName,
-      date: date,
-      lines: lines
-    })
-  })
-
-  return results
+  }).get()
 }
 
 module.exports = parse
