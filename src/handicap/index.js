@@ -13,8 +13,9 @@ const parse = require('./handicap-parse')
  */
 async function fetch (canteenId, weekId, sessionCookie) {
   const html = await request(canteenId, weekId, sessionCookie)
+  const reference = new Date()
 
-  return parse(html, canteenId)
+  return parse(html, canteenId, reference)
 }
 
 module.exports = fetch

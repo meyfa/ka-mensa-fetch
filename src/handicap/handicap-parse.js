@@ -125,10 +125,11 @@ function parseMeal ($, $row) {
  * is fixed.
  *
  * @param {string} html The HTML string to parse.
- * @param {string} canteenId [description]
+ * @param {string} canteenId The canteen id, e.g. 'adenauerring'.
+ * @param {Date} referenceDate The date of plan acquisition, for reference.
  * @returns {object[]} The parse results.
  */
-function parse (html, canteenId) {
+function parse (html, canteenId, referenceDate) {
   const $ = cheerio.load(html)
   const $titles = $('h1')
 
@@ -140,7 +141,7 @@ function parse (html, canteenId) {
   // remaining <h1> elements store plan dates
   $titles.slice(1, 6).each((_, el) => {
     const dateElement = $(el)
-    const date = parseDatestamp(dateElement.text(), new Date())
+    const date = parseDatestamp(dateElement.text(), referenceDate)
     if (!date) {
       return
     }
