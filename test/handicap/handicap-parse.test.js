@@ -137,4 +137,34 @@ describe('handicap/handicap-parse.js', function () {
       }
     ])
   })
+
+  it('includes lines with unknown names', function () {
+    const str = '<!DOCTYPE html><html><body>' +
+      '<h1>Mensa Am Adenauerring</h1>' +
+      '<h1>Mi 12.08.</h1><table>' +
+      '  <tr><td>unknown-line-name</td><td><table>' +
+      '    <tr><td>[VG]</td><td><span><b>Frites</b><span></td><td><span>1,20 &euro;</span></td></tr>' +
+      '  </table></td></tr>' +
+      '</table>' +
+      '</body></html>'
+    const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
+    expect(obj).to.deep.equal([
+      {
+        id: 'adenauerring',
+        name: 'Mensa Am Adenauerring',
+        date: { year: 2020, month: 7, day: 12 },
+        lines: [
+          {
+            id: null,
+            name: 'unknown-line-name',
+            meals: [
+              {
+                name: 'Frites', price: '1,20 €', classifiers: ['VG'], additives: []
+              }
+            ]
+          }
+        ]
+      }
+    ])
+  })
 })
