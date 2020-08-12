@@ -1,0 +1,206 @@
+'use strict'
+
+const { expect } = require('chai')
+
+const parse = require('../../src/jsonapi/jsonapi-parse.js')
+
+describe('jsonapi/jsonapi-parse.js', function () {
+  it('can handle empty plan', function () {
+    const data = {}
+    const obj = parse(data)
+    expect(obj).to.deep.equal([])
+  })
+
+  it('can handle empty canteen objects', function () {
+    const data = {
+      adenauerring: {},
+      moltke: {}
+    }
+    const obj = parse(data)
+    expect(obj).to.deep.equal([])
+  })
+
+  it('can handle closed lines and nodata', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          l1: [{ closing_start: 1596232800, closing_end: 1598824800 }],
+          l2: [{ nodata: true }]
+        }
+      }
+    }
+    const obj = parse(data)
+    expect(obj).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].lines).to.deep.equal([
+      {
+        id: 'l1',
+        name: 'Linie 1',
+        meals: []
+      },
+      {
+        id: 'l2',
+        name: 'Linie 2',
+        meals: []
+      }
+    ])
+  })
+
+  it('parses timestamp, canteen id, canteen name', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          l1: [{ nodata: true }]
+        }
+      }
+    }
+    const obj = parse(data)
+    expect(obj).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].date).to.deep.equal({
+      day: 11,
+      month: 7,
+      year: 2020
+    })
+    expect(obj[0].id).to.equal('adenauerring')
+    expect(obj[0].name).to.equal('Mensa Am Adenauerring')
+  })
+
+  it('formats meal name correctly', function () {
+    const makeData = (meal, dish) => ({
+      adenauerring: {
+        1597096800: {
+          aktion: [
+            {
+              meal,
+              dish,
+              add: [],
+              bio: false,
+              fish: false,
+              pork: false,
+              pork_aw: false,
+              cow: false,
+              cow_aw: false,
+              vegan: false,
+              veg: false,
+              mensa_vit: false,
+              info: '',
+              price_1: 2,
+              price_2: 2.2,
+              price_3: 2.2,
+              price_4: 2.2,
+              price_flag: 0
+            }
+          ]
+        }
+      }
+    })
+    const obj1 = parse(makeData('foo bar', ''))
+    expect(obj1).to.be.an('array').with.lengthOf(1)
+    expect(obj1[0].lines).to.be.an('array').with.lengthOf(1)
+    expect(obj1[0].lines[0].meals).to.be.an('array').with.lengthOf(1)
+    expect(obj1[0].lines[0].meals[0].name).to.equal('foo bar')
+    const obj2 = parse(makeData('foo bar', 'baz qux'))
+    expect(obj2[0].lines[0].meals[0].name).to.equal('foo bar baz qux')
+  })
+
+  it('formats meal price with info', function () {
+    // eslint-disable-next-line camelcase
+    const makeData = (price_1, info) => ({
+      adenauerring: {
+        1597096800: {
+          aktion: [
+            {
+              meal: 'foo',
+              dish: '',
+              add: [],
+              bio: false,
+              fish: false,
+              pork: false,
+              pork_aw: false,
+              cow: false,
+              cow_aw: false,
+              vegan: false,
+              veg: false,
+              mensa_vit: false,
+              info,
+              price_1,
+              price_2: 2.2,
+              price_3: 2.2,
+              price_4: 2.2,
+              price_flag: 0
+            }
+          ]
+        }
+      }
+    })
+    const obj1 = parse(makeData(1.73, ''))
+    expect(obj1[0].lines[0].meals[0].price).to.equal('1,73 €')
+    const obj2 = parse(makeData(1.73, 'ab'))
+    expect(obj2[0].lines[0].meals[0].price).to.equal('(ab) 1,73 €')
+  })
+
+  it('detects classifiers', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          aktion: [
+            {
+              meal: 'foo',
+              dish: '',
+              add: [],
+              bio: true,
+              fish: false,
+              pork: false,
+              pork_aw: false,
+              cow: false,
+              cow_aw: false,
+              vegan: true,
+              veg: false,
+              mensa_vit: true,
+              info: '',
+              price_1: 2,
+              price_2: 2.2,
+              price_3: 2.2,
+              price_4: 2.2,
+              price_flag: 0
+            }
+          ]
+        }
+      }
+    }
+    const obj1 = parse(data)
+    expect(obj1[0].lines[0].meals[0].classifiers).to.have.members(['B', 'MV', 'VG'])
+  })
+
+  it('includes additives', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          aktion: [
+            {
+              meal: 'foo',
+              dish: '',
+              add: ['Ei', '', 'Fi', ''],
+              bio: false,
+              fish: false,
+              pork: false,
+              pork_aw: false,
+              cow: false,
+              cow_aw: false,
+              vegan: false,
+              veg: false,
+              mensa_vit: false,
+              info: '',
+              price_1: 2,
+              price_2: 2.2,
+              price_3: 2.2,
+              price_4: 2.2,
+              price_flag: 0
+            }
+          ]
+        }
+      }
+    }
+    const obj1 = parse(data)
+    expect(obj1[0].lines[0].meals[0].additives).to.have.members(['Ei', 'Fi'])
+  })
+})
