@@ -6,7 +6,7 @@ const parse = require('../../src/handicap/handicap-parse.js')
 
 describe('handicap/handicap-parse.js', function () {
   it('can handle empty plan', function () {
-    const str = '<!DOCYTPE html><html><body><h1>Mensa am Adenauerring</h1></body></html>'
+    const str = '<!DOCYTPE html><html><body><h1>Mensa Am Adenauerring</h1></body></html>'
     const obj = parse(str, 'adenauerring', new Date())
     expect(obj).to.deep.equal([])
   })
@@ -59,7 +59,7 @@ describe('handicap/handicap-parse.js', function () {
 
   it('ignores empty rows in line table', function () {
     const str = '<!DOCTYPE html><html><body>' +
-      '<h1>Mensa am Adenauerring</h1>' +
+      '<h1>Mensa Am Adenauerring</h1>' +
       '<h1>Mi 12.08.</h1><table><tr></tr><tr></tr><tr></tr></table>' +
       '</body></html>'
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
@@ -68,7 +68,7 @@ describe('handicap/handicap-parse.js', function () {
 
   it('parses closed lines', function () {
     const str = '<!DOCTYPE html><html><body>' +
-      '<h1>Mensa am Adenauerring</h1>' +
+      '<h1>Mensa Am Adenauerring</h1>' +
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>Linie 1</td><td><table>' +
       '    <tr><td><div><b>Geschlossen:</b> 01.08.-31.08.</div></td></tr>' +
@@ -82,7 +82,7 @@ describe('handicap/handicap-parse.js', function () {
     expect(obj).to.deep.equal([
       {
         id: 'adenauerring',
-        name: 'Mensa am Adenauerring',
+        name: 'Mensa Am Adenauerring',
         date: { year: 2020, month: 7, day: 12 },
         lines: [
           {
@@ -102,7 +102,7 @@ describe('handicap/handicap-parse.js', function () {
 
   it('parses meals', function () {
     const str = '<!DOCTYPE html><html><body>' +
-      '<h1>Mensa am Adenauerring</h1>' +
+      '<h1>Mensa Am Adenauerring</h1>' +
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>[kœri]werk</td><td><table>' +
       '    <tr><td>[R]</td><td><span><b>Kalb</b> (Sn,Se,We)<span></td><td><span>2,00 &euro;</span></td></tr>' +
@@ -115,7 +115,7 @@ describe('handicap/handicap-parse.js', function () {
     expect(obj).to.deep.equal([
       {
         id: 'adenauerring',
-        name: 'Mensa am Adenauerring',
+        name: 'Mensa Am Adenauerring',
         date: { year: 2020, month: 7, day: 12 },
         lines: [
           {
