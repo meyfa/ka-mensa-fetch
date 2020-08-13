@@ -7,7 +7,7 @@ const parse = require('../../src/jsonapi/jsonapi-parse.js')
 describe('jsonapi/jsonapi-parse.js', function () {
   it('can handle empty plan', function () {
     const data = {}
-    const obj = parse(data)
+    const obj = parse(data, new Date(2020, 7, 11))
     expect(obj).to.deep.equal([])
   })
 
@@ -16,7 +16,7 @@ describe('jsonapi/jsonapi-parse.js', function () {
       adenauerring: {},
       moltke: {}
     }
-    const obj = parse(data)
+    const obj = parse(data, new Date(2020, 7, 11))
     expect(obj).to.deep.equal([])
   })
 
@@ -138,6 +138,40 @@ describe('jsonapi/jsonapi-parse.js', function () {
     expect(obj2[0].lines[0].meals[0].price).to.equal('(ab) 1,73 €')
   })
 
+  it('uses empty string for price of 0', function () {
+    // eslint-disable-next-line camelcase
+    const data = {
+      adenauerring: {
+        1597096800: {
+          heisstheke: [
+            {
+              meal: 'TO GO von 8:00 Uhr bis 14:00 Uhr',
+              dish: '',
+              add: [],
+              bio: false,
+              fish: false,
+              pork: false,
+              pork_aw: false,
+              cow: false,
+              cow_aw: false,
+              vegan: false,
+              veg: false,
+              mensa_vit: false,
+              info: '',
+              price_1: 0,
+              price_2: 0,
+              price_3: 0,
+              price_4: 0,
+              price_flag: 0
+            }
+          ]
+        }
+      }
+    }
+    const obj = parse(data, new Date(2020, 7, 10))
+    expect(obj[0].lines[0].meals[0].price).to.equal('')
+  })
+
   it('detects classifiers', function () {
     const data = {
       adenauerring: {
@@ -233,5 +267,30 @@ describe('jsonapi/jsonapi-parse.js', function () {
       month: 7,
       year: 2020
     })
+  })
+
+  it('ignores unknown canteen ids', function () {
+    const data = {
+      unknown: {
+        1597096800: {
+          l1: [{ nodata: true }]
+        }
+      }
+    }
+    const obj = parse(data, new Date(2020, 7, 11))
+    expect(obj).to.deep.equal([])
+  })
+
+  it('ignores unknown line ids', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          unknown: [{ nodata: true }]
+        }
+      }
+    }
+    const obj = parse(data, new Date(2020, 7, 11))
+    expect(obj).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].lines).to.deep.equal([])
   })
 })
