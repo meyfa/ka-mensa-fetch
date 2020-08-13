@@ -39,6 +39,10 @@ const fetchMensa = require('ka-mensa-fetch')
 
 **Options:**
 
+- `string source`: Data source. Either 'handicap' (the default) or 'jsonapi'.
+
+Additional options for 'handicap' source:
+
 - `string[] canteens`: Array of canteen ids for which plans are wanted.
   See `data/canteens.json` for possible values.
 - `object[] dates`:
@@ -51,6 +55,10 @@ const fetchMensa = require('ka-mensa-fetch')
 - `string sessionCookie`:
   Optionally, a session cookie. Existence of the cookie could prevent redirects,
   see note below.
+
+Additional options for 'jsonapi' source:
+
+- `object auth = { user, password }`: Authentication information for the API.
 
 **Return values:**
 
@@ -299,9 +307,8 @@ Output (shortened):
 
 ### sw-ka handicap view
 
-This is the default (and so far, only) data source. The meal plan is extracted
-from the HTML page. This is relatively reliable as long as there are no
-structural changes.
+This is the default data source. The meal plan is extracted from the HTML page.
+This is relatively reliable as long as there are no structural changes.
 
 The URL used is as follows:
 
@@ -313,3 +320,15 @@ the 49th calendar week is requested (weeks _probably_ following ISO 8601).
 Unfortunately, the `p` parameter representing price category (1 for students,
 2 for guests, 3 for employees, 4 for school children) has no effect. This
 appears to be a bug on the sw-ka site.
+
+### sw-ka JSON API
+
+This source retrieves meal plans from the same API used by the official app.
+It requires authentication, which is why it is not the default source.
+
+Endpoint:
+
+`https://www.sw-ka.de/json_interface/canteen/`
+
+There are no (known) parameters. The API returns all data from the beginning of
+the current week up to 2 weeks into the future, for all canteens.

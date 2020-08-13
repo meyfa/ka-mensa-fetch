@@ -6,12 +6,22 @@ const parse = require('./jsonapi-parse')
 /**
  * Fetch the JSON API plan and parse it.
  *
- * @param {object} auth Authentication (user, password) for the API.
+ * Options:
+ * - auth: object (user, password) for authentication with the API.
+ *
+ * @param {object} options The fetcher options.
  * @returns {Promise<object[]>} Parsed results.
  */
-async function fetch (auth) {
-  const json = await request(auth)
+async function fetch (options) {
+  const auth = options && options.auth
+    ? options.auth
+    : null
 
+  if (!auth) {
+    throw new Error('auth option is required')
+  }
+
+  const json = await request(auth)
   return parse(json)
 }
 

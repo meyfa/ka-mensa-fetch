@@ -1,55 +1,8 @@
 'use strict'
 
-const moment = require('moment')
-
 const fetchHandicap = require('./src/handicap')
+const fetchJSON = require('./src/jsonapi')
 const requestSessionCookie = require('./src/cookies/request-session-cookie')
-const canteens = require('./data/canteens.json')
-
-// CONSTANTS
-
-/**
- * Array of known canteen ids.
- *
- * @type {string[]}
- */
-const CANTEEN_IDS = Object.freeze(canteens.map(c => c.id))
-
-// HELPER METHODS
-
-/**
- * Get the current calendar week.
- *
- * @returns {number} The current week.
- */
-function getCurrentWeek () {
-  return moment().isoWeek()
-}
-
-/**
- * Check whether the given date can be fetched. A date can be fetched if it is
- * neither too far in the past nor too far in the future.
- *
- * @param {object} date The date to check.
- * @returns {boolean} Whether the date is supported.
- */
-function isDateSupported (date) {
-  const now = moment()
-  const m = moment(date)
-  // week must not be in the past and not too far in the future
-  return !m.isBefore(now, 'isoWeek') && now.diff(m, 'weeks') < 10
-}
-
-/**
- * Convert an array of date specifications into a Set of calendar week
- * numbers.
- *
- * @param {object[]} dates Array of date specifications.
- * @returns {Set<number>} Week numbers for the given dates.
- */
-function convertToWeeks (dates) {
-  return new Set(dates.map(d => moment(d).isoWeek()))
-}
 
 // MAIN EXPORT
 
@@ -57,9 +10,15 @@ function convertToWeeks (dates) {
  * Fetch a set of plans.
  *
  * Options:
+ * - source: 'handicap' (default) or 'jsonapi'.
+ *
+ * Additional options for 'handicap' source:
  * - canteens: array of canteen ids. Default: (all)
  * - dates: array of date specifications. Default: (current week)
  * - sessionCookie: optional session cookie
+ *
+ * Additional options for 'jsonapi' source:
+ * - auth: REQUIRED! object (user, password) for authentication with the API.
  *
  * The result is an array containing meal plans.
  *
@@ -71,26 +30,18 @@ function convertToWeeks (dates) {
  * @returns {Promise<object[]>} Resolves to a set of meal plans.
  */
 async function fetch (options) {
-  const ids = options && options.canteens
-    ? options.canteens
-    : CANTEEN_IDS
-  const weeks = options && options.dates
-    ? convertToWeeks(options.dates.filter(isDateSupported))
-    : [getCurrentWeek()]
-  const sessionCookie = options && options.sessionCookie
-    ? options.sessionCookie
-    : null
+  const source = options && options.source
+    ? options.source.toLowerCase()
+    : 'handicap'
 
-  const combinedResults = []
-
-  for (const week of weeks) {
-    for (const id of ids) {
-      const results = await fetchHandicap(id, week, sessionCookie)
-      combinedResults.push(...results)
-    }
+  switch (source) {
+    case 'handicap':
+      return fetchHandicap(options)
+    case 'jsonapi':
+      return fetchJSON(options)
+    default:
+      throw new Error('unknown source: "' + options.source + '"')
   }
-
-  return combinedResults
 }
 
 module.exports = fetch
