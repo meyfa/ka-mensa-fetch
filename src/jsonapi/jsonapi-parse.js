@@ -45,6 +45,20 @@ function convertTimestampToDateObject (unixTimestamp) {
 }
 
 /**
+ * Determine whether a plan for the given date, with the given reference,
+ * should be considered reliable.
+ *
+ * A plan is 'reliable' iff it does not predate the reference by 24h or more.
+ *
+ * @param {object} date A date object (day, month, year)
+ * @param {Date} reference A native Date object.
+ * @returns {boolean} Whether the date is reliable.
+ */
+function isReliable (date, reference) {
+  return moment(reference).diff(moment(date), 'd', true) < 1
+}
+
+/**
  * Parse a meal entry.
  *
  * @param {object} data The meal entry.
@@ -107,7 +121,8 @@ function getAdditives (mealData) {
 // MAIN EXPORT
 
 /**
- * Parse the given JSON for all canteens and dates it contains.
+ * Parse the given JSON for all canteens and dates it contains, except those
+ * too far before the reference date, as those are unreliable.
  * Returns an array of objects of the following form:
  *
  * - id: canteen id
@@ -116,9 +131,10 @@ function getAdditives (mealData) {
  * - lines: array describing lines and their meals
  *
  * @param {object} json The JSON canteen data to parse.
+ * @param {Date} referenceDate The date of plan acquisition, for reference.
  * @returns {object[]} The parse results.
  */
-function parse (json) {
+function parse (json, referenceDate) {
   const plans = []
 
   for (const canteenId of Object.keys(json)) {
@@ -129,6 +145,9 @@ function parse (json) {
 
     for (const unixTimestamp of Object.keys(json[canteenId])) {
       const date = convertTimestampToDateObject(unixTimestamp)
+      if (!isReliable(date, referenceDate)) {
+        continue
+      }
 
       const lines = []
       for (const lineId of Object.keys(json[canteenId][unixTimestamp])) {

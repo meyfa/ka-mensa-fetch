@@ -29,7 +29,7 @@ describe('jsonapi/jsonapi-parse.js', function () {
         }
       }
     }
-    const obj = parse(data)
+    const obj = parse(data, new Date(2020, 7, 10))
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].lines).to.deep.equal([
       {
@@ -53,7 +53,7 @@ describe('jsonapi/jsonapi-parse.js', function () {
         }
       }
     }
-    const obj = parse(data)
+    const obj = parse(data, new Date(2020, 7, 10))
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].date).to.deep.equal({
       day: 11,
@@ -93,12 +93,12 @@ describe('jsonapi/jsonapi-parse.js', function () {
         }
       }
     })
-    const obj1 = parse(makeData('foo bar', ''))
+    const obj1 = parse(makeData('foo bar', ''), new Date(2020, 7, 10))
     expect(obj1).to.be.an('array').with.lengthOf(1)
     expect(obj1[0].lines).to.be.an('array').with.lengthOf(1)
     expect(obj1[0].lines[0].meals).to.be.an('array').with.lengthOf(1)
     expect(obj1[0].lines[0].meals[0].name).to.equal('foo bar')
-    const obj2 = parse(makeData('foo bar', 'baz qux'))
+    const obj2 = parse(makeData('foo bar', 'baz qux'), new Date(2020, 7, 10))
     expect(obj2[0].lines[0].meals[0].name).to.equal('foo bar baz qux')
   })
 
@@ -132,9 +132,9 @@ describe('jsonapi/jsonapi-parse.js', function () {
         }
       }
     })
-    const obj1 = parse(makeData(1.73, ''))
+    const obj1 = parse(makeData(1.73, ''), new Date(2020, 7, 10))
     expect(obj1[0].lines[0].meals[0].price).to.equal('1,73 €')
-    const obj2 = parse(makeData(1.73, 'ab'))
+    const obj2 = parse(makeData(1.73, 'ab'), new Date(2020, 7, 10))
     expect(obj2[0].lines[0].meals[0].price).to.equal('(ab) 1,73 €')
   })
 
@@ -167,8 +167,8 @@ describe('jsonapi/jsonapi-parse.js', function () {
         }
       }
     }
-    const obj1 = parse(data)
-    expect(obj1[0].lines[0].meals[0].classifiers).to.have.members(['B', 'MV', 'VG'])
+    const obj = parse(data, new Date(2020, 7, 10))
+    expect(obj[0].lines[0].meals[0].classifiers).to.have.members(['B', 'MV', 'VG'])
   })
 
   it('includes additives', function () {
@@ -200,7 +200,38 @@ describe('jsonapi/jsonapi-parse.js', function () {
         }
       }
     }
-    const obj1 = parse(data)
-    expect(obj1[0].lines[0].meals[0].additives).to.have.members(['Ei', 'Fi'])
+    const obj = parse(data, new Date(2020, 7, 10))
+    expect(obj[0].lines[0].meals[0].additives).to.have.members(['Ei', 'Fi'])
+  })
+
+  it('does not include unreliable data', function () {
+    const data = {
+      adenauerring: {
+        // 1 day before
+        1597010400: {
+          l1: [{ nodata: true }]
+        },
+        // same day
+        1597096800: {
+          l1: [{ nodata: true }]
+        },
+        // next day
+        1597183200: {
+          l1: [{ nodata: true }]
+        }
+      }
+    }
+    const obj = parse(data, new Date(2020, 7, 11))
+    expect(obj).to.be.an('array').with.lengthOf(2)
+    expect(obj[0].date).to.deep.equal({
+      day: 11,
+      month: 7,
+      year: 2020
+    })
+    expect(obj[1].date).to.deep.equal({
+      day: 12,
+      month: 7,
+      year: 2020
+    })
   })
 })

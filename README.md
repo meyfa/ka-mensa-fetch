@@ -332,3 +332,6 @@ Endpoint:
 
 There are no (known) parameters. The API returns all data from the beginning of
 the current week up to 2 weeks into the future, for all canteens.
+
+Note that entries older than 1 day might be included, but they are always empty.
+This library filters those entries out.

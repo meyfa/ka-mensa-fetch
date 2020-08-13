@@ -22,7 +22,9 @@ async function fetch (options) {
   }
 
   const json = await request(auth)
-  return parse(json)
+  const reference = new Date()
+
+  return parse(json, reference)
 }
 
 module.exports = fetch
