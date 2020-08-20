@@ -4,13 +4,35 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/test_coverage)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/maintainability)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/maintainability)
 
-`ka-mensa-fetch` is a NodeJS package that fetches the Karlsruhe Mensa (canteen)
-meal plan. It supports all canteens operated by the Studierendenwerk.
 
-This project is neither affiliated with nor endorsed by the Studierendenwerk
-Karlsruhe or the Karlsruhe Institute of Technology.
+## Introduction
 
-If you see anything break, please open an issue!
+`ka-mensa-fetch` is one component in a three-part project whose goal it is to
+aggregate, process and visualize the Studierendenwerk Karlsruhe's canteen plans
+in ways superior to the official sources.
+
+**Disclaimer:** This project is neither affiliated with nor endorsed by the
+Studierendenwerk Karlsruhe or the Karlsruhe Institute of Technology.
+
+The entire project is written in JavaScript and is composed as follows:
+
+- [ka-mensa-fetch](https://github.com/meyfa/ka-mensa-fetch): library package
+    responsible for the fetching of raw plan data and conversion into canonical,
+    easily digestible JSON documents
+- [ka-mensa-api](https://github.com/meyfa/ka-mensa-api): NodeJS server that
+    utilizes the fetcher to continuously collect meal plans and makes them
+    available via REST API
+- [ka-mensa-ui](https://github.com/meyfa/ka-mensa-ui): single-page web app
+    that loads meal plans from an API instance and displays them in a modern,
+    responsive interface with filtering and color-coding capabilities
+
+
+## Installation
+
+`ka-mensa-fetch` has a package on the NPM registry.
+
+Make sure Node and NPM are available on your system, then use
+`npm i ka-mensa-fetch` to install it into your project's dependencies.
 
 
 ## Usage
@@ -335,3 +357,17 @@ the current week up to 2 weeks into the future, for all canteens.
 
 Note that entries older than 1 day might be included, but they are always empty.
 This library filters those entries out.
+
+
+## Development
+
+Contributions are welcome. Guidelines:
+
+- By contributing, you agree to make your changes available under the MIT
+    license of this project.
+- Please write unit tests for as much code as possible.
+    * To run: `npm test`
+    * To create a coverage report: `npm run coverage`
+- Make sure to adhere to JS standard style.
+    * Linter: `npm run lint`
+    * Automatic fixing of most style issues: `npm run lint-fix`
