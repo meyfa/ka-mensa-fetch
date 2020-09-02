@@ -113,7 +113,7 @@ function parseMeal ($, $row) {
  */
 function parse (html, canteenId, referenceDate) {
   const $ = cheerio.load(html)
-  const $titles = $('h1')
+  const $titles = $('#platocontent > h1')
 
   // canteen name is stored in first <h1>
   const canteenName = $titles.first().text()

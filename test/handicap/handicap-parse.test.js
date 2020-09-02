@@ -6,15 +6,43 @@ const parse = require('../../src/handicap/handicap-parse.js')
 
 describe('handicap/handicap-parse.js', function () {
   it('can handle empty plan', function () {
-    const str = '<!DOCYTPE html><html><body><h1>Mensa Am Adenauerring</h1></body></html>'
+    const str = '<!DOCYTPE html><html><body>' +
+      '<div id="platocontent">' +
+      '<h1>Mensa Am Adenauerring</h1>' +
+      '</div>' +
+      '</body></html>'
     const obj = parse(str, 'adenauerring', new Date())
     expect(obj).to.deep.equal([])
   })
 
   it('extracts canteen name from first h1', function () {
     const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
       '<h1>name-here</h1>' +
       '<h1>Mi 12.08.</h1><table></table>' +
+      '</div>' +
+      '</body></html>'
+    const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
+    expect(obj).to.deep.equal([
+      {
+        id: 'adenauerring',
+        name: 'name-here',
+        date: { year: 2020, month: 7, day: 12 },
+        lines: []
+      }
+    ])
+  })
+
+  it('is resilient to fake headlines in content-block', function () {
+    // sometimes other content is prepended to the handicap view
+    // that might contain h1 tags
+    const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
+      '<div><h1>fake1</h1></div>' +
+      '<div><h1>fake2</h1></div>' +
+      '<h1>name-here</h1>' +
+      '<h1>Mi 12.08.</h1><table></table>' +
+      '</div>' +
       '</body></html>'
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
@@ -29,10 +57,12 @@ describe('handicap/handicap-parse.js', function () {
 
   it('deduces dates', function () {
     const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
       '<h1>name-here</h1>' +
       '<h1>Di 11.08.</h1><table></table>' +
       '<h1>Mi 12.08.</h1><table></table>' +
       '<h1>Do 13.08.</h1><table></table>' +
+      '</div>' +
       '</body></html>'
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
@@ -59,8 +89,10 @@ describe('handicap/handicap-parse.js', function () {
 
   it('ignores empty rows in line table', function () {
     const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
       '<h1>Mensa Am Adenauerring</h1>' +
       '<h1>Mi 12.08.</h1><table><tr></tr><tr></tr><tr></tr></table>' +
+      '</div>' +
       '</body></html>'
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj[0].lines).to.deep.equal([])
@@ -68,6 +100,7 @@ describe('handicap/handicap-parse.js', function () {
 
   it('parses closed lines', function () {
     const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
       '<h1>Mensa Am Adenauerring</h1>' +
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>Linie 1</td><td><table>' +
@@ -77,6 +110,7 @@ describe('handicap/handicap-parse.js', function () {
       '    <tr><td><div><b>Geschlossen:</b> 01.08.-31.08.</div></td></tr>' +
       '  </table></td></tr>' +
       '</table>' +
+      '</div>' +
       '</body></html>'
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
@@ -102,6 +136,7 @@ describe('handicap/handicap-parse.js', function () {
 
   it('parses meals', function () {
     const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
       '<h1>Mensa Am Adenauerring</h1>' +
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>[kœri]werk</td><td><table>' +
@@ -110,6 +145,7 @@ describe('handicap/handicap-parse.js', function () {
       '    <tr><td>[VG]</td><td><span><b>Frites</b><span></td><td><span>1,20 &euro;</span></td></tr>' +
       '  </table></td></tr>' +
       '</table>' +
+      '</div>' +
       '</body></html>'
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
@@ -140,12 +176,14 @@ describe('handicap/handicap-parse.js', function () {
 
   it('includes lines with unknown names', function () {
     const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
       '<h1>Mensa Am Adenauerring</h1>' +
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>unknown-line-name</td><td><table>' +
       '    <tr><td>[VG]</td><td><span><b>Frites</b><span></td><td><span>1,20 &euro;</span></td></tr>' +
       '  </table></td></tr>' +
       '</table>' +
+      '</div>' +
       '</body></html>'
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
