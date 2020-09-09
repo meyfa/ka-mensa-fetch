@@ -77,6 +77,9 @@ Additional options for 'handicap' source:
 - `string sessionCookie`:
   Optionally, a session cookie. Existence of the cookie could prevent redirects,
   see note below.
+- `boolean parallel`: Whether to run all network requests in parallel.
+  This speeds the fetch up significantly, but also increases server-side load
+  and should therefore be used sparingly.
 
 Additional options for 'jsonapi' source:
 

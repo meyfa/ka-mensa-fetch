@@ -74,7 +74,8 @@ async function fetchSingle (canteenId, weekId, sessionCookie) {
  * Options:
  * - canteens: array of canteen ids. Default: (all)
  * - dates: array of date specifications. Default: (current week)
- * - sessionCookie: optional session cookie
+ * - sessionCookie: optional session cookie. Default: null
+ * - parallel: whether to run all network requests in parallel. Default: false
  *
  * @param {?object} options The fetcher options.
  * @returns {Promise<object[]>} Parsed results.
@@ -89,17 +90,20 @@ async function fetch (options) {
   const sessionCookie = options && options.sessionCookie
     ? options.sessionCookie
     : null
+  const parallel = options && options.parallel
 
-  const combinedResults = []
+  const promises = []
 
   for (const week of weeks) {
     for (const id of ids) {
-      const results = await fetchSingle(id, week, sessionCookie)
-      combinedResults.push(...results)
+      const promise = fetchSingle(id, week, sessionCookie)
+      promises.push(promise)
+      if (!parallel) await promise // synchronize
     }
   }
 
-  return combinedResults
+  // TODO: replace with Array.protoype.flat once Node 10 is EOL
+  return [].concat(...(await Promise.all(promises)))
 }
 
 module.exports = fetch
