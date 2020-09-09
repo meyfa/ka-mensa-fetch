@@ -53,7 +53,7 @@ or in an async context:
 ```js
 const fetchMensa = require('ka-mensa-fetch')
 
-(async () => {
+;(async () => {
   const plans = await fetchMensa(options)
   console.log(plans)
 })()
@@ -235,7 +235,7 @@ implemented in `ka-mensa-fetch`, to be used as follows:
 ```js
 const fetchMensa = require('ka-mensa-fetch')
 
-(async () => {
+;(async () => {
   const session = await fetchMensa.requestSessionCookie()
   if (!session) {
     console.error('could not retrieve session cookie')
