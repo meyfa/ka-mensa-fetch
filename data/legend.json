@@ -100,7 +100,7 @@
     "label": "mit tierischem Lab"
   },
   {
-    "short": "GER",
+    "short": "GEL",
     "label": "mit Gelatine"
   },
   {
@@ -120,7 +120,7 @@
     "label": "Gerste"
   },
   {
-    "short": "Ha",
+    "short": "Hf",
     "label": "Hafer"
   },
   {
@@ -212,7 +212,7 @@
     "label": "Lupine"
   },
   {
-    "short": "We",
+    "short": "Wt",
     "label": "Weichtiere"
   }
 ]
