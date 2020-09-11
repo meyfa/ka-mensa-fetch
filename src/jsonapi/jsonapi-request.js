@@ -5,11 +5,18 @@ const axios = require('axios')
 // CONSTANTS
 
 /**
+ * URL of the JSON API general endpoint.
+ *
+ * @type {string}
+ */
+const METADATA_ENDPOINT = 'https://www.sw-ka.de/json_interface/general/'
+
+/**
  * URL of the JSON API canteen endpoint.
  *
  * @type {string}
  */
-const CANTEEN_URL = 'https://www.sw-ka.de/json_interface/canteen/'
+const PLANS_ENDPOINT = 'https://www.sw-ka.de/json_interface/canteen/'
 
 /**
  * Conservative request timeout in milliseconds.
@@ -28,13 +35,18 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 // MAIN EXPORT
 
 /**
- * Retrieve the current JSON data for all canteens.
+ * Make a request to the specified JSON API endpoint.
  *
  * @param {object} auth Authentication (user, password) for the API.
+ * @param {string} endpoint The endpoint (METADATA_ENDPOINT, PLANS_ENDPOINT).
  * @returns {Promise<string>} Resolves to HTML code on success (unprocessed).
  */
-async function request (auth) {
-  const response = await axios.get(CANTEEN_URL, {
+async function request (auth, endpoint) {
+  if (endpoint !== METADATA_ENDPOINT && endpoint !== PLANS_ENDPOINT) {
+    throw new Error('invalid endpoint specified')
+  }
+
+  const response = await axios.get(endpoint, {
     auth: {
       username: auth.user,
       password: auth.password
@@ -47,3 +59,7 @@ async function request (auth) {
 }
 
 module.exports = request
+
+module.exports.METADATA_ENDPOINT = METADATA_ENDPOINT
+
+module.exports.PLANS_ENDPOINT = PLANS_ENDPOINT

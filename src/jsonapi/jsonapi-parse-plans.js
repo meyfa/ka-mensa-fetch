@@ -3,6 +3,7 @@
 const moment = require('moment')
 
 const canteens = require('../../data/canteens.json')
+const buildCanteenLookup = require('./build-canteen-lookup')
 
 // CONSTANTS
 
@@ -121,8 +122,9 @@ function getAdditives (mealData) {
 // MAIN EXPORT
 
 /**
- * Parse the given JSON for all canteens and dates it contains, except those
- * too far before the reference date, as those are unreliable.
+ * Parse the given JSON for all meals it contains, except those entries too far
+ * before the reference date, as those are unreliable.
+ *
  * Returns an array of objects of the following form:
  *
  * - id: canteen id
@@ -132,13 +134,16 @@ function getAdditives (mealData) {
  *
  * @param {object} json The JSON canteen data to parse.
  * @param {Date} referenceDate The date of plan acquisition, for reference.
+ * @param {?(object[])} metadata A supplementary 'canteens.json'-like structure.
  * @returns {object[]} The parse results.
  */
-function parse (json, referenceDate) {
+function parsePlans (json, referenceDate, metadata) {
+  const lookup = buildCanteenLookup(canteens, metadata)
+
   const plans = []
 
   for (const canteenId of Object.keys(json)) {
-    const canteen = canteens.find(({ id }) => id === canteenId)
+    const canteen = lookup.get(canteenId)
     if (!canteen) {
       continue
     }
@@ -151,7 +156,7 @@ function parse (json, referenceDate) {
 
       const lines = []
       for (const lineId of Object.keys(json[canteenId][unixTimestamp])) {
-        const line = canteen.lines.find(({ id }) => id === lineId)
+        const line = canteen.lines.get(lineId)
         if (!line) {
           continue
         }
@@ -167,4 +172,4 @@ function parse (json, referenceDate) {
   return plans
 }
 
-module.exports = parse
+module.exports = parsePlans

@@ -2,9 +2,9 @@
 
 const { expect } = require('chai')
 
-const parse = require('../../src/jsonapi/jsonapi-parse.js')
+const parse = require('../../src/jsonapi/jsonapi-parse-plans.js')
 
-describe('jsonapi/jsonapi-parse.js', function () {
+describe('jsonapi/jsonapi-parse-plans.js', function () {
   it('can handle empty plan', function () {
     const data = {}
     const obj = parse(data, new Date(2020, 7, 11))
@@ -45,7 +45,7 @@ describe('jsonapi/jsonapi-parse.js', function () {
     ])
   })
 
-  it('parses timestamp, canteen id, canteen name', function () {
+  it('parses timestamp, canteen id, includes canteen name', function () {
     const data = {
       adenauerring: {
         1597096800: {
@@ -62,6 +62,56 @@ describe('jsonapi/jsonapi-parse.js', function () {
     })
     expect(obj[0].id).to.equal('adenauerring')
     expect(obj[0].name).to.equal('Mensa Am Adenauerring')
+  })
+
+  it('uses overridden canteen name if provided', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          l1: [{ nodata: true }]
+        }
+      }
+    }
+    const metadata = [{ id: 'adenauerring', name: 'override', lines: [] }]
+    const obj = parse(data, new Date(2020, 7, 10), metadata)
+    expect(obj).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].id).to.equal('adenauerring')
+    expect(obj[0].name).to.equal('override')
+  })
+
+  it('parses line id, includes line name', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          l1: [{ nodata: true }]
+        }
+      }
+    }
+    const obj = parse(data, new Date(2020, 7, 10))
+    expect(obj).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].lines).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].lines[0].id).to.equal('l1')
+    expect(obj[0].lines[0].name).to.equal('Linie 1')
+  })
+
+  it('uses overridden line name if provided', function () {
+    const data = {
+      adenauerring: {
+        1597096800: {
+          l1: [{ nodata: true }]
+        }
+      }
+    }
+    const metadata = [{
+      id: 'adenauerring',
+      name: 'Mensa Am Adenauerring',
+      lines: [{ id: 'l1', name: 'override' }]
+    }]
+    const obj = parse(data, new Date(2020, 7, 11), metadata)
+    expect(obj).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].lines).to.be.an('array').with.lengthOf(1)
+    expect(obj[0].lines[0].id).to.equal('l1')
+    expect(obj[0].lines[0].name).to.equal('override')
   })
 
   it('formats meal name correctly', function () {

@@ -62,6 +62,10 @@ const fetchMensa = require('ka-mensa-fetch')
 **Options:**
 
 - `string source`: Data source. Either 'handicap' (the default) or 'jsonapi'.
+- `boolean parallel`: Optional, default: false.
+  Whether to run all network requests in parallel.
+  This speeds the fetch up significantly, but also increases server-side load
+  and should therefore be used sparingly.
 
 Additional options for 'handicap' source:
 
@@ -77,9 +81,6 @@ Additional options for 'handicap' source:
 - `string sessionCookie`:
   Optionally, a session cookie. Existence of the cookie could prevent redirects,
   see note below.
-- `boolean parallel`: Whether to run all network requests in parallel.
-  This speeds the fetch up significantly, but also increases server-side load
-  and should therefore be used sparingly.
 
 Additional options for 'jsonapi' source:
 
@@ -96,7 +97,7 @@ Handle with care.*
 **Plan structure**:
 
 - `String id`: canteen identifier (e.g. `'adenauerring'`)
-- `String name`: canteen name (e.g. `'Mensa am Adenauerring'`), may be null
+- `String name`: canteen name (e.g. `'Mensa Am Adenauerring'`), may be null
 - `Object date`: plan date (e.g. `{ day: 2, month: 11, year: 2019 }`)
   (note: month is 0-indexed)
 - `Object[] lines`: line array, containing objects of the following structure:
@@ -260,11 +261,12 @@ It might be valid much longer.
 Again, exercise resourcefulness — obtaining a cookie has the overhead of an
 additional full request.
 
+The JSON API source does not require a cookie to be set.
+
 
 ## Packaged Data
 
-`ka-mensa-fetch` includes some mappings to facilitate interaction with the
-API.
+`ka-mensa-fetch` includes some mappings to facilitate interaction with the API.
 
 ### Canteens List
 
@@ -351,9 +353,12 @@ appears to be a bug on the sw-ka site.
 This source retrieves meal plans from the same API used by the official app.
 It requires authentication, which is why it is not the default source.
 
-Endpoint:
+Endpoints:
 
-`https://www.sw-ka.de/json_interface/canteen/`
+1. `https://www.sw-ka.de/json_interface/general/` - used for obtaining
+  up-to-date canteen and line names
+2. `https://www.sw-ka.de/json_interface/canteen/` - used for obtaining the meal
+  plans
 
 There are no (known) parameters. The API returns all data from the beginning of
 the current week up to 2 weeks into the future, for all canteens.
