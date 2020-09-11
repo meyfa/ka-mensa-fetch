@@ -9,7 +9,10 @@
       },
       {
         "id": "l2",
-        "name": "Linie 2"
+        "name": "Linie 2",
+        "alternativeNames": [
+          "Linie 2 To-Go"
+        ]
       },
       {
         "id": "l3",
@@ -36,7 +39,8 @@
         "name": "[kœri]werk",
         "alternativeNames": [
           "[kœri]werk 11-14 Uhr",
-          "[kœri]werk 11-14:30 Uhr"
+          "[kœri]werk 11-14:30 Uhr",
+          "[kœri]werk 11-14 Uhr To-Go"
         ]
       },
       {
