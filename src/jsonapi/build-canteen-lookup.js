@@ -15,6 +15,41 @@ function toCanteenMap (array) {
   }))
 }
 
+/**
+ * Merge a pair of canteen objects into one, using the first as the base for
+ * every property and optionally overriding those using the second.
+ *
+ * The lines Map is deeply merged.
+ *
+ * @param {object} first The first canteen object.
+ * @param {?object} second The second canteen object.
+ * @returns {object} The merged canteen object.
+ */
+function mergeCanteen (first, second) {
+  if (!second) return first
+
+  const linesMap = new Map()
+  for (const line of first.lines.values()) {
+    const eLine = second.lines.get(line.id)
+    linesMap.set(line.id, mergeLine(line, eLine))
+  }
+
+  return { ...first, ...second, lines: linesMap }
+}
+
+/**
+ * Merge a pair of line objects into one, using the first as the base for every
+ * property and optionally overriding those using the second.
+ *
+ * @param {object} first The first line object.
+ * @param {?object} second The second line object.
+ * @returns {object} The merged line object.
+ */
+function mergeLine (first, second) {
+  if (!second) return first
+  return { ...first, ...second }
+}
+
 // MAIN EXPORT
 
 /**
@@ -35,31 +70,14 @@ function toCanteenMap (array) {
  */
 function buildCanteenLookup (base, extend) {
   const baseMap = toCanteenMap(base)
-  if (!extend) {
-    return baseMap
-  }
+  if (!extend) return baseMap
   const extendMap = toCanteenMap(extend)
 
   const map = new Map()
-
   for (const canteen of baseMap.values()) {
     const eCanteen = extendMap.get(canteen.id)
-    if (!eCanteen) {
-      map.set(canteen.id, canteen)
-      continue
-    }
-    const linesMap = new Map()
-    for (const line of canteen.lines.values()) {
-      const eLine = eCanteen.lines.get(line.id)
-      linesMap.set(line.id, !eLine ? line : { ...line, ...eLine })
-    }
-    map.set(canteen.id, {
-      ...canteen,
-      ...eCanteen,
-      lines: linesMap
-    })
+    map.set(canteen.id, mergeCanteen(canteen, eCanteen))
   }
-
   return map
 }
 
