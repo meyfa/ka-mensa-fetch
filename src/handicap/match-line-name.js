@@ -5,27 +5,24 @@ const canteens = require('../../data/canteens.json')
 // CONSTANTS
 
 /**
- * An object mapping canteen ids to objects mapping line names to line ids for
- * backwards resolution.
+ * A Map from canteen ids to Maps from line names to line ids.
+ * I.e. schema: (canteenId => (lineName => lineId))
  *
  * @type {object}
  */
 const LINE_IDS_MAPPING = (() => {
-  const mapping = {}
+  const mapping = new Map()
+
   for (const canteen of canteens) {
-    const lineMapping = {}
+    const lineMapping = new Map()
     for (const line of canteen.lines) {
-      lineMapping[line.name] = line.id
-      if (!line.alternativeNames) {
-        continue
-      }
-      for (const alternative of line.alternativeNames) {
-        lineMapping[alternative] = line.id
-      }
+      const allNames = [line.name, ...(line.alternativeNames || [])]
+      allNames.forEach(name => lineMapping.set(name, line.id))
     }
-    mapping[canteen.id] = Object.freeze(lineMapping)
+    mapping.set(canteen.id, lineMapping)
   }
-  return Object.freeze(mapping)
+
+  return mapping
 })()
 
 // MAIN EXPORT
@@ -41,11 +38,11 @@ const LINE_IDS_MAPPING = (() => {
  */
 function matchLineName (canteenId, name) {
   // sanity check canteenId
-  if (!LINE_IDS_MAPPING[canteenId]) {
+  if (!LINE_IDS_MAPPING.has(canteenId)) {
     return null
   }
   // sanitize and lookup
-  const id = LINE_IDS_MAPPING[canteenId][name.trim()]
+  const id = LINE_IDS_MAPPING.get(canteenId).get(name.trim())
   return id || null
 }
 
