@@ -59,7 +59,10 @@
       },
       {
         "id": "pizza",
-        "name": "[pizza]werk Pizza"
+        "name": "[pizza]werk Pizza",
+        "alternativeNames": [
+          "[pizza]werk Pizza 11:30-14:30 Uhr To-Go"
+        ]
       },
       {
         "id": "pasta",
