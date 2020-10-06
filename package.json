@@ -7,7 +7,7 @@
     "lint": "eslint --ignore-path .gitignore .",
     "lint-fix": "eslint --fix --ignore-path .gitignore .",
     "test": "mocha --recursive",
-    "coverage": "nyc --reporter=lcov mocha --recursive"
+    "coverage": "nyc --reporter=lcov --all --include 'src/**/*.js' mocha --recursive"
   },
   "repository": {
     "type": "git",
