@@ -20,7 +20,10 @@
       },
       {
         "id": "l45",
-        "name": "Linie 4/5"
+        "name": "Linie 4/5",
+        "alternativeNames": [
+          "Linie 4/5 G&G-Gerichte To-Go"
+        ]
       },
       {
         "id": "schnitzelbar",
@@ -62,7 +65,8 @@
         "name": "[pizza]werk Pizza",
         "alternativeNames": [
           "[pizza]werk Pizza 11:30-14:30 Uhr To-Go",
-          "[pizza]werk Pizza 11:30-13:30 Uhr To-Go"
+          "[pizza]werk Pizza 11:30-13:30 Uhr To-Go",
+          "[pizza]werk Pizza 11-14 Uhr To-Go"
         ]
       },
       {
