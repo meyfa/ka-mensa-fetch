@@ -46,14 +46,12 @@ const COOKIE_REGEXP = /platoCMS=(\w+);/
  * @returns {string|null} The cookie if present.
  */
 function findCookie (headers) {
-  const setCookie = headers && headers['set-cookie']
+  const setCookie = headers['set-cookie']
   if (!setCookie) {
     return null
   }
 
-  const setCookieArray = typeof setCookie === 'string'
-    ? [setCookie]
-    : setCookie
+  const setCookieArray = Array.isArray(setCookie) ? setCookie : [setCookie]
 
   for (const item of setCookieArray) {
     const match = item.match(COOKIE_REGEXP)
@@ -80,7 +78,7 @@ async function requestSessionCookie () {
     timeout: REQUEST_TIMEOUT
   })
 
-  return findCookie(response.headers)
+  return response.headers ? findCookie(response.headers) : null
 }
 
 module.exports = requestSessionCookie
