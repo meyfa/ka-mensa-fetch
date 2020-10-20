@@ -119,6 +119,45 @@ function getAdditives (mealData) {
   return mealData.add.filter(str => str)
 }
 
+// NESTED LAYER PARSING
+
+/**
+ * @param {Date} referenceDate The date of plan acquisition, for reference.
+ * @param {object} canteen The canteen object to which the plans are related.
+ * @param {object} planMapping The object from which to parse the days.
+ * @returns {object[]} An array of parsed plan objects, one for each day.
+ */
+function parseDays (referenceDate, canteen, planMapping) {
+  const days = []
+  for (const unixTimestamp in planMapping) {
+    const date = convertTimestampToDateObject(unixTimestamp)
+    if (!isReliable(date, referenceDate)) {
+      continue
+    }
+    const lines = parseLines(canteen, planMapping[unixTimestamp])
+    days.push({ id: canteen.id, name: canteen.name, date, lines })
+  }
+  return days
+}
+
+/**
+ * @param {object} canteen The canteen object to which the lines are related.
+ * @param {object} lineMapping The object from which to parse the lines.
+ * @returns {object[]} An array of parsed line objects.
+ */
+function parseLines (canteen, lineMapping) {
+  const lines = []
+  for (const lineId in lineMapping) {
+    const line = canteen.lines.get(lineId)
+    if (!line) {
+      continue
+    }
+    const meals = lineMapping[lineId].map(parseMeal).filter(meal => meal)
+    lines.push({ id: line.id, name: line.name, meals })
+  }
+  return lines
+}
+
 // MAIN EXPORT
 
 /**
@@ -140,35 +179,16 @@ function getAdditives (mealData) {
 function parsePlans (json, referenceDate, metadata) {
   const lookup = buildCanteenLookup(canteens, metadata)
 
+  // the JSON is structured as follows:
+  // canteenId => unixTimestamp => lineId => [meals]
+
   const plans = []
-
-  for (const canteenId of Object.keys(json)) {
+  for (const canteenId in json) {
     const canteen = lookup.get(canteenId)
-    if (!canteen) {
-      continue
-    }
-
-    for (const unixTimestamp of Object.keys(json[canteenId])) {
-      const date = convertTimestampToDateObject(unixTimestamp)
-      if (!isReliable(date, referenceDate)) {
-        continue
-      }
-
-      const lines = []
-      for (const lineId of Object.keys(json[canteenId][unixTimestamp])) {
-        const line = canteen.lines.get(lineId)
-        if (!line) {
-          continue
-        }
-
-        const meals = json[canteenId][unixTimestamp][lineId].map(parseMeal)
-          .filter(meal => meal)
-        lines.push({ id: lineId, name: line.name, meals })
-      }
-      plans.push({ id: canteenId, name: canteen.name, date, lines })
+    if (canteen) {
+      plans.push(...parseDays(referenceDate, canteen, json[canteenId]))
     }
   }
-
   return plans
 }
 
