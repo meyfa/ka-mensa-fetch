@@ -37,6 +37,34 @@ const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/201
  */
 const COOKIE_REGEXP = /platoCMS=(\w+);/
 
+// METHODS
+
+/**
+ * Find the session cookie from the given headers object.
+ *
+ * @param {?object} headers The response headers object.
+ * @returns {string|null} The cookie if present.
+ */
+function findCookie (headers) {
+  const setCookie = headers && headers['set-cookie']
+  if (!setCookie) {
+    return null
+  }
+
+  const setCookieArray = typeof setCookie === 'string'
+    ? [setCookie]
+    : setCookie
+
+  for (const item of setCookieArray) {
+    const match = item.match(COOKIE_REGEXP)
+    if (match) {
+      return match[1]
+    }
+  }
+
+  return null
+}
+
 // MAIN EXPORT
 
 /**
@@ -52,19 +80,7 @@ async function requestSessionCookie () {
     timeout: REQUEST_TIMEOUT
   })
 
-  const setCookie = response.headers['set-cookie']
-  if (!setCookie) {
-    return null
-  }
-
-  for (const item of setCookie) {
-    const match = item.match(COOKIE_REGEXP)
-    if (match) {
-      return match[1]
-    }
-  }
-
-  return null
+  return findCookie(response.headers)
 }
 
 module.exports = requestSessionCookie

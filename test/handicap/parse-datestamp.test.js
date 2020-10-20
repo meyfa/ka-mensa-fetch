@@ -1,6 +1,8 @@
 'use strict'
 
-const { expect } = require('chai')
+const chai = require('chai')
+chai.use(require('chai-as-promised'))
+const { expect } = chai
 
 const parseDatestamp = require('../../src/handicap/parse-datestamp.js')
 
