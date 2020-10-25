@@ -28,7 +28,7 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 // MAIN EXPORT
 
 /**
- * Retrieve the handicap HTML view for the given canteen and week id.
+ * Retrieve the HTML view for the given canteen and week id.
  *
  * @param {string} canteenId The canteen, e.g. "adenauerring" or "moltke".
  * @param {string|number} weekId The week number (1..52).

@@ -1,6 +1,6 @@
 'use strict'
 
-const fetchHandicap = require('./src/handicap')
+const fetchSimpleSite = require('./src/simplesite')
 const fetchJSON = require('./src/jsonapi')
 const requestSessionCookie = require('./src/cookies/request-session-cookie')
 
@@ -10,9 +10,9 @@ const requestSessionCookie = require('./src/cookies/request-session-cookie')
  * Fetch a set of plans.
  *
  * Options:
- * - source: 'handicap' (default) or 'jsonapi'.
+ * - source: 'simplesite' (default) or 'jsonapi'.
  *
- * Additional options for 'handicap' source:
+ * Additional options for 'simplesite' source:
  * - canteens: array of canteen ids. Default: (all)
  * - dates: array of date specifications. Default: (current week)
  * - sessionCookie: optional session cookie
@@ -32,11 +32,12 @@ const requestSessionCookie = require('./src/cookies/request-session-cookie')
 async function fetch (options) {
   const source = options && options.source
     ? options.source.toLowerCase()
-    : 'handicap'
+    : 'simplesite'
 
   switch (source) {
-    case 'handicap':
-      return fetchHandicap(options)
+    case 'handicap': // <-- backwards compatibility (same as 'simplesite')
+    case 'simplesite':
+      return fetchSimpleSite(options)
     case 'jsonapi':
       return fetchJSON(options)
     default:

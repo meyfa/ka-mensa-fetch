@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const parse = require('../../src/handicap/handicap-parse.js')
+const parse = require('../../src/simplesite/simplesite-parse.js')
 
-describe('handicap/handicap-parse.js', function () {
+describe('simplesite/simplesite-parse.js', function () {
   it('can handle empty plan', function () {
     const str = '<!DOCYTPE html><html><body>' +
       '<div id="platocontent">' +
@@ -36,8 +36,8 @@ describe('handicap/handicap-parse.js', function () {
   })
 
   it('is resilient to fake headlines in content-block', function () {
-    // sometimes other content is prepended to the handicap view
-    // that might contain h1 tags
+    // sometimes other content is prepended to the view, and that content might
+    // contain h1 tags
     const str = '<!DOCTYPE html><html><body>' +
       '<div id="platocontent">' +
       '<div><h1>fake1</h1></div>' +

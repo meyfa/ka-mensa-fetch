@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const matchLineName = require('../../src/handicap/match-line-name.js')
+const matchLineName = require('../../src/simplesite/match-line-name.js')
 
-describe('handicap/match-line-name.js', function () {
+describe('simplesite/match-line-name.js', function () {
   it('returns null for invalid canteen id', function () {
     return expect(matchLineName('foobar', 'l1')).to.be.null
   })

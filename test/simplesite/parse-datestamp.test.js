@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const parseDatestamp = require('../../src/handicap/parse-datestamp.js')
+const parseDatestamp = require('../../src/simplesite/parse-datestamp.js')
 
-describe('handicap/parse-datestamp.js', function () {
+describe('simplesite/parse-datestamp.js', function () {
   it("returns null for invalid input ('')", function () {
     const ref = new Date(2019, 10, 30)
     return expect(parseDatestamp('', ref)).to.be.null

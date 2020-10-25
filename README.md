@@ -61,13 +61,13 @@ const fetchMensa = require('ka-mensa-fetch')
 
 **Options:**
 
-- `string source`: Data source. Either 'handicap' (the default) or 'jsonapi'.
+- `string source`: Data source. Either 'simplesite' (the default) or 'jsonapi'.
 - `boolean parallel`: Optional, default: false.
   Whether to run all network requests in parallel.
   This speeds the fetch up significantly, but also increases server-side load
   and should therefore be used sparingly.
 
-Additional options for 'handicap' source:
+Additional options for 'simplesite' source:
 
 - `string[] canteens`: Array of canteen ids for which plans are wanted.
   See `data/canteens.json` for possible values.
@@ -332,12 +332,12 @@ Output (shortened):
 
 ## Data Sources
 
-### sw-ka handicap view
+### sw-ka simple site (web view for the visually impaired)
 
 This is the default data source. The meal plan is extracted from the HTML page.
 This is relatively reliable as long as there are no structural changes.
 
-The URL used is as follows:
+The URL used is the following:
 
 `https://www.sw-ka.de/de/essen/?view=ok&STYLE=popup_plain&c=adenauerring&p=1&kw=49`
 

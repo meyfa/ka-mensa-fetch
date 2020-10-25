@@ -4,11 +4,11 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const dateUtil = require('../../src/handicap/handicap-date-util.js')
+const dateUtil = require('../../src/simplesite/simplesite-date-util.js')
 
 const moment = require('moment')
 
-describe('handicap/handicap-date-util.js', function () {
+describe('simplesite/simplesite-date-util.js', function () {
   describe('#getCurrentWeek()', function () {
     it('returns the current ISO week number', function () {
       // this test is kind of useless - but also pretty much free

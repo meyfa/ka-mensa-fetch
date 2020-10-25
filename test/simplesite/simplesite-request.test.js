@@ -6,9 +6,9 @@ const { expect } = chai
 
 const MockAdapter = require('axios-mock-adapter')
 
-const request = require('../../src/handicap/handicap-request.js')
+const request = require('../../src/simplesite/simplesite-request.js')
 
-describe('handicap/handicap-request.js', function () {
+describe('simplesite/simplesite-request.js', function () {
   let mock
 
   beforeEach(function () {

@@ -66,7 +66,7 @@ function findCookie (headers) {
 // MAIN EXPORT
 
 /**
- * Retrieve the handicap HTML view for the given canteen and week id.
+ * Obtain a session cookie from the sw-ka website. The cookie value is returned.
  *
  * @returns {Promise<string>} Resolves to the session cookie, or null on failure.
  */
