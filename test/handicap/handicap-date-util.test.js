@@ -31,7 +31,7 @@ describe('handicap/handicap-date-util.js', function () {
 
     it('returns false for dates too far into the future', function () {
       // add a few weeks
-      const date = moment().add(10, 'weeks')
+      const date = moment().add(8, 'weeks')
       expect(dateUtil.isDateSupported(date)).to.equal(false)
     })
   })

@@ -24,7 +24,7 @@ function isDateSupported (date) {
   const now = moment()
   const m = moment(date)
   // week must not be in the past and not too far in the future
-  return !m.isBefore(now, 'isoWeek') && now.diff(m, 'weeks') < 10
+  return !m.isBefore(now, 'isoWeek') && m.diff(now, 'weeks') <= 6
 }
 
 /**
