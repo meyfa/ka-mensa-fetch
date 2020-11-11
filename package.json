@@ -1,6 +1,6 @@
 {
   "name": "ka-mensa-fetch",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Karlsruhe (KIT) Mensa meal plan fetcher",
   "main": "index.js",
   "scripts": {
