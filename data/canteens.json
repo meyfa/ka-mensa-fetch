@@ -5,7 +5,10 @@
     "lines": [
       {
         "id": "l1",
-        "name": "Linie 1"
+        "name": "Linie 1",
+        "alternativeNames": [
+          "Linie 1 To-Go"
+        ]
       },
       {
         "id": "l2",
