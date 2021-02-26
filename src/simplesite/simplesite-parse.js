@@ -130,6 +130,7 @@ function parse (html, canteenId, referenceDate) {
         lines: parseLines($, dateElement.next('table'), canteenId)
       }
     }
+    return undefined
   }).get()
 }
 
