@@ -89,6 +89,17 @@ describe('simplesite/simplesite-parse.js', function () {
     ])
   })
 
+  it('does not include plans with invalid dates', function () {
+    const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
+      '<h1>name-here</h1>' +
+      '<h1>foo bar.baz.</h1><table></table>' +
+      '</div>' +
+      '</body></html>'
+    const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
+    expect(obj).to.deep.equal([])
+  })
+
   it('ignores empty rows in line table', function () {
     const str = '<!DOCTYPE html><html><body>' +
       '<div id="platocontent">' +

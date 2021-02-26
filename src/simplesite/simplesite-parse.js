@@ -130,6 +130,7 @@ function parse (html, canteenId, referenceDate) {
         lines: parseLines($, dateElement.next('table'), canteenId)
       }
     }
+    // as per Cheerio .map() spec: do not insert an element
     return undefined
   }).get()
 }
