@@ -1,8 +1,6 @@
-'use strict'
-
-const fetchSimpleSite = require('./src/simplesite')
-const fetchJSON = require('./src/jsonapi')
-const requestSessionCookie = require('./src/cookies/request-session-cookie')
+import fetchSimpleSite from './src/simplesite'
+import fetchJSON from './src/jsonapi'
+import requestSessionCookie from './src/cookies/request-session-cookie'
 
 // MAIN EXPORT
 
@@ -11,6 +9,7 @@ const requestSessionCookie = require('./src/cookies/request-session-cookie')
  *
  * Options:
  * - source: 'simplesite' (default) or 'jsonapi'.
+ * - parallel: whether to run network requests in parallel. Default: false
  *
  * Additional options for 'simplesite' source:
  * - canteens: array of canteen ids. Default: (all)
@@ -29,22 +28,20 @@ const requestSessionCookie = require('./src/cookies/request-session-cookie')
  * @param {?object} options The fetcher options.
  * @returns {Promise<object[]>} Resolves to a set of meal plans.
  */
-async function fetch (options) {
-  const source = options && options.source
-    ? options.source.toLowerCase()
-    : 'simplesite'
+async function fetch (options?: any): Promise<object[]> {
+  const source: string = options?.source?.toLowerCase() ?? 'simplesite'
 
   switch (source) {
     case 'handicap': // <-- backwards compatibility (same as 'simplesite')
     case 'simplesite':
-      return fetchSimpleSite(options)
+      return await fetchSimpleSite(options)
     case 'jsonapi':
-      return fetchJSON(options)
+      return await fetchJSON(options)
     default:
-      throw new Error('unknown source: "' + options.source + '"')
+      throw new Error(`unknown source: "${source}"`)
   }
 }
 
-module.exports = fetch
+fetch.requestSessionCookie = requestSessionCookie
 
-module.exports.requestSessionCookie = requestSessionCookie
+export = fetch

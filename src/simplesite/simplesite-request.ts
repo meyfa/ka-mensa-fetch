@@ -1,6 +1,4 @@
-'use strict'
-
-const axios = require('axios')
+import axios from 'axios'
 
 // CONSTANTS
 
@@ -30,15 +28,15 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 /**
  * Retrieve the HTML view for the given canteen and week id.
  *
- * @param {string} canteenId The canteen, e.g. "adenauerring" or "moltke".
+ * @param {string} canteenId The canteen, e.g. 'adenauerring' or 'moltke'.
  * @param {string|number} weekId The week number (1..52).
  * @param {?string} sessionCookie Value of the session cookie.
  * @returns {Promise<string>} Resolves to HTML code on success (unprocessed).
  */
-async function request (canteenId, weekId, sessionCookie) {
-  const headers = {}
-  if (typeof sessionCookie === 'string' && sessionCookie !== '') {
-    headers.Cookie = 'platoCMS=' + sessionCookie
+export default
+async function request (canteenId: string, weekId: string | number, sessionCookie?: string): Promise<string> {
+  const headers = {
+    Cookie: sessionCookie != null && sessionCookie !== '' ? `platoCMS=${sessionCookie}` : undefined
   }
 
   const response = await axios.get(BASE_URL, {
@@ -55,5 +53,3 @@ async function request (canteenId, weekId, sessionCookie) {
 
   return response.data
 }
-
-module.exports = request

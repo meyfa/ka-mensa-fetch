@@ -1,8 +1,11 @@
-'use strict'
+import request, { AuthConfig, METADATA_ENDPOINT, PLANS_ENDPOINT } from './jsonapi-request'
+import parseMetadata from './jsonapi-parse-metadata'
+import parsePlans from './jsonapi-parse-plans'
 
-const request = require('./jsonapi-request')
-const parseMetadata = require('./jsonapi-parse-metadata')
-const parsePlans = require('./jsonapi-parse-plans')
+interface JsonApiOptions {
+  auth: AuthConfig
+  parallel?: boolean
+}
 
 /**
  * Fetch the JSON API plan and parse it.
@@ -14,23 +17,20 @@ const parsePlans = require('./jsonapi-parse-plans')
  * @param {object} options The fetcher options.
  * @returns {Promise<object[]>} Parsed results.
  */
-async function fetch (options) {
-  const auth = options && options.auth
-    ? options.auth
-    : null
-  if (!auth) {
+export default
+async function fetch (options: JsonApiOptions): Promise<object[]> {
+  const auth = options?.auth
+  if (auth == null) {
     throw new Error('auth option is required')
   }
-  const parallel = options && options.parallel
+  const parallel = options?.parallel ?? false
 
-  const metadataPromise = request(auth, request.METADATA_ENDPOINT)
+  const metadataPromise = request(auth, METADATA_ENDPOINT)
   if (!parallel) await metadataPromise // synchronize
 
-  const plansJson = await request(auth, request.PLANS_ENDPOINT)
+  const plansJson = await request(auth, PLANS_ENDPOINT)
 
   const reference = new Date()
   const metadata = parseMetadata(await metadataPromise)
   return parsePlans(plansJson, reference, metadata)
 }
-
-module.exports = fetch

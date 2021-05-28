@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const parseClassifiers = require('../../src/simplesite/parse-classifiers.js')
+const parseClassifiers = require('../../src/simplesite/parse-classifiers').default
 
-describe('simplesite/parse-classifiers.js', function () {
+describe('simplesite/parse-classifiers', function () {
   it("returns [] for empty input ('')", function () {
     return expect(parseClassifiers('')).to.deep.equal([])
   })

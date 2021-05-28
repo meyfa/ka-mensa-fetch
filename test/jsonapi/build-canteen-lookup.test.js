@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const buildCanteenLookup = require('../../src/jsonapi/build-canteen-lookup.js')
+const buildCanteenLookup = require('../../src/jsonapi/build-canteen-lookup').default
 
-describe('jsonapi/build-canteen-lookup.js', function () {
+describe('jsonapi/build-canteen-lookup', function () {
   it('creates a map for base array', function () {
     const base = [
       {

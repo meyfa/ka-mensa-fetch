@@ -6,9 +6,9 @@ const { expect } = chai
 
 const MockAdapter = require('axios-mock-adapter')
 
-const request = require('../../src/jsonapi/jsonapi-request.js')
+const { default: request, METADATA_ENDPOINT, PLANS_ENDPOINT } = require('../../src/jsonapi/jsonapi-request')
 
-describe('jsonapi/jsonapi-request.js', function () {
+describe('jsonapi/jsonapi-request', function () {
   let mock
 
   beforeEach(function () {
@@ -20,9 +20,9 @@ describe('jsonapi/jsonapi-request.js', function () {
     mock = null
   })
 
-  it('contains endpoint constants', function () {
-    expect(request).to.have.property('METADATA_ENDPOINT')
-    expect(request).to.have.property('PLANS_ENDPOINT')
+  it('exports endpoint constants', function () {
+    expect(METADATA_ENDPOINT).to.be.a('string')
+    expect(PLANS_ENDPOINT).to.be.a('string')
   })
 
   it('rejects for missing/wrong endpoint', function () {
@@ -43,7 +43,7 @@ describe('jsonapi/jsonapi-request.js', function () {
         })
         return [200, { some: { data: 42 } }]
       })
-      return expect(request({ user: 'a', password: 'b' }, request.METADATA_ENDPOINT))
+      return expect(request({ user: 'a', password: 'b' }, METADATA_ENDPOINT))
         .to.eventually.be.fulfilled
     })
 
@@ -51,7 +51,7 @@ describe('jsonapi/jsonapi-request.js', function () {
       mock.onAny().replyOnce(config => {
         return [200, { some: { data: 42 } }]
       })
-      return expect(request({ user: 'a', password: 'b' }, request.METADATA_ENDPOINT))
+      return expect(request({ user: 'a', password: 'b' }, METADATA_ENDPOINT))
         .to.eventually.deep.equal({ some: { data: 42 } })
     })
   })
@@ -67,7 +67,7 @@ describe('jsonapi/jsonapi-request.js', function () {
         })
         return [200, { some: { data: 42 } }]
       })
-      return expect(request({ user: 'a', password: 'b' }, request.PLANS_ENDPOINT))
+      return expect(request({ user: 'a', password: 'b' }, PLANS_ENDPOINT))
         .to.eventually.be.fulfilled
     })
 
@@ -75,7 +75,7 @@ describe('jsonapi/jsonapi-request.js', function () {
       mock.onAny().replyOnce(config => {
         return [200, { some: { data: 42 } }]
       })
-      return expect(request({ user: 'a', password: 'b' }, request.PLANS_ENDPOINT))
+      return expect(request({ user: 'a', password: 'b' }, PLANS_ENDPOINT))
         .to.eventually.deep.equal({ some: { data: 42 } })
     })
   })

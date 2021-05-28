@@ -1,6 +1,4 @@
-'use strict'
-
-const moment = require('moment')
+import moment from 'moment'
 
 // EXPORTS
 
@@ -9,7 +7,8 @@ const moment = require('moment')
  *
  * @returns {number} The current week.
  */
-function getCurrentWeek () {
+export
+function getCurrentWeek (): number {
   return moment().isoWeek()
 }
 
@@ -20,7 +19,8 @@ function getCurrentWeek () {
  * @param {object} date The date to check.
  * @returns {boolean} Whether the date is supported.
  */
-function isDateSupported (date) {
+export
+function isDateSupported (date: any): boolean {
   const now = moment()
   const m = moment(date)
   // week must not be in the past and not too far in the future
@@ -34,12 +34,7 @@ function isDateSupported (date) {
  * @param {object[]} dates Array of date specifications.
  * @returns {Set<number>} Week numbers for the given dates.
  */
-function convertToWeeks (dates) {
+export
+function convertToWeeks (dates: any[]): Set<number> {
   return new Set(dates.map(d => moment(d).isoWeek()))
-}
-
-module.exports = {
-  getCurrentWeek,
-  isDateSupported,
-  convertToWeeks
 }

@@ -1,6 +1,4 @@
-'use strict'
-
-const mergeWhitespace = require('../util/merge-whitespace')
+import mergeWhitespace from '../util/merge-whitespace'
 
 // CONSTANTS
 
@@ -26,9 +24,10 @@ const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\(\s*(\w{1,3}(?:\s*,\s*\w{1,3})
  * @param {string} str The string to parse.
  * @returns {object} The resulting name,additives object.
  */
-function parseNameAndAdditives (str) {
+export default
+function parseNameAndAdditives (str: string): { name: string, additives: string[] } {
   const match = str.match(NAME_ADDITIVES_REGEXP)
-  if (match) {
+  if (match != null) {
     return {
       name: mergeWhitespace(match[1]),
       additives: match[2].split(/\s*,\s*/)
@@ -39,5 +38,3 @@ function parseNameAndAdditives (str) {
     additives: []
   }
 }
-
-module.exports = parseNameAndAdditives

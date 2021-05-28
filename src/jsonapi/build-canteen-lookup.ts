@@ -1,4 +1,21 @@
-'use strict'
+// TYPES
+
+interface Line {
+  id: string
+  name: string
+}
+
+interface CanteenWithArray {
+  id: string
+  name: string
+  lines: Line[]
+}
+
+interface CanteenWithMap {
+  id: string
+  name: string
+  lines: Map<string, Line>
+}
 
 // METHODS
 
@@ -8,7 +25,7 @@
  * @param {object[]} array The canteens array.
  * @returns {Map} The generated Map.
  */
-function toCanteenMap (array) {
+function toCanteenMap (array: CanteenWithArray[]): Map<string, CanteenWithMap> {
   return new Map(array.map(canteen => {
     const lineMap = new Map(canteen.lines.map(line => [line.id, line]))
     return [canteen.id, { ...canteen, lines: lineMap }]
@@ -25,8 +42,8 @@ function toCanteenMap (array) {
  * @param {?object} second The second canteen object.
  * @returns {object} The merged canteen object.
  */
-function mergeCanteen (first, second) {
-  if (!second) return first
+function mergeCanteen (first: CanteenWithMap, second?: CanteenWithMap): CanteenWithMap {
+  if (second == null) return first
 
   const linesMap = new Map()
   for (const line of first.lines.values()) {
@@ -45,8 +62,8 @@ function mergeCanteen (first, second) {
  * @param {?object} second The second line object.
  * @returns {object} The merged line object.
  */
-function mergeLine (first, second) {
-  if (!second) return first
+function mergeLine (first: object, second?: object): object {
+  if (second == null) return first
   return { ...first, ...second }
 }
 
@@ -68,9 +85,10 @@ function mergeLine (first, second) {
  * @param {?(object[])} extend The overriding canteen data.
  * @returns {Map} The lookup table.
  */
-function buildCanteenLookup (base, extend) {
+export default
+function buildCanteenLookup (base: CanteenWithArray[], extend?: CanteenWithArray[]): Map<string, CanteenWithMap> {
   const baseMap = toCanteenMap(base)
-  if (!extend) return baseMap
+  if (extend == null) return baseMap
   const extendMap = toCanteenMap(extend)
 
   const map = new Map()
@@ -80,5 +98,3 @@ function buildCanteenLookup (base, extend) {
   }
   return map
 }
-
-module.exports = buildCanteenLookup

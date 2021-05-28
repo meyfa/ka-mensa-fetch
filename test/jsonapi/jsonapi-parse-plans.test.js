@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const parse = require('../../src/jsonapi/jsonapi-parse-plans.js')
+const parse = require('../../src/jsonapi/jsonapi-parse-plans').default
 
-describe('jsonapi/jsonapi-parse-plans.js', function () {
+describe('jsonapi/jsonapi-parse-plans', function () {
   it('can handle empty plan', function () {
     const data = {}
     const obj = parse(data, new Date(2020, 7, 11))

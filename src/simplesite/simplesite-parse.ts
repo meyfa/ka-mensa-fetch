@@ -1,14 +1,12 @@
-'use strict'
+import cheerio, { Cheerio, CheerioAPI, Element } from 'cheerio'
 
-const cheerio = require('cheerio')
+import mergeWhitespace from '../util/merge-whitespace'
 
-const mergeWhitespace = require('../util/merge-whitespace')
+import parseDatestamp from './parse-datestamp'
+import parseClassifiers from './parse-classifiers'
+import parseNameAndAdditives from './parse-name-and-additives'
 
-const parseDatestamp = require('./parse-datestamp')
-const parseClassifiers = require('./parse-classifiers')
-const parseNameAndAdditives = require('./parse-name-and-additives')
-
-const matchLineName = require('./match-line-name')
+import matchLineName from './match-line-name'
 
 // METHODS
 
@@ -20,7 +18,7 @@ const matchLineName = require('./match-line-name')
  * @param {string} canteenId The id of the canteen currently being parsed.
  * @returns {object[]} Parsed line contents.
  */
-function parseLines ($, $table, canteenId) {
+function parseLines ($: CheerioAPI, $table: Cheerio<Element>, canteenId: string): object[] {
   const $rows = $table.children('tbody').children('tr')
   return $rows.map((_, el) => parseLine($, $(el), canteenId)).get()
 }
@@ -28,17 +26,17 @@ function parseLines ($, $table, canteenId) {
 /**
  * Parse a single line. The result is an object containing `name`, `meals`.
  *
- * Returns null if unexpected content is encountered.
+ * Returns undefined if unexpected content is encountered.
  *
  * @param {object} $ Cheerio reference.
  * @param {object} $row The table row containing the line.
  * @param {string} canteenId The id of the canteen currently being parsed.
  * @returns {?object} Parsed line content.
  */
-function parseLine ($, $row, canteenId) {
+function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): object | undefined {
   const $cells = $row.children()
   if ($cells.length !== 2) {
-    return null
+    return undefined
   }
 
   // replace <br> in name with newlines (cheerio issue #839)
@@ -46,7 +44,8 @@ function parseLine ($, $row, canteenId) {
   $cells.eq(0).find('br').replaceWith('\n')
 
   const name = mergeWhitespace($cells.eq(0).text())
-  const id = matchLineName(canteenId, name)
+  // use null when id undefined, for better JSON output
+  const id = matchLineName(canteenId, name) ?? null
 
   const $mealsTable = $cells.eq(1).children('table')
   if ($mealsTable.length === 1) {
@@ -64,25 +63,25 @@ function parseLine ($, $row, canteenId) {
  * @param {object} $table The table containing all meals for the line.
  * @returns {object[]} Parsed meals.
  */
-function parseMeals ($, $table) {
+function parseMeals ($: CheerioAPI, $table: Cheerio<Element>): object[] {
   const $rows = $table.children('tbody').children('tr')
-  return $rows.map((_, el) => parseMeal($, $(el))).get()
+  return $rows.map((_: any, el: any) => parseMeal($, $(el))).get()
 }
 
 /**
  * Parse a single meal. The result is an object containing `name`, `price`,
  * `classifiers` and `additives`.
  *
- * Returns null if unexpected content is encountered.
+ * Returns undefined if unexpected content is encountered.
  *
  * @param {object} $ Cheerio reference.
  * @param {object} $row The table row containing the meal.
  * @returns {?object} Parsed meal object.
  */
-function parseMeal ($, $row) {
+function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): object | undefined {
   const $cells = $row.children()
   if ($cells.length !== 3) {
-    return null
+    return undefined
   }
 
   const classifiers = parseClassifiers($cells.eq(0).text())
@@ -111,7 +110,8 @@ function parseMeal ($, $row) {
  * @param {Date} referenceDate The date of plan acquisition, for reference.
  * @returns {object[]} The parse results.
  */
-function parse (html, canteenId, referenceDate) {
+export default
+function parse (html: string, canteenId: string, referenceDate: Date): object[] {
   const $ = cheerio.load(html)
   const $titles = $('#platocontent > h1')
 
@@ -122,7 +122,7 @@ function parse (html, canteenId, referenceDate) {
   return $titles.slice(1, 6).map((_, el) => {
     const dateElement = $(el)
     const date = parseDatestamp(dateElement.text(), referenceDate)
-    if (date) {
+    if (date != null) {
       return {
         id: canteenId,
         name: canteenName,
@@ -134,5 +134,3 @@ function parse (html, canteenId, referenceDate) {
     return undefined
   }).get()
 }
-
-module.exports = parse

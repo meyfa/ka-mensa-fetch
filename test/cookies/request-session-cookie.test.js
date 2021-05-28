@@ -6,9 +6,9 @@ const { expect } = chai
 
 const MockAdapter = require('axios-mock-adapter')
 
-const requestSessionCookie = require('../../src/cookies/request-session-cookie.js')
+const requestSessionCookie = require('../../src/cookies/request-session-cookie').default
 
-describe('cookies/request-session-cookie.js', function () {
+describe('cookies/request-session-cookie', function () {
   let mock
 
   beforeEach(function () {
@@ -28,15 +28,15 @@ describe('cookies/request-session-cookie.js', function () {
     return expect(requestSessionCookie()).to.eventually.be.fulfilled
   })
 
-  it('returns null for missing set-cookie', function () {
+  it('returns undefined for missing set-cookie', function () {
     return Promise.resolve().then(() => {
       mock.reset()
       mock.onAny().replyOnce(200, 'test-response')
-      return expect(requestSessionCookie()).to.eventually.be.null
+      return expect(requestSessionCookie()).to.eventually.be.undefined
     }).then(() => {
       mock.reset()
       mock.onAny().replyOnce(200, 'test-response', { 'x-some-header': 'xyz' })
-      return expect(requestSessionCookie()).to.eventually.be.null
+      return expect(requestSessionCookie()).to.eventually.be.undefined
     })
   })
 
@@ -44,7 +44,7 @@ describe('cookies/request-session-cookie.js', function () {
     mock.onAny().replyOnce(200, 'test-response', {
       'set-cookie': 'someCookie=xyz; path=/'
     })
-    return expect(requestSessionCookie()).to.eventually.be.null
+    return expect(requestSessionCookie()).to.eventually.be.undefined
   })
 
   it('returns platoCMS cookie if exists', function () {

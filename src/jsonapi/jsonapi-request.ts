@@ -1,6 +1,4 @@
-'use strict'
-
-const axios = require('axios')
+import axios from 'axios'
 
 // CONSTANTS
 
@@ -9,6 +7,7 @@ const axios = require('axios')
  *
  * @type {string}
  */
+export
 const METADATA_ENDPOINT = 'https://www.sw-ka.de/json_interface/general/'
 
 /**
@@ -16,6 +15,7 @@ const METADATA_ENDPOINT = 'https://www.sw-ka.de/json_interface/general/'
  *
  * @type {string}
  */
+export
 const PLANS_ENDPOINT = 'https://www.sw-ka.de/json_interface/canteen/'
 
 /**
@@ -34,14 +34,21 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
 // MAIN EXPORT
 
+export
+interface AuthConfig {
+  user: string
+  password: string
+}
+
 /**
  * Make a request to the specified JSON API endpoint.
  *
  * @param {object} auth Authentication (user, password) for the API.
  * @param {string} endpoint The endpoint (METADATA_ENDPOINT, PLANS_ENDPOINT).
- * @returns {Promise<string>} Resolves to HTML code on success (unprocessed).
+ * @returns {Promise<object>} Resolves to JSON object on success.
  */
-async function request (auth, endpoint) {
+export default
+async function request (auth: AuthConfig, endpoint: string): Promise<object> {
   if (endpoint !== METADATA_ENDPOINT && endpoint !== PLANS_ENDPOINT) {
     throw new Error('invalid endpoint specified')
   }
@@ -57,9 +64,3 @@ async function request (auth, endpoint) {
 
   return response.data
 }
-
-module.exports = request
-
-module.exports.METADATA_ENDPOINT = METADATA_ENDPOINT
-
-module.exports.PLANS_ENDPOINT = PLANS_ENDPOINT

@@ -1,6 +1,4 @@
-'use strict'
-
-const axios = require('axios')
+import axios from 'axios'
 
 // CONSTANTS
 
@@ -43,24 +41,24 @@ const COOKIE_REGEXP = /platoCMS=(\w+);/
  * Find the session cookie from the given headers object.
  *
  * @param {?object} headers The response headers object.
- * @returns {string|null} The cookie if present.
+ * @returns {?string} The cookie if present.
  */
-function findCookie (headers) {
-  const setCookie = headers['set-cookie']
-  if (!setCookie) {
-    return null
+function findCookie (headers?: { [key: string]: any }): string | undefined {
+  const setCookie = headers != null ? headers['set-cookie'] : undefined
+  if (setCookie == null) {
+    return undefined
   }
 
   const setCookieArray = Array.isArray(setCookie) ? setCookie : [setCookie]
 
   for (const item of setCookieArray) {
     const match = item.match(COOKIE_REGEXP)
-    if (match) {
+    if (match != null) {
       return match[1]
     }
   }
 
-  return null
+  return undefined
 }
 
 // MAIN EXPORT
@@ -68,9 +66,10 @@ function findCookie (headers) {
 /**
  * Obtain a session cookie from the sw-ka website. The cookie value is returned.
  *
- * @returns {Promise<string>} Resolves to the session cookie, or null on failure.
+ * @returns {Promise<string|undefined>} Resolves to the session cookie, or undefined on failure.
  */
-async function requestSessionCookie () {
+export default
+async function requestSessionCookie (): Promise<string|undefined> {
   const response = await axios.get(SITE_URL, {
     headers: {
       'User-Agent': USER_AGENT
@@ -78,7 +77,5 @@ async function requestSessionCookie () {
     timeout: REQUEST_TIMEOUT
   })
 
-  return response.headers ? findCookie(response.headers) : null
+  return findCookie(response.headers)
 }
-
-module.exports = requestSessionCookie

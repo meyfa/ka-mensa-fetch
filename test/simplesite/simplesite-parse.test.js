@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const parse = require('../../src/simplesite/simplesite-parse.js')
+const parse = require('../../src/simplesite/simplesite-parse').default
 
-describe('simplesite/simplesite-parse.js', function () {
+describe('simplesite/simplesite-parse', function () {
   it('can handle empty plan', function () {
     const str = '<!DOCYTPE html><html><body>' +
       '<div id="platocontent">' +

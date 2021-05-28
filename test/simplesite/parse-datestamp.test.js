@@ -4,17 +4,17 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const parseDatestamp = require('../../src/simplesite/parse-datestamp.js')
+const parseDatestamp = require('../../src/simplesite/parse-datestamp').default
 
-describe('simplesite/parse-datestamp.js', function () {
-  it("returns null for invalid input ('')", function () {
+describe('simplesite/parse-datestamp', function () {
+  it("returns undefined for invalid input ('')", function () {
     const ref = new Date(2019, 10, 30)
-    return expect(parseDatestamp('', ref)).to.be.null
+    return expect(parseDatestamp('', ref)).to.be.undefined
   })
 
-  it("returns null for implausible input ('Mo 40.05.')", function () {
+  it("returns undefined for implausible input ('Mo 40.05.')", function () {
     const ref = new Date(2019, 10, 30)
-    return expect(parseDatestamp('Mo 40.05.', ref)).to.be.null
+    return expect(parseDatestamp('Mo 40.05.', ref)).to.be.undefined
   })
 
   it("parses 'Mo 02.12.' with reference 2019-10-30", function () {

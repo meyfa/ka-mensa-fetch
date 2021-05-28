@@ -1,5 +1,3 @@
-'use strict'
-
 // CONSTANTS
 
 /**
@@ -19,12 +17,11 @@ const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/
  * @param {string} str The classifiers string.
  * @returns {string[]} The classifiers array.
  */
-function parseClassifiers (str) {
+export default
+function parseClassifiers (str: string): string[] {
   const match = str.match(CLASSIFIERS_REGEXP)
-  if (match) {
+  if (match != null) {
     return match[1].split(/\s*,\s*/)
   }
   return []
 }
-
-module.exports = parseClassifiers

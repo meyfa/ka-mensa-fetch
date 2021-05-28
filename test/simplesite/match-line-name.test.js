@@ -4,15 +4,15 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const matchLineName = require('../../src/simplesite/match-line-name.js')
+const matchLineName = require('../../src/simplesite/match-line-name').default
 
-describe('simplesite/match-line-name.js', function () {
-  it('returns null for invalid canteen id', function () {
-    return expect(matchLineName('foobar', 'l1')).to.be.null
+describe('simplesite/match-line-name', function () {
+  it('returns undefined for invalid canteen id', function () {
+    return expect(matchLineName('foobar', 'l1')).to.be.undefined
   })
 
-  it('returns null for unknown line name', function () {
-    return expect(matchLineName('adenauerring', 'Unbekannte Linie')).to.be.null
+  it('returns undefined for unknown line name', function () {
+    return expect(matchLineName('adenauerring', 'Unbekannte Linie')).to.be.undefined
   })
 
   it("matches 'Linie 1' (adenauerring)", function () {

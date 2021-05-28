@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const mergeWhitespace = require('../../src/util/merge-whitespace.js')
+const mergeWhitespace = require('../../src/util/merge-whitespace').default
 
-describe('util/merge-whitespace.js', function () {
+describe('util/merge-whitespace', function () {
   it('leaves empty string intact', function () {
     return expect(mergeWhitespace('')).to.equal('')
   })

@@ -1,5 +1,3 @@
-'use strict'
-
 // CONSTANTS
 
 /**
@@ -20,7 +18,7 @@ const DATE_REGEXP = /^\s*(?:Mo|Di|Mi|Do|Fr|Sa|So)\s*(\d+)\.(\d+)\.\s*$/
  * @param {number} month The month for which year should be guessed.
  * @returns {number} The most likely year.
  */
-function guessYear (refYear, refMonth, month) {
+function guessYear (refYear: number, refMonth: number, month: number): number {
   // split the reference year into 3 sections and check whether the given month
   // lies reasonably close to the reference third;
   // if it does, year is probably the reference year;
@@ -45,16 +43,17 @@ function guessYear (refYear, refMonth, month) {
  * date.
  *
  * The returned object has keys `day` (1..31), `month` (0..11), `year` (...).
- * If invalid input was given, null is returned.
+ * If invalid input was given, undefined is returned.
  *
  * @param {string} str String to be parsed.
  * @param {Date} reference The reference date for year guessing.
  * @returns {?object} An object containing integers: day, month, year.
  */
-function parseDatestamp (str, reference) {
+export default
+function parseDatestamp (str: string, reference: Date): object | undefined {
   const match = str.match(DATE_REGEXP)
-  if (!match) {
-    return null
+  if (match == null) {
+    return undefined
   }
 
   const day = parseInt(match[1], 10)
@@ -62,7 +61,7 @@ function parseDatestamp (str, reference) {
 
   // plausibility check
   if (day < 1 || day > 31 || month < 0 || month > 11) {
-    return null
+    return undefined
   }
 
   const refYear = reference.getFullYear()
@@ -72,5 +71,3 @@ function parseDatestamp (str, reference) {
   // JS Date has month run from 0 to 11, inclusive
   return { day, month, year }
 }
-
-module.exports = parseDatestamp

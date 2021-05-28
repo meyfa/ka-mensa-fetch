@@ -4,9 +4,9 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 const { expect } = chai
 
-const parseNameAndAdditives = require('../../src/simplesite/parse-name-and-additives.js')
+const parseNameAndAdditives = require('../../src/simplesite/parse-name-and-additives').default
 
-describe('simplesite/parse-name-and-additives.js', function () {
+describe('simplesite/parse-name-and-additives', function () {
   it('parses empty input correctly', function () {
     return expect(parseNameAndAdditives('')).to.deep.equal({
       name: '',
