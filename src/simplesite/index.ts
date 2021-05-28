@@ -1,15 +1,9 @@
 import canteens from '../../data/canteens.json'
 import request from './simplesite-request'
 import parse from './simplesite-parse'
-
 import { getCurrentWeek, isDateSupported, convertToWeeks } from './simplesite-date-util'
-
-interface SimpleSiteOptions {
-  canteens?: string[]
-  dates?: Array<string | object>
-  sessionCookie?: string
-  parallel?: boolean
-}
+import { CanteenPlan } from '../types/canteen-plan'
+import { SimpleSiteOptions } from '../types/options'
 
 // CONSTANTS
 
@@ -30,7 +24,7 @@ const CANTEEN_IDS = Object.freeze(canteens.map(c => c.id))
  * @param {?string} sessionCookie Value of the session cookie.
  * @returns {Promise<object[]>} Parsed results.
  */
-async function fetchSingle (canteenId: string, weekId: string | number, sessionCookie?: string): Promise<object[]> {
+async function fetchSingle (canteenId: string, weekId: string | number, sessionCookie?: string): Promise<CanteenPlan[]> {
   const html = await request(canteenId, weekId, sessionCookie)
   const reference = new Date()
 
@@ -51,14 +45,13 @@ async function fetchSingle (canteenId: string, weekId: string | number, sessionC
  * @param {?object} options The fetcher options.
  * @returns {Promise<object[]>} Parsed results.
  */
-export default
-async function fetch (options?: SimpleSiteOptions): Promise<object[]> {
-  const ids = options?.canteens ?? CANTEEN_IDS
-  const weeks = options?.dates != null
+export default async function fetch (options: SimpleSiteOptions): Promise<CanteenPlan[]> {
+  const ids = options.canteens ?? CANTEEN_IDS
+  const weeks = options.dates != null
     ? convertToWeeks(options.dates.filter(isDateSupported))
     : [getCurrentWeek()]
-  const sessionCookie = options?.sessionCookie
-  const parallel = options?.parallel ?? false
+  const sessionCookie = options.sessionCookie
+  const parallel = options.parallel ?? false
 
   const promises: Array<Promise<any>> = []
 

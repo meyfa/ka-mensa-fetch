@@ -1,11 +1,8 @@
-import request, { AuthConfig, METADATA_ENDPOINT, PLANS_ENDPOINT } from './jsonapi-request'
+import request, { METADATA_ENDPOINT, PLANS_ENDPOINT } from './jsonapi-request'
 import parseMetadata from './jsonapi-parse-metadata'
 import parsePlans from './jsonapi-parse-plans'
-
-interface JsonApiOptions {
-  auth: AuthConfig
-  parallel?: boolean
-}
+import { JsonApiOptions } from '../types/options'
+import { CanteenPlan } from '../types/canteen-plan'
 
 /**
  * Fetch the JSON API plan and parse it.
@@ -17,8 +14,7 @@ interface JsonApiOptions {
  * @param {object} options The fetcher options.
  * @returns {Promise<object[]>} Parsed results.
  */
-export default
-async function fetch (options: JsonApiOptions): Promise<object[]> {
+export default async function fetch (options: JsonApiOptions): Promise<CanteenPlan[]> {
   const auth = options?.auth
   if (auth == null) {
     throw new Error('auth option is required')

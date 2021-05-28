@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+// TYPES
+
+interface Headers {
+  [key: string]: string | string[]
+}
+
 // CONSTANTS
 
 /**
@@ -43,7 +49,7 @@ const COOKIE_REGEXP = /platoCMS=(\w+);/
  * @param {?object} headers The response headers object.
  * @returns {?string} The cookie if present.
  */
-function findCookie (headers?: { [key: string]: any }): string | undefined {
+function findCookie (headers?: Headers): string | undefined {
   const setCookie = headers != null ? headers['set-cookie'] : undefined
   if (setCookie == null) {
     return undefined
@@ -68,8 +74,7 @@ function findCookie (headers?: { [key: string]: any }): string | undefined {
  *
  * @returns {Promise<string|undefined>} Resolves to the session cookie, or undefined on failure.
  */
-export default
-async function requestSessionCookie (): Promise<string|undefined> {
+export default async function requestSessionCookie (): Promise<string | undefined> {
   const response = await axios.get(SITE_URL, {
     headers: {
       'User-Agent': USER_AGENT

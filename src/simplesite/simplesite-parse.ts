@@ -7,6 +7,7 @@ import parseClassifiers from './parse-classifiers'
 import parseNameAndAdditives from './parse-name-and-additives'
 
 import matchLineName from './match-line-name'
+import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan'
 
 // METHODS
 
@@ -18,7 +19,7 @@ import matchLineName from './match-line-name'
  * @param {string} canteenId The id of the canteen currently being parsed.
  * @returns {object[]} Parsed line contents.
  */
-function parseLines ($: CheerioAPI, $table: Cheerio<Element>, canteenId: string): object[] {
+function parseLines ($: CheerioAPI, $table: Cheerio<Element>, canteenId: string): CanteenLine[] {
   const $rows = $table.children('tbody').children('tr')
   return $rows.map((_, el) => parseLine($, $(el), canteenId)).get()
 }
@@ -33,7 +34,7 @@ function parseLines ($: CheerioAPI, $table: Cheerio<Element>, canteenId: string)
  * @param {string} canteenId The id of the canteen currently being parsed.
  * @returns {?object} Parsed line content.
  */
-function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): object | undefined {
+function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): CanteenLine | undefined {
   const $cells = $row.children()
   if ($cells.length !== 2) {
     return undefined
@@ -50,10 +51,18 @@ function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): o
   const $mealsTable = $cells.eq(1).children('table')
   if ($mealsTable.length === 1) {
     const meals = parseMeals($, $mealsTable)
-    return { id, name, meals }
+    return {
+      id,
+      name,
+      meals
+    }
   }
 
-  return { id, name, meals: [] }
+  return {
+    id,
+    name,
+    meals: []
+  }
 }
 
 /**
@@ -63,9 +72,9 @@ function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): o
  * @param {object} $table The table containing all meals for the line.
  * @returns {object[]} Parsed meals.
  */
-function parseMeals ($: CheerioAPI, $table: Cheerio<Element>): object[] {
+function parseMeals ($: CheerioAPI, $table: Cheerio<Element>): CanteenMeal[] {
   const $rows = $table.children('tbody').children('tr')
-  return $rows.map((_: any, el: any) => parseMeal($, $(el))).get()
+  return $rows.map((__: number, el: Element) => parseMeal($, $(el))).get()
 }
 
 /**
@@ -78,17 +87,25 @@ function parseMeals ($: CheerioAPI, $table: Cheerio<Element>): object[] {
  * @param {object} $row The table row containing the meal.
  * @returns {?object} Parsed meal object.
  */
-function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): object | undefined {
+function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefined {
   const $cells = $row.children()
   if ($cells.length !== 3) {
     return undefined
   }
 
   const classifiers = parseClassifiers($cells.eq(0).text())
-  const { name, additives } = parseNameAndAdditives($cells.eq(1).text())
+  const {
+    name,
+    additives
+  } = parseNameAndAdditives($cells.eq(1).text())
   const price = $cells.eq(2).text().trim()
 
-  return { name, price, classifiers, additives }
+  return {
+    name,
+    price,
+    classifiers,
+    additives
+  }
 }
 
 // MAIN EXPORT
@@ -110,8 +127,7 @@ function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): object | undefined {
  * @param {Date} referenceDate The date of plan acquisition, for reference.
  * @returns {object[]} The parse results.
  */
-export default
-function parse (html: string, canteenId: string, referenceDate: Date): object[] {
+export default function parse (html: string, canteenId: string, referenceDate: Date): CanteenPlan[] {
   const $ = cheerio.load(html)
   const $titles = $('#platocontent > h1')
 

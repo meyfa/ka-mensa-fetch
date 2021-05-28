@@ -33,8 +33,7 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
  * @param {?string} sessionCookie Value of the session cookie.
  * @returns {Promise<string>} Resolves to HTML code on success (unprocessed).
  */
-export default
-async function request (canteenId: string, weekId: string | number, sessionCookie?: string): Promise<string> {
+export default async function request (canteenId: string, weekId: string | number, sessionCookie?: string): Promise<string> {
   const headers = {
     Cookie: sessionCookie != null && sessionCookie !== '' ? `platoCMS=${sessionCookie}` : undefined
   }

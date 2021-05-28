@@ -6,9 +6,9 @@ import canteens from '../../data/canteens.json'
  * A Map from canteen ids to Maps from line names to line ids.
  * I.e. schema: (canteenId => (lineName => lineId))
  *
- * @type {object}
+ * @type {Map<string, Map<string, string>>}
  */
-const LINE_IDS_MAPPING = (() => {
+const LINE_IDS_MAPPING: Map<string, Map<string, string>> = (() => {
   const mapping = new Map()
 
   for (const canteen of canteens) {
@@ -34,12 +34,11 @@ const LINE_IDS_MAPPING = (() => {
  * @param {string} name The human-readable line name.
  * @returns {?string} The line id.
  */
-export default
-function matchLineName (canteenId: string, name: string): string | undefined {
+export default function matchLineName (canteenId: string, name: string): string | undefined {
   // sanity check canteenId
-  if (!LINE_IDS_MAPPING.has(canteenId)) {
+  const lineNameToIdMap = LINE_IDS_MAPPING.get(canteenId)
+  if (lineNameToIdMap == null) {
     return undefined
   }
-  // sanitize and lookup
-  return LINE_IDS_MAPPING.get(canteenId).get(name.trim())
+  return lineNameToIdMap.get(name.trim())
 }

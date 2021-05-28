@@ -1,17 +1,8 @@
+import { Line, Canteen } from '../types/canteen'
+
 // TYPES
 
-interface Line {
-  id: string
-  name: string
-}
-
-interface CanteenWithArray {
-  id: string
-  name: string
-  lines: Line[]
-}
-
-interface CanteenWithMap {
+export interface MappedCanteen {
   id: string
   name: string
   lines: Map<string, Line>
@@ -25,10 +16,13 @@ interface CanteenWithMap {
  * @param {object[]} array The canteens array.
  * @returns {Map} The generated Map.
  */
-function toCanteenMap (array: CanteenWithArray[]): Map<string, CanteenWithMap> {
+function toCanteenMap (array: Canteen[]): Map<string, MappedCanteen> {
   return new Map(array.map(canteen => {
     const lineMap = new Map(canteen.lines.map(line => [line.id, line]))
-    return [canteen.id, { ...canteen, lines: lineMap }]
+    return [canteen.id, {
+      ...canteen,
+      lines: lineMap
+    }]
   }))
 }
 
@@ -42,7 +36,7 @@ function toCanteenMap (array: CanteenWithArray[]): Map<string, CanteenWithMap> {
  * @param {?object} second The second canteen object.
  * @returns {object} The merged canteen object.
  */
-function mergeCanteen (first: CanteenWithMap, second?: CanteenWithMap): CanteenWithMap {
+function mergeCanteen (first: MappedCanteen, second?: MappedCanteen): MappedCanteen {
   if (second == null) return first
 
   const linesMap = new Map()
@@ -51,7 +45,11 @@ function mergeCanteen (first: CanteenWithMap, second?: CanteenWithMap): CanteenW
     linesMap.set(line.id, mergeLine(line, eLine))
   }
 
-  return { ...first, ...second, lines: linesMap }
+  return {
+    ...first,
+    ...second,
+    lines: linesMap
+  }
 }
 
 /**
@@ -62,7 +60,7 @@ function mergeCanteen (first: CanteenWithMap, second?: CanteenWithMap): CanteenW
  * @param {?object} second The second line object.
  * @returns {object} The merged line object.
  */
-function mergeLine (first: object, second?: object): object {
+function mergeLine (first: Line, second?: Line): Line {
   if (second == null) return first
   return { ...first, ...second }
 }
@@ -85,8 +83,7 @@ function mergeLine (first: object, second?: object): object {
  * @param {?(object[])} extend The overriding canteen data.
  * @returns {Map} The lookup table.
  */
-export default
-function buildCanteenLookup (base: CanteenWithArray[], extend?: CanteenWithArray[]): Map<string, CanteenWithMap> {
+export default function buildCanteenLookup (base: Canteen[], extend?: Canteen[]): Map<string, MappedCanteen> {
   const baseMap = toCanteenMap(base)
   if (extend == null) return baseMap
   const extendMap = toCanteenMap(extend)

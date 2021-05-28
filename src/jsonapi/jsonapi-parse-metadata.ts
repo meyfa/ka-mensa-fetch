@@ -1,9 +1,11 @@
-interface Metadata {
+import { Canteen, Line } from '../types/canteen'
+
+export interface UnparsedMetadata {
   mensa?: {
     [key: string]: {
       name?: string
       lines?: {
-        [key: string]: {}
+        [key: string]: string
       }
     }
   }
@@ -16,23 +18,25 @@ interface Metadata {
  * @param {object} json The JSON general data to parse.
  * @returns {object[]} The parse results.
  */
-export default
-function parseMetadata (json: Metadata): object[] {
-  const canteens: object[] = []
+export default function parseMetadata (json: UnparsedMetadata): Canteen[] {
+  const canteens: Canteen[] = []
 
   if (json.mensa == null) return canteens
 
   for (const canteenId of Object.keys(json.mensa)) {
-    const lines = []
+    const lines: Line[] = []
     const linesProp = json.mensa[canteenId].lines
     if (linesProp != null) {
       for (const lineId of Object.keys(linesProp)) {
-        lines.push({ id: lineId, name: linesProp[lineId] })
+        lines.push({
+          id: lineId,
+          name: linesProp[lineId]
+        })
       }
     }
     canteens.push({
       id: canteenId,
-      name: json.mensa[canteenId].name,
+      name: json.mensa[canteenId].name ?? '',
       lines: lines
     })
   }

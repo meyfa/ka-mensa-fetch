@@ -1,13 +1,10 @@
 import moment from 'moment'
 
 import canteens from '../../data/canteens.json'
-import buildCanteenLookup from './build-canteen-lookup'
-
-interface DateSpec {
-  year: number
-  month: number
-  day: number
-}
+import buildCanteenLookup, { MappedCanteen } from './build-canteen-lookup'
+import DateSpec from '../types/date-spec'
+import { CanteenPlan, CanteenLine, CanteenMeal } from '../types/canteen-plan'
+import { Canteen } from '../types/canteen'
 
 // CONSTANTS
 
@@ -69,7 +66,7 @@ function isReliable (date: DateSpec, reference: Date): boolean {
  * @param {object} data The meal entry.
  * @returns {object} The parsed meal object (name, price, classifiers, additives).
  */
-function parseMeal (data: any): object | undefined {
+function parseMeal (data: any): CanteenMeal | undefined {
   if (typeof data.meal !== 'string') {
     return undefined
   }
@@ -121,10 +118,11 @@ function getClassifiers (mealData: { [key: string]: any }): string[] {
 
 /**
  * @param {object} mealData The meal entry.
+ * @param {string[]} mealData.add Additives attribute of meal entry.
  * @returns {string[]} An array of additives for the given meal.
  */
-function getAdditives (mealData: any): string[] {
-  return mealData.add.filter((str: any) => str != null && str !== '')
+function getAdditives (mealData: { add: string[] }): string[] {
+  return mealData.add.filter(str => str != null && str !== '')
 }
 
 // NESTED LAYER PARSING
@@ -135,15 +133,20 @@ function getAdditives (mealData: any): string[] {
  * @param {object} planMapping The object from which to parse the days.
  * @returns {object[]} An array of parsed plan objects, one for each day.
  */
-function parseDays (referenceDate: Date, canteen: any, planMapping: any): object[] {
-  const days = []
+function parseDays (referenceDate: Date, canteen: MappedCanteen, planMapping: any): CanteenPlan[] {
+  const days: CanteenPlan[] = []
   for (const unixTimestamp of Object.keys(planMapping)) {
     const date = convertTimestampToDateObject(parseInt(unixTimestamp, 10))
     if (!isReliable(date, referenceDate)) {
       continue
     }
     const lines = parseLines(canteen, planMapping[unixTimestamp])
-    days.push({ id: canteen.id, name: canteen.name, date, lines })
+    days.push({
+      id: canteen.id,
+      name: canteen.name,
+      date,
+      lines
+    })
   }
   return days
 }
@@ -153,15 +156,19 @@ function parseDays (referenceDate: Date, canteen: any, planMapping: any): object
  * @param {object} lineMapping The object from which to parse the lines.
  * @returns {object[]} An array of parsed line objects.
  */
-function parseLines (canteen: any, lineMapping: any): object[] {
-  const lines = []
+function parseLines (canteen: MappedCanteen, lineMapping: any): CanteenLine[] {
+  const lines: CanteenLine[] = []
   for (const lineId of Object.keys(lineMapping)) {
     const line = canteen.lines.get(lineId)
     if (line == null) {
       continue
     }
     const meals = lineMapping[lineId].map(parseMeal).filter((meal: any) => meal != null)
-    lines.push({ id: line.id, name: line.name, meals })
+    lines.push({
+      id: line.id,
+      name: line.name,
+      meals
+    })
   }
   return lines
 }
@@ -184,15 +191,13 @@ function parseLines (canteen: any, lineMapping: any): object[] {
  * @param {?(object[])} metadata A supplementary 'canteens.json'-like structure.
  * @returns {object[]} The parse results.
  */
-export default
-function parsePlans (json: any, referenceDate: Date, metadata?: object[]): object[] {
-  // TODO improve typing
-  const lookup = buildCanteenLookup(canteens, metadata as any)
+export default function parsePlans (json: any, referenceDate: Date, metadata?: Canteen[]): CanteenPlan[] {
+  const lookup: Map<string, MappedCanteen> = buildCanteenLookup(canteens, metadata)
 
   // the JSON is structured as follows:
   // canteenId => unixTimestamp => lineId => [meals]
 
-  const plans = []
+  const plans: CanteenPlan[] = []
   for (const canteenId of Object.keys(json)) {
     const canteen = lookup.get(canteenId)
     if (canteen != null) {

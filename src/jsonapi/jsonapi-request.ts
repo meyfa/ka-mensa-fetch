@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { AuthConfig } from '../types/options'
+
 // CONSTANTS
 
 /**
@@ -7,16 +9,14 @@ import axios from 'axios'
  *
  * @type {string}
  */
-export
-const METADATA_ENDPOINT = 'https://www.sw-ka.de/json_interface/general/'
+export const METADATA_ENDPOINT = 'https://www.sw-ka.de/json_interface/general/'
 
 /**
  * URL of the JSON API canteen endpoint.
  *
  * @type {string}
  */
-export
-const PLANS_ENDPOINT = 'https://www.sw-ka.de/json_interface/canteen/'
+export const PLANS_ENDPOINT = 'https://www.sw-ka.de/json_interface/canteen/'
 
 /**
  * Conservative request timeout in milliseconds.
@@ -34,12 +34,6 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
 // MAIN EXPORT
 
-export
-interface AuthConfig {
-  user: string
-  password: string
-}
-
 /**
  * Make a request to the specified JSON API endpoint.
  *
@@ -47,8 +41,7 @@ interface AuthConfig {
  * @param {string} endpoint The endpoint (METADATA_ENDPOINT, PLANS_ENDPOINT).
  * @returns {Promise<object>} Resolves to JSON object on success.
  */
-export default
-async function request (auth: AuthConfig, endpoint: string): Promise<object> {
+export default async function request (auth: AuthConfig, endpoint: string): Promise<object> {
   if (endpoint !== METADATA_ENDPOINT && endpoint !== PLANS_ENDPOINT) {
     throw new Error('invalid endpoint specified')
   }

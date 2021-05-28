@@ -1,5 +1,7 @@
 // CONSTANTS
 
+import DateSpec from '../types/date-spec'
+
 /**
  * RegExp for parsing date strings of the following form: "Mo 02.12.".
  * First group: day (1..31), second group: month (1..12).
@@ -49,8 +51,7 @@ function guessYear (refYear: number, refMonth: number, month: number): number {
  * @param {Date} reference The reference date for year guessing.
  * @returns {?object} An object containing integers: day, month, year.
  */
-export default
-function parseDatestamp (str: string, reference: Date): object | undefined {
+export default function parseDatestamp (str: string, reference: Date): DateSpec | undefined {
   const match = str.match(DATE_REGEXP)
   if (match == null) {
     return undefined
@@ -69,5 +70,9 @@ function parseDatestamp (str: string, reference: Date): object | undefined {
   const year = guessYear(refYear, refMonth, month)
 
   // JS Date has month run from 0 to 11, inclusive
-  return { day, month, year }
+  return {
+    day,
+    month,
+    year
+  }
 }
