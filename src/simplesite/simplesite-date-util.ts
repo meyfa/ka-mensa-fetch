@@ -1,6 +1,8 @@
 import moment, { Moment } from 'moment'
 import DateSpec from '../types/date-spec'
 
+// TYPES
+
 type datelike = DateSpec | Date | string | number | Moment
 
 // EXPORTS

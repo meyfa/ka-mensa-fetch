@@ -1,6 +1,6 @@
-// CONSTANTS
-
 import DateSpec from '../types/date-spec'
+
+// CONSTANTS
 
 /**
  * RegExp for parsing date strings of the following form: "Mo 02.12.".

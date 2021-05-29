@@ -1,5 +1,8 @@
 import { Canteen, Line } from '../types/canteen'
 
+/**
+ * The structure that might be returned by the JSON API.
+ */
 export interface UnparsedMetadata {
   mensa?: {
     [key: string]: {

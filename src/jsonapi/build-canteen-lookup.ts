@@ -2,6 +2,9 @@ import { Line, Canteen } from '../types/canteen'
 
 // TYPES
 
+/**
+ * A Canteen object but using a Map for mapping line id's to Line objects-
+ */
 export interface MappedCanteen {
   id: string
   name: string
