@@ -3,4 +3,4 @@ extends:
   - 'plugin:jsdoc/recommended'
 
 parserOptions:
-  project: './tsconfig.json'
+  project: './tsconfig.eslint.json'

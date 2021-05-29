@@ -1,10 +1,8 @@
-'use strict'
+import buildCanteenLookup from '../../src/jsonapi/build-canteen-lookup'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const buildCanteenLookup = require('../../src/jsonapi/build-canteen-lookup').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('jsonapi/build-canteen-lookup', function () {
   it('creates a map for base array', function () {
@@ -30,14 +28,14 @@ describe('jsonapi/build-canteen-lookup', function () {
 
     expect([...result.keys()]).to.have.members(['a', 'b'])
 
-    const a = result.get('a')
+    const a = result.get('a') as any
     expect(a.id).to.equal('a')
     expect(a.name).to.equal('A')
     expect([...a.lines.keys()]).to.have.members(['a1', 'a2'])
     expect(a.lines.get('a1')).to.deep.equal({ id: 'a1', name: 'A1' })
     expect(a.lines.get('a2')).to.deep.equal({ id: 'a2', name: 'A2' })
 
-    const b = result.get('b')
+    const b = result.get('b') as any
     expect(b.id).to.equal('b')
     expect(b.name).to.equal('B')
     expect([...b.lines.keys()]).to.have.members(['b1'])
@@ -74,7 +72,7 @@ describe('jsonapi/build-canteen-lookup', function () {
 
     expect([...result.keys()]).to.have.members(['a', 'b'])
 
-    const a = result.get('a')
+    const a = result.get('a') as any
     expect(a.id).to.equal('a')
     expect(a.name).to.equal('A-override')
     expect([...a.lines.keys()]).to.have.members(['a1', 'a2'])
@@ -100,9 +98,10 @@ describe('jsonapi/build-canteen-lookup', function () {
       }
     ]
 
-    const result = buildCanteenLookup(base, extend)
+    // TODO fix type of extend
+    const result = buildCanteenLookup(base, extend as any)
 
-    const a = result.get('a')
+    const a = result.get('a') as any
     expect(a.id).to.equal('a')
     expect(a.name).to.equal('A')
     expect([...a.lines.keys()]).to.have.members(['a1', 'a2'])

@@ -14,8 +14,8 @@
     "build": "npm run clean && npm run compile",
     "lint": "eslint --ignore-path .gitignore .",
     "lint-fix": "eslint --fix --ignore-path .gitignore .",
-    "test": "npm run clean && ts-mocha --recursive",
-    "coverage": "nyc --reporter=lcov --all --include \"src/**/*.js\" npm test",
+    "test": "npm run clean && ts-mocha --recursive test/**/*.test.*",
+    "coverage": "nyc --reporter=lcov --all --include \"src/**/*.ts\" npm test",
     "prepack": "echo \"Must pack/publish from ./dist\" && exit 1"
   },
   "repository": {
@@ -39,6 +39,9 @@
     "node": ">=10.0.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.18",
+    "@types/chai-as-promised": "^7.1.4",
+    "@types/mocha": "^8.2.2",
     "@types/node": "^15.6.1",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "axios-mock-adapter": "^1.19.0",

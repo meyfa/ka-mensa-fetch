@@ -1,27 +1,16 @@
-'use strict'
+import request from '../../src/simplesite/simplesite-request'
+import LazyMockAdapter from '../helper-lazymockadapter'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const MockAdapter = require('axios-mock-adapter')
-
-const request = require('../../src/simplesite/simplesite-request').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('simplesite/simplesite-request', function () {
-  let mock
-
-  beforeEach(function () {
-    mock = new MockAdapter(require('axios'), { onNoMatch: 'throwException' })
-  })
-
-  afterEach(function () {
-    mock.restore()
-    mock = null
-  })
+  const lazyMock = new LazyMockAdapter()
+  afterEach(() => lazyMock.restore())
 
   it('sends request as expected', function () {
-    mock.onAny().replyOnce(config => {
+    lazyMock.get().onAny().replyOnce(config => {
       expect(config.url).to.equal('https://www.sw-ka.de/de/essen/')
       expect(config.method).to.equal('get')
       expect(config.params).to.deep.equal({
@@ -37,7 +26,7 @@ describe('simplesite/simplesite-request', function () {
   })
 
   it('returns data as-is', function () {
-    mock.onAny().replyOnce(config => {
+    lazyMock.get().onAny().replyOnce(() => {
       return [200, { some: { data: 42 } }]
     })
     return expect(request('test-canteen', 11))
@@ -45,7 +34,7 @@ describe('simplesite/simplesite-request', function () {
   })
 
   it('includes session cookie if provided', function () {
-    mock.onAny().replyOnce(config => {
+    lazyMock.get().onAny().replyOnce(config => {
       expect(config.headers).to.have.property('Cookie').that.equals('platoCMS=qux42baz')
       return [200, { some: { data: 42 } }]
     })

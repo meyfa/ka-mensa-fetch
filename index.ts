@@ -58,9 +58,9 @@ async function fetch (options?: Options): Promise<CanteenPlan[]> {
 
   switch (source) {
     case 'simplesite':
-      return await fetchSimpleSite(mergedOptions as SimpleSiteOptions)
+      return fetchSimpleSite(mergedOptions as SimpleSiteOptions)
     case 'jsonapi':
-      return await fetchJSON(mergedOptions as JsonApiOptions)
+      return fetchJSON(mergedOptions as JsonApiOptions)
   }
 }
 

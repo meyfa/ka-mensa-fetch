@@ -1,10 +1,8 @@
-'use strict'
+import parse from '../../src/jsonapi/jsonapi-parse-plans'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const parse = require('../../src/jsonapi/jsonapi-parse-plans').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('jsonapi/jsonapi-parse-plans', function () {
   it('can handle empty plan', function () {
@@ -117,7 +115,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
   })
 
   it('formats meal name correctly', function () {
-    const makeData = (meal, dish) => ({
+    const makeData = (meal: string, dish: string): object => ({
       adenauerring: {
         1597096800: {
           aktion: [
@@ -155,8 +153,8 @@ describe('jsonapi/jsonapi-parse-plans', function () {
   })
 
   it('formats meal price with info', function () {
-    // eslint-disable-next-line camelcase
-    const makeData = (price_1, info) => ({
+    // eslint-disable-next-line camelcase, @typescript-eslint/naming-convention
+    const makeData = (price_1: number, info: string): object => ({
       adenauerring: {
         1597096800: {
           aktion: [

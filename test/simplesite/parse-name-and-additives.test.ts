@@ -1,10 +1,8 @@
-'use strict'
+import parseNameAndAdditives from '../../src/simplesite/parse-name-and-additives'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const parseNameAndAdditives = require('../../src/simplesite/parse-name-and-additives').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('simplesite/parse-name-and-additives', function () {
   it('parses empty input correctly', function () {

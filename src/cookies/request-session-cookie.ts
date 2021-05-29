@@ -2,9 +2,7 @@ import axios from 'axios'
 
 // TYPES
 
-interface Headers {
-  [key: string]: string | string[]
-}
+type Headers = Record<string, string | string[]>
 
 // CONSTANTS
 

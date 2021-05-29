@@ -1,10 +1,8 @@
-'use strict'
+import matchLineName from '../../src/simplesite/match-line-name'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const matchLineName = require('../../src/simplesite/match-line-name').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('simplesite/match-line-name', function () {
   it('returns undefined for invalid canteen id', function () {

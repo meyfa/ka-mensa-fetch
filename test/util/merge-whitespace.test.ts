@@ -1,10 +1,8 @@
-'use strict'
+import mergeWhitespace from '../../src/util/merge-whitespace'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const mergeWhitespace = require('../../src/util/merge-whitespace').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('util/merge-whitespace', function () {
   it('leaves empty string intact', function () {

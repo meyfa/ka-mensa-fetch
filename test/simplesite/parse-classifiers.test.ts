@@ -1,10 +1,8 @@
-'use strict'
+import parseClassifiers from '../../src/simplesite/parse-classifiers'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const parseClassifiers = require('../../src/simplesite/parse-classifiers').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('simplesite/parse-classifiers', function () {
   it("returns [] for empty input ('')", function () {

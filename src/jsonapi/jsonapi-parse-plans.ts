@@ -14,7 +14,7 @@ import { Canteen } from '../types/canteen'
  *
  * @type {object}
  */
-const CLASSIFIER_MAPPING: { [key: string]: string } = Object.freeze({
+const CLASSIFIER_MAPPING: Readonly<Record<string, string>> = Object.freeze({
   bio: 'B',
   fish: 'MSC',
   pork: 'S',

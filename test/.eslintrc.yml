@@ -1,2 +1,10 @@
+root: true
+
+extends:
+  - 'standard-with-typescript'
+
+parserOptions:
+  project: '../tsconfig.eslint.json'
+
 env:
   mocha: true

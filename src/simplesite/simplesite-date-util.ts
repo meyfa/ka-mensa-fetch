@@ -1,7 +1,7 @@
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import DateSpec from '../types/date-spec'
 
-type datelike = DateSpec | Date | string | number
+type datelike = DateSpec | Date | string | number | Moment
 
 // EXPORTS
 
@@ -25,7 +25,7 @@ export function isDateSupported (date: datelike): boolean {
   const now = moment()
   const m = moment(date)
   // week must not be in the past and not too far in the future
-  return !m.isBefore(now, 'isoWeek') && m.diff(now, 'weeks') <= 6
+  return m.isSameOrAfter(now, 'isoWeek') as boolean && m.diff(now, 'weeks') <= 6
 }
 
 /**

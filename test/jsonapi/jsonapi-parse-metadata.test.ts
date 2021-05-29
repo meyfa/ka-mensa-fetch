@@ -1,10 +1,8 @@
-'use strict'
+import parse from '../../src/jsonapi/jsonapi-parse-metadata'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const parse = require('../../src/jsonapi/jsonapi-parse-metadata').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('jsonapi/jsonapi-parse-metadata', function () {
   it('can handle empty root', function () {

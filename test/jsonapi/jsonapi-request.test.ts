@@ -1,40 +1,29 @@
-'use strict'
+import request, { METADATA_ENDPOINT, PLANS_ENDPOINT } from '../../src/jsonapi/jsonapi-request'
+import LazyMockAdapter from '../helper-lazymockadapter'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const MockAdapter = require('axios-mock-adapter')
-
-const { default: request, METADATA_ENDPOINT, PLANS_ENDPOINT } = require('../../src/jsonapi/jsonapi-request')
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('jsonapi/jsonapi-request', function () {
-  let mock
-
-  beforeEach(function () {
-    mock = new MockAdapter(require('axios'), { onNoMatch: 'throwException' })
-  })
-
-  afterEach(function () {
-    mock.restore()
-    mock = null
-  })
+  const lazyMock = new LazyMockAdapter()
+  afterEach(() => lazyMock.restore())
 
   it('exports endpoint constants', function () {
     expect(METADATA_ENDPOINT).to.be.a('string')
     expect(PLANS_ENDPOINT).to.be.a('string')
   })
 
-  it('rejects for missing/wrong endpoint', function () {
-    return Promise.all([
-      expect(request({ user: 'a', password: 'b' })).to.eventually.be.rejected,
+  it('rejects for missing/wrong endpoint', async function () {
+    await Promise.all([
+      expect(request({ user: 'a', password: 'b' }, undefined as any)).to.eventually.be.rejected,
       expect(request({ user: 'a', password: 'b' }, 'invalid')).to.eventually.be.rejected
     ])
   })
 
   describe('with #METADATA_ENDPOINT', function () {
     it('sends request as expected', function () {
-      mock.onAny().replyOnce(config => {
+      lazyMock.get().onAny().replyOnce(config => {
         expect(config.url).to.equal('https://www.sw-ka.de/json_interface/general/')
         expect(config.method).to.equal('get')
         expect(config.auth).to.deep.equal({
@@ -48,7 +37,7 @@ describe('jsonapi/jsonapi-request', function () {
     })
 
     it('returns data as-is', function () {
-      mock.onAny().replyOnce(config => {
+      lazyMock.get().onAny().replyOnce(() => {
         return [200, { some: { data: 42 } }]
       })
       return expect(request({ user: 'a', password: 'b' }, METADATA_ENDPOINT))
@@ -58,7 +47,7 @@ describe('jsonapi/jsonapi-request', function () {
 
   describe('with #PLANS_ENDPOINT', function () {
     it('sends request as expected', function () {
-      mock.onAny().replyOnce(config => {
+      lazyMock.get().onAny().replyOnce(config => {
         expect(config.url).to.equal('https://www.sw-ka.de/json_interface/canteen/')
         expect(config.method).to.equal('get')
         expect(config.auth).to.deep.equal({
@@ -72,7 +61,7 @@ describe('jsonapi/jsonapi-request', function () {
     })
 
     it('returns data as-is', function () {
-      mock.onAny().replyOnce(config => {
+      lazyMock.get().onAny().replyOnce(() => {
         return [200, { some: { data: 42 } }]
       })
       return expect(request({ user: 'a', password: 'b' }, PLANS_ENDPOINT))

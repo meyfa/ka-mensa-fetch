@@ -1,12 +1,9 @@
-'use strict'
+import * as dateUtil from '../../src/simplesite/simplesite-date-util'
+import moment from 'moment'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const dateUtil = require('../../src/simplesite/simplesite-date-util')
-
-const moment = require('moment')
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('simplesite/simplesite-date-util', function () {
   describe('#getCurrentWeek()', function () {
@@ -57,9 +54,9 @@ describe('simplesite/simplesite-date-util', function () {
 
     it('supports {year, month, date} objects', function () {
       const converted = dateUtil.convertToWeeks([
-        { year: 2020, month: 9, date: 25 },
-        { year: 2020, month: 5, date: 8 },
-        { year: 2020, month: 6, date: 15 }
+        { year: 2020, month: 9, day: 25 },
+        { year: 2020, month: 5, day: 8 },
+        { year: 2020, month: 6, day: 15 }
       ])
       expect([...converted]).to.have.members([43, 24, 29])
     })

@@ -1,10 +1,8 @@
-'use strict'
+import parse from '../../src/simplesite/simplesite-parse'
 
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-const { expect } = chai
-
-const parse = require('../../src/simplesite/simplesite-parse').default
+import chai, { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 
 describe('simplesite/simplesite-parse', function () {
   it('can handle empty plan', function () {
