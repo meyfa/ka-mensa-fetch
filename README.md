@@ -1,6 +1,6 @@
 # ka-mensa-fetch
 
-[![Build Status](https://travis-ci.com/meyfa/ka-mensa-fetch.svg?branch=master)](https://travis-ci.com/meyfa/ka-mensa-fetch)
+[![CI](https://github.com/meyfa/ka-mensa-fetch/actions/workflows/main.yml/badge.svg)](https://github.com/meyfa/ka-mensa-fetch/actions/workflows/main.yml)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/test_coverage)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/maintainability)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/maintainability)
 
@@ -14,7 +14,7 @@ in ways superior to the official sources.
 **Disclaimer:** This project is neither affiliated with nor endorsed by the
 Studierendenwerk Karlsruhe or the Karlsruhe Institute of Technology.
 
-The entire project is written in JavaScript and is composed as follows:
+The entire project is written in JavaScript+TypeScript and is composed as follows:
 
 - [ka-mensa-fetch](https://github.com/meyfa/ka-mensa-fetch): library package
     responsible for the fetching of raw plan data and conversion into canonical,
@@ -33,6 +33,8 @@ The entire project is written in JavaScript and is composed as follows:
 
 Make sure Node and NPM are available on your system, then use
 `npm i ka-mensa-fetch` to install it into your project's dependencies.
+
+TypeScript typings are available directly as part of the package.
 
 
 ## Usage
@@ -376,6 +378,6 @@ Contributions are welcome. Guidelines:
 - Please write unit tests for as much code as possible.
     * To run: `npm test`
     * To create a coverage report: `npm run coverage`
-- Make sure to adhere to JS standard style.
+- Make sure to adhere to JS standard style and proper usage of TypeScript.
     * Linter: `npm run lint`
     * Automatic fixing of most style issues: `npm run lint-fix`
