@@ -6,3 +6,8 @@ export interface DateSpec {
   month: number
   day: number
 }
+
+/**
+ * Anything that could be converted to a {@link DateSpec}.
+ */
+export type datelike = DateSpec | Date | string | number

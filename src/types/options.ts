@@ -1,4 +1,4 @@
-import { DateSpec } from './date-spec'
+import { datelike } from './date-spec'
 
 /**
  * Fetcher options object. Depending on the value of source, additional options might be available.
@@ -15,7 +15,7 @@ export interface Options {
  */
 export interface SimpleSiteOptions extends Options {
   canteens?: string[]
-  dates?: Array<DateSpec | Date | string | number>
+  dates?: datelike[]
   sessionCookie?: string
 }
 
