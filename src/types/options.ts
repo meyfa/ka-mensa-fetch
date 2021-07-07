@@ -1,4 +1,4 @@
-import DateSpec from './date-spec'
+import { DateSpec } from './date-spec'
 
 /**
  * Fetcher options object. Depending on the value of source, additional options might be available.

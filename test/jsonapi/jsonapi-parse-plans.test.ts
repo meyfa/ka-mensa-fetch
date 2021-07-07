@@ -1,4 +1,4 @@
-import parse from '../../src/jsonapi/jsonapi-parse-plans'
+import { parsePlans } from '../../src/jsonapi/jsonapi-parse-plans'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
@@ -7,7 +7,7 @@ chai.use(chaiAsPromised)
 describe('jsonapi/jsonapi-parse-plans', function () {
   it('can handle empty plan', function () {
     const data = {}
-    const obj = parse(data, new Date(2020, 7, 11))
+    const obj = parsePlans(data, new Date(2020, 7, 11))
     expect(obj).to.deep.equal([])
   })
 
@@ -16,7 +16,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       adenauerring: {},
       moltke: {}
     }
-    const obj = parse(data, new Date(2020, 7, 11))
+    const obj = parsePlans(data, new Date(2020, 7, 11))
     expect(obj).to.deep.equal([])
   })
 
@@ -29,7 +29,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 10))
+    const obj = parsePlans(data, new Date(2020, 7, 10))
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].lines).to.deep.equal([
       {
@@ -53,7 +53,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 10))
+    const obj = parsePlans(data, new Date(2020, 7, 10))
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].date).to.deep.equal({
       day: 11,
@@ -73,7 +73,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const metadata = [{ id: 'adenauerring', name: 'override', lines: [] }]
-    const obj = parse(data, new Date(2020, 7, 10), metadata)
+    const obj = parsePlans(data, new Date(2020, 7, 10), metadata)
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].id).to.equal('adenauerring')
     expect(obj[0].name).to.equal('override')
@@ -87,7 +87,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 10))
+    const obj = parsePlans(data, new Date(2020, 7, 10))
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].lines).to.be.an('array').with.lengthOf(1)
     expect(obj[0].lines[0].id).to.equal('l1')
@@ -107,7 +107,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       name: 'Mensa Am Adenauerring',
       lines: [{ id: 'l1', name: 'override' }]
     }]
-    const obj = parse(data, new Date(2020, 7, 11), metadata)
+    const obj = parsePlans(data, new Date(2020, 7, 11), metadata)
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].lines).to.be.an('array').with.lengthOf(1)
     expect(obj[0].lines[0].id).to.equal('l1')
@@ -143,12 +143,12 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     })
-    const obj1 = parse(makeData('foo bar', ''), new Date(2020, 7, 10))
+    const obj1 = parsePlans(makeData('foo bar', ''), new Date(2020, 7, 10))
     expect(obj1).to.be.an('array').with.lengthOf(1)
     expect(obj1[0].lines).to.be.an('array').with.lengthOf(1)
     expect(obj1[0].lines[0].meals).to.be.an('array').with.lengthOf(1)
     expect(obj1[0].lines[0].meals[0].name).to.equal('foo bar')
-    const obj2 = parse(makeData('foo bar', 'baz qux'), new Date(2020, 7, 10))
+    const obj2 = parsePlans(makeData('foo bar', 'baz qux'), new Date(2020, 7, 10))
     expect(obj2[0].lines[0].meals[0].name).to.equal('foo bar baz qux')
   })
 
@@ -182,9 +182,9 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     })
-    const obj1 = parse(makeData(1.73, ''), new Date(2020, 7, 10))
+    const obj1 = parsePlans(makeData(1.73, ''), new Date(2020, 7, 10))
     expect(obj1[0].lines[0].meals[0].price).to.equal('1,73 €')
-    const obj2 = parse(makeData(1.73, 'ab'), new Date(2020, 7, 10))
+    const obj2 = parsePlans(makeData(1.73, 'ab'), new Date(2020, 7, 10))
     expect(obj2[0].lines[0].meals[0].price).to.equal('(ab) 1,73 €')
   })
 
@@ -218,7 +218,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 10))
+    const obj = parsePlans(data, new Date(2020, 7, 10))
     expect(obj[0].lines[0].meals[0].price).to.equal('')
   })
 
@@ -251,7 +251,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 10))
+    const obj = parsePlans(data, new Date(2020, 7, 10))
     expect(obj[0].lines[0].meals[0].classifiers).to.have.members(['B', 'MV', 'VG'])
   })
 
@@ -284,7 +284,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 10))
+    const obj = parsePlans(data, new Date(2020, 7, 10))
     expect(obj[0].lines[0].meals[0].additives).to.have.members(['Ei', 'Fi'])
   })
 
@@ -305,7 +305,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 11))
+    const obj = parsePlans(data, new Date(2020, 7, 11))
     expect(obj).to.be.an('array').with.lengthOf(2)
     expect(obj[0].date).to.deep.equal({
       day: 11,
@@ -327,7 +327,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 11))
+    const obj = parsePlans(data, new Date(2020, 7, 11))
     expect(obj).to.deep.equal([])
   })
 
@@ -339,7 +339,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
         }
       }
     }
-    const obj = parse(data, new Date(2020, 7, 11))
+    const obj = parsePlans(data, new Date(2020, 7, 11))
     expect(obj).to.be.an('array').with.lengthOf(1)
     expect(obj[0].lines).to.deep.equal([])
   })

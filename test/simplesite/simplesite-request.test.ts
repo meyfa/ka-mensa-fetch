@@ -1,5 +1,5 @@
-import request from '../../src/simplesite/simplesite-request'
-import LazyMockAdapter from '../helper-lazymockadapter'
+import { request } from '../../src/simplesite/simplesite-request'
+import { LazyMockAdapter } from '../helper-lazymockadapter'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

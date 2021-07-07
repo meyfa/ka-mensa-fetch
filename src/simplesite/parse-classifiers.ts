@@ -17,7 +17,7 @@ const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/
  * @param {string} str The classifiers string.
  * @returns {string[]} The classifiers array.
  */
-export default function parseClassifiers (str: string): string[] {
+export function parseClassifiers (str: string): string[] {
   const match = str.match(CLASSIFIERS_REGEXP)
   if (match != null) {
     return match[1].split(/\s*,\s*/)

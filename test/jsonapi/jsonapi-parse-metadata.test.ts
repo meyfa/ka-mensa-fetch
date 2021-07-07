@@ -1,4 +1,4 @@
-import parse from '../../src/jsonapi/jsonapi-parse-metadata'
+import { parseMetadata } from '../../src/jsonapi/jsonapi-parse-metadata'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
@@ -7,7 +7,7 @@ chai.use(chaiAsPromised)
 describe('jsonapi/jsonapi-parse-metadata', function () {
   it('can handle empty root', function () {
     const data = {}
-    const obj = parse(data)
+    const obj = parseMetadata(data)
     expect(obj).to.deep.equal([])
   })
 
@@ -15,7 +15,7 @@ describe('jsonapi/jsonapi-parse-metadata', function () {
     const data = {
       mensa: {}
     }
-    const obj = parse(data)
+    const obj = parseMetadata(data)
     expect(obj).to.deep.equal([])
   })
 
@@ -26,7 +26,7 @@ describe('jsonapi/jsonapi-parse-metadata', function () {
         moltke: { name: 'M' }
       }
     }
-    const obj = parse(data)
+    const obj = parseMetadata(data)
     expect(obj).to.deep.equal([
       { id: 'adenauerring', name: 'A', lines: [] },
       { id: 'moltke', name: 'M', lines: [] }
@@ -46,7 +46,7 @@ describe('jsonapi/jsonapi-parse-metadata', function () {
         }
       }
     }
-    const obj = parse(data)
+    const obj = parseMetadata(data)
     expect(obj).to.deep.equal([
       {
         id: 'adenauerring',

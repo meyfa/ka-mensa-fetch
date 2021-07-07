@@ -1,6 +1,6 @@
 import canteens from '../../data/canteens.json'
-import request from './simplesite-request'
-import parse from './simplesite-parse'
+import { request } from './simplesite-request'
+import { parse } from './simplesite-parse'
 import { getCurrentWeek, isDateSupported, convertToWeeks } from './simplesite-date-util'
 import { CanteenPlan } from '../types/canteen-plan'
 import { SimpleSiteOptions } from '../types/options'
@@ -45,7 +45,7 @@ async function fetchSingle (canteenId: string, weekId: string | number, sessionC
  * @param {?object} options The fetcher options.
  * @returns {Promise<object[]>} Parsed results.
  */
-export default async function fetch (options: SimpleSiteOptions): Promise<CanteenPlan[]> {
+export async function fetch (options: SimpleSiteOptions): Promise<CanteenPlan[]> {
   const ids = options.canteens ?? CANTEEN_IDS
   const weeks = options.dates != null
     ? convertToWeeks(options.dates.filter(isDateSupported))

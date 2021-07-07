@@ -1,12 +1,12 @@
 import cheerio, { Cheerio, CheerioAPI, Element } from 'cheerio'
 
-import mergeWhitespace from '../util/merge-whitespace'
+import { mergeWhitespace } from '../util/merge-whitespace'
 
-import parseDatestamp from './parse-datestamp'
-import parseClassifiers from './parse-classifiers'
-import parseNameAndAdditives from './parse-name-and-additives'
+import { parseDatestamp } from './parse-datestamp'
+import { parseClassifiers } from './parse-classifiers'
+import { parseNameAndAdditives } from './parse-name-and-additives'
 
-import matchLineName from './match-line-name'
+import { matchLineName } from './match-line-name'
 import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan'
 
 // METHODS
@@ -127,7 +127,7 @@ function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefi
  * @param {Date} referenceDate The date of plan acquisition, for reference.
  * @returns {object[]} The parse results.
  */
-export default function parse (html: string, canteenId: string, referenceDate: Date): CanteenPlan[] {
+export function parse (html: string, canteenId: string, referenceDate: Date): CanteenPlan[] {
   const $ = cheerio.load(html)
   const $titles = $('#platocontent > h1')
 

@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter'
  * This is used in some test files to obtain an Axios MockAdapter.
  * The advantage is that it auto-initializes lazily and is easy to clean up, de-duplicating code among tests.
  */
-export default class LazyMockAdapter {
+export class LazyMockAdapter {
   private mock: MockAdapter | undefined
 
   /**

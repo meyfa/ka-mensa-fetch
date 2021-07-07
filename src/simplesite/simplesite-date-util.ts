@@ -1,5 +1,5 @@
 import moment, { Moment } from 'moment'
-import DateSpec from '../types/date-spec'
+import { DateSpec } from '../types/date-spec'
 
 // TYPES
 

@@ -44,7 +44,7 @@ TypeScript typings are available directly as part of the package.
 You can call the fetcher as follows:
 
 ```js
-const fetchMensa = require('ka-mensa-fetch')
+import { fetchMensa } from 'ka-mensa-fetch'
 
 const promise = fetchMensa(options)
 promise.then(plans => console.log(plans))
@@ -53,7 +53,7 @@ promise.then(plans => console.log(plans))
 or in an async context:
 
 ```js
-const fetchMensa = require('ka-mensa-fetch')
+import { fetchMensa } from 'ka-mensa-fetch'
 
 ;(async () => {
   const plans = await fetchMensa(options)
@@ -239,7 +239,7 @@ a session cookie first and providing it with future requests. This is
 implemented in `ka-mensa-fetch`, to be used as follows:
 
 ```js
-const fetchMensa = require('ka-mensa-fetch')
+import { fetchMensa } from 'ka-mensa-fetch'
 
 ;(async () => {
   const session = await fetchMensa.requestSessionCookie()
@@ -279,7 +279,8 @@ also has an id and a display name.
   <summary>Code example</summary>
 
 ```js
-const canteens = require('ka-mensa-fetch/data/canteens.json')
+// need to enable JSON imports in TypeScript config
+import canteens from 'ka-mensa-fetch/data/canteens.json'
 console.log(canteens)
 ```
 
@@ -310,7 +311,8 @@ A list of meal qualifiers / additives / warnings / etc.
   <summary>Code example</summary>
 
 ```js
-const legend = require('ka-mensa-fetch/data/legend.json')
+// need to enable JSON imports in TypeScript config
+import legend from 'ka-mensa-fetch/data/legend.json'
 console.log(legend)
 ```
 
