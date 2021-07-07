@@ -7,7 +7,6 @@ import { DateSpec } from './date-spec'
  * @see JsonApiOptions
  */
 export interface Options {
-  source: 'simplesite' | 'jsonapi'
   parallel?: boolean
 }
 
@@ -15,7 +14,6 @@ export interface Options {
  * Options object for fetching via 'simplesite' source.
  */
 export interface SimpleSiteOptions extends Options {
-  source: 'simplesite'
   canteens?: string[]
   dates?: Array<DateSpec | Date | string | number>
   sessionCookie?: string
@@ -25,7 +23,7 @@ export interface SimpleSiteOptions extends Options {
  * Options object for fetching via 'jsonapi' source.
  */
 export interface JsonApiOptions extends Options {
-  source: 'jsonapi'
+  // mandatory!
   auth: AuthConfig
 }
 

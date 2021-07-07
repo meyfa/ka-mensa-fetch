@@ -46,7 +46,7 @@ You can call the fetcher as follows:
 ```js
 import { fetchMensa } from 'ka-mensa-fetch'
 
-const promise = fetchMensa(options)
+const promise = fetchMensa(/* source, options */)
 promise.then(plans => console.log(plans))
 ```
 
@@ -56,37 +56,40 @@ or in an async context:
 import { fetchMensa } from 'ka-mensa-fetch'
 
 ;(async () => {
-  const plans = await fetchMensa(options)
+  const plans = await fetchMensa(/* source, options */)
   console.log(plans)
 })()
 ```
 
-**Options:**
+**Arguments:**
 
-- `string source`: Data source. Either 'simplesite' (the default) or 'jsonapi'.
-- `boolean parallel`: Optional, default: false.
+- `source: string`: The data source (optional). 
+  Either `'simplesite'` (the default) or `'jsonapi'`.
+- `options: object`: Fetcher options (optional).
+  - `parallel: boolean`: Optional, default: `false`.
   Whether to run all network requests in parallel.
   This speeds the fetch up significantly, but also increases server-side load
   and should therefore be used sparingly.
 
 Additional options for 'simplesite' source:
 
-- `string[] canteens`: Array of canteen ids for which plans are wanted.
+- `canteens: string[]`: Array of canteen ids for which plans are wanted.
   See `data/canteens.json` for possible values.
-- `object[] dates`:
+- `dates: object[]`:
   Array of date specifiers for which plans are wanted. They can have any one of
   the following forms (remember, JavaScript uses 0-indexed months):
   - `{ year: 2019, month: 11, day: 1 }`
   - `'2019-12-01'`
   - `new Date(2019, 11, 1)`
   - `1575158400`
-- `string sessionCookie`:
+- `sessionCookie: string`:
   Optionally, a session cookie. Existence of the cookie could prevent redirects,
   see note below.
 
 Additional options for 'jsonapi' source:
 
-- `object auth = { user, password }`: Authentication information for the API.
+- **MANDATORY:**
+  `auth: object = { user, password }`: Authentication information for the API.
 
 **Return values:**
 
@@ -98,24 +101,24 @@ Handle with care.*
 
 **Plan structure**:
 
-- `String id`: canteen identifier (e.g. `'adenauerring'`)
-- `String name`: canteen name (e.g. `'Mensa Am Adenauerring'`), may be null
-- `Object date`: plan date (e.g. `{ day: 2, month: 11, year: 2019 }`)
+- `id: string`: canteen identifier (e.g. `'adenauerring'`)
+- `name: string`: canteen name (e.g. `'Mensa Am Adenauerring'`), may be null
+- `date: object`: plan date (e.g. `{ day: 2, month: 11, year: 2019 }`)
   (note: month is 0-indexed)
-- `Object[] lines`: line array, containing objects of the following structure:
-  - `String id`: line id (e.g. `'l1'`), may be null
-  - `String name`: line name (e.g. `'Linie 1'`), may be null
-  - `Object[] meals`: meal array, containing objects of the following structure:
-    - `String name`: meal name (e.g. `'Käseknacker mit Ketchup und Pommes'`)
-    - `String price`: human-readable price (e.g. `'2,60 €'`), may be empty
-    - `String[] classifiers`: meal classifiers (e.g. `[ 'SAT' ]`)
-    - `String[] additives`: meal additives (e.g. `[ '2', '3', 'ML' ]`)
+- `lines: object[]`: line array, containing objects of the following structure:
+  - `id: string`: line id (e.g. `'l1'`), may be null
+  - `name: string`: line name (e.g. `'Linie 1'`), may be null
+  - `meals: object[]`: meal array, containing objects of the following structure:
+    - `name: string`: meal name (e.g. `'Käseknacker mit Ketchup und Pommes'`)
+    - `price: string`: human-readable price (e.g. `'2,60 €'`), may be empty
+    - `classifiers: string[]`: meal classifiers (e.g. `[ 'SAT' ]`)
+    - `additives: string[]`: meal additives (e.g. `[ '2', '3', 'ML' ]`)
 
 <details>
   <summary>Code example</summary>
 
 ```js
-fetchMensa({ canteens: ['adenauerring', 'moltke'] })
+fetchMensa('simplesite', { canteens: ['adenauerring', 'moltke'] })
 ```
 
 Promise resolution value (shortened):
@@ -239,17 +242,16 @@ a session cookie first and providing it with future requests. This is
 implemented in `ka-mensa-fetch`, to be used as follows:
 
 ```js
-import { fetchMensa } from 'ka-mensa-fetch'
+import { fetchMensa, requestSessionCookie } from 'ka-mensa-fetch'
 
 ;(async () => {
-  const session = await fetchMensa.requestSessionCookie()
+  const session = await requestSessionCookie()
   if (!session) {
     console.error('could not retrieve session cookie')
   }
 
-  const plans = await fetchMensa({
-    // ... other options ... followed by:
-    sessionCookie: session
+  const plans = await fetchMensa('simplesite', {
+    sessionCookie: session  // !!!
   })
 
   console.log(plans)
