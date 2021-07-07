@@ -8,23 +8,33 @@ import { CanteenPlan } from './src/types/canteen-plan'
 /**
  * Convert a string for the source option into normalized form, i.e. to one of the valid source values.
  *
- * @param {?Options} options The options given by the user.
+ * @param {?string} source The source value passed by the user.
  * @returns {?string} The source value to use.
  */
-function resolveSource (options?: Options): 'simplesite' | 'jsonapi' | undefined {
-  const source: string = options?.source?.toLowerCase() ?? 'simplesite'
-  if (source === 'handicap') return 'simplesite' // <-- backwards compatibility
-  if (source === 'simplesite' || source === 'jsonapi') return source
+function resolveSource (source: 'simplesite' | 'jsonapi' | undefined): 'simplesite' | 'jsonapi' | undefined {
+  // Note that with TypeScript, this is completely unneeded. We keep it here for JavaScript users.
+  const normalized: string = source?.toLowerCase() ?? 'simplesite'
+  if (normalized === 'simplesite' || normalized === 'jsonapi') return normalized
   return undefined
 }
 
 // MAIN EXPORT
 
+// undefined source: use simplesite
+export async function fetchMensa (): Promise<CanteenPlan[]>
+export async function fetchMensa (source: undefined, options?: SimpleSiteOptions): Promise<CanteenPlan[]>
+
+// for simplesite, options are indeed optional
+export async function fetchMensa (source: 'simplesite', options?: SimpleSiteOptions): Promise<CanteenPlan[]>
+
+// for jsonapi, options are mandatory due to auth property
+export async function fetchMensa (source: 'jsonapi', options: JsonApiOptions): Promise<CanteenPlan[]>
+
 /**
- * Fetch a set of plans.
+ * Fetch a set of plans. If no source is specified, 'simplesite' will be used.
+ * Options can be provided.
  *
- * Options:
- * - source: 'simplesite' (default) or 'jsonapi'.
+ * General options include:
  * - parallel: whether to run network requests in parallel. Default: false
  *
  * Additional options for 'simplesite' source:
@@ -41,25 +51,21 @@ function resolveSource (options?: Options): 'simplesite' | 'jsonapi' | undefined
  * requested. It may also contain additional or even completely different plans.
  * Handle with care.
  *
+ * @param {string} source Where to fetch from ('simplesite' or 'jsonapi'). Default is 'simplesite'.
  * @param {?object} options The fetcher options.
  * @returns {Promise<object[]>} Resolves to a set of meal plans.
  */
-export async function fetchMensa (options?: Options): Promise<CanteenPlan[]> {
-  const source = resolveSource(options)
-  if (source == null) {
-    throw new Error('options.source invalid')
+export async function fetchMensa (source: 'simplesite' | 'jsonapi' = 'simplesite', options?: Options): Promise<CanteenPlan[]> {
+  const resolvedSource = resolveSource(source)
+  if (resolvedSource == null) {
+    throw new Error('invalid source given')
   }
 
-  const mergedOptions: Options = {
-    ...options,
-    source
-  }
-
-  switch (source) {
+  switch (resolvedSource) {
     case 'simplesite':
-      return fetchSimpleSite(mergedOptions as SimpleSiteOptions)
+      return fetchSimpleSite(options as SimpleSiteOptions)
     case 'jsonapi':
-      return fetchJson(mergedOptions as JsonApiOptions)
+      return fetchJson(options as JsonApiOptions)
   }
 }
 
