@@ -1,4 +1,4 @@
-import DateSpec from './date-spec'
+import { DateSpec } from './date-spec'
 
 /**
  * An object containing data about a specific meal.

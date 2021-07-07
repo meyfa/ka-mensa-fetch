@@ -1,4 +1,4 @@
-import parseNameAndAdditives from '../../src/simplesite/parse-name-and-additives'
+import { parseNameAndAdditives } from '../../src/simplesite/parse-name-and-additives'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

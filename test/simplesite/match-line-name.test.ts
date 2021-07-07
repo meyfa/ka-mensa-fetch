@@ -1,4 +1,4 @@
-import matchLineName from '../../src/simplesite/match-line-name'
+import { matchLineName } from '../../src/simplesite/match-line-name'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

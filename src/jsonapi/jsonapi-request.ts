@@ -41,7 +41,7 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
  * @param {string} endpoint The endpoint (METADATA_ENDPOINT, PLANS_ENDPOINT).
  * @returns {Promise<object>} Resolves to JSON object on success.
  */
-export default async function request (auth: AuthConfig, endpoint: string): Promise<object> {
+export async function request (auth: AuthConfig, endpoint: string): Promise<object> {
   if (endpoint !== METADATA_ENDPOINT && endpoint !== PLANS_ENDPOINT) {
     throw new Error('invalid endpoint specified')
   }

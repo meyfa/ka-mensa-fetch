@@ -10,7 +10,7 @@ import ExpectStatic = Chai.ExpectStatic
  * @param {function} accessProp To-String-Converter for the iterable's entries.
  * @returns {void}
  */
-export default function checkDuplicates<T> (expect: ExpectStatic, iterable: Iterable<T>, accessProp: (item: T) => string): void {
+export function checkDuplicates<T> (expect: ExpectStatic, iterable: Iterable<T>, accessProp: (item: T) => string): void {
   const counts: Map<string, number> = new Map()
   for (const entry of iterable) {
     const prop = accessProp(entry)

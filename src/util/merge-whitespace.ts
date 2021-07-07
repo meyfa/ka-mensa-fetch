@@ -7,6 +7,6 @@
  * @param {string} str Subject string.
  * @returns {string} The string with all whitespaces merged.
  */
-export default function mergeWhitespace (str: string): string {
+export function mergeWhitespace (str: string): string {
   return str.replace(/\s+/g, ' ')
 }

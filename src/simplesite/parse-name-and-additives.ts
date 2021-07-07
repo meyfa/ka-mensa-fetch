@@ -1,4 +1,4 @@
-import mergeWhitespace from '../util/merge-whitespace'
+import { mergeWhitespace } from '../util/merge-whitespace'
 
 // CONSTANTS
 
@@ -24,7 +24,7 @@ const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\(\s*(\w{1,3}(?:\s*,\s*\w{1,3})
  * @param {string} str The string to parse.
  * @returns {object} The resulting name,additives object.
  */
-export default function parseNameAndAdditives (str: string): { name: string, additives: string[] } {
+export function parseNameAndAdditives (str: string): { name: string, additives: string[] } {
   const match = str.match(NAME_ADDITIVES_REGEXP)
   if (match != null) {
     return {

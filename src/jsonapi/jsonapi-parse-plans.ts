@@ -1,8 +1,8 @@
 import moment from 'moment'
 
 import canteens from '../../data/canteens.json'
-import buildCanteenLookup, { MappedCanteen } from './build-canteen-lookup'
-import DateSpec from '../types/date-spec'
+import { buildCanteenLookup, MappedCanteen } from './build-canteen-lookup'
+import { DateSpec } from '../types/date-spec'
 import { CanteenPlan, CanteenLine, CanteenMeal } from '../types/canteen-plan'
 import { Canteen } from '../types/canteen'
 
@@ -191,7 +191,7 @@ function parseLines (canteen: MappedCanteen, lineMapping: any): CanteenLine[] {
  * @param {?(object[])} metadata A supplementary 'canteens.json'-like structure.
  * @returns {object[]} The parse results.
  */
-export default function parsePlans (json: any, referenceDate: Date, metadata?: Canteen[]): CanteenPlan[] {
+export function parsePlans (json: any, referenceDate: Date, metadata?: Canteen[]): CanteenPlan[] {
   const lookup: Map<string, MappedCanteen> = buildCanteenLookup(canteens, metadata)
 
   // the JSON is structured as follows:

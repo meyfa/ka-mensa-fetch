@@ -72,7 +72,7 @@ function findCookie (headers?: Headers): string | undefined {
  *
  * @returns {Promise<string|undefined>} Resolves to the session cookie, or undefined on failure.
  */
-export default async function requestSessionCookie (): Promise<string | undefined> {
+export async function requestSessionCookie (): Promise<string | undefined> {
   const response = await axios.get(SITE_URL, {
     headers: {
       'User-Agent': USER_AGENT

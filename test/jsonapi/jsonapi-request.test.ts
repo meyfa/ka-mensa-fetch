@@ -1,5 +1,5 @@
-import request, { METADATA_ENDPOINT, PLANS_ENDPOINT } from '../../src/jsonapi/jsonapi-request'
-import LazyMockAdapter from '../helper-lazymockadapter'
+import { request, METADATA_ENDPOINT, PLANS_ENDPOINT } from '../../src/jsonapi/jsonapi-request'
+import { LazyMockAdapter } from '../helper-lazymockadapter'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

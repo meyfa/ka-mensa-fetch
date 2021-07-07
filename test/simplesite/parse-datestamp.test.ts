@@ -1,4 +1,4 @@
-import parseDatestamp from '../../src/simplesite/parse-datestamp'
+import { parseDatestamp } from '../../src/simplesite/parse-datestamp'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

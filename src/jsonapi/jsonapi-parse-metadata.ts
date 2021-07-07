@@ -21,7 +21,7 @@ export interface UnparsedMetadata {
  * @param {object} json The JSON general data to parse.
  * @returns {object[]} The parse results.
  */
-export default function parseMetadata (json: UnparsedMetadata): Canteen[] {
+export function parseMetadata (json: UnparsedMetadata): Canteen[] {
   const canteens: Canteen[] = []
 
   if (json.mensa == null) return canteens

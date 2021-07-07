@@ -1,6 +1,5 @@
-import fetchSimpleSite from './src/simplesite'
-import fetchJSON from './src/jsonapi'
-import requestSessionCookie from './src/cookies/request-session-cookie'
+import { fetch as fetchSimpleSite } from './src/simplesite'
+import { fetch as fetchJson } from './src/jsonapi'
 import { JsonApiOptions, Options, SimpleSiteOptions } from './src/types/options'
 import { CanteenPlan } from './src/types/canteen-plan'
 
@@ -45,7 +44,7 @@ function resolveSource (options?: Options): 'simplesite' | 'jsonapi' | undefined
  * @param {?object} options The fetcher options.
  * @returns {Promise<object[]>} Resolves to a set of meal plans.
  */
-async function fetch (options?: Options): Promise<CanteenPlan[]> {
+export async function fetchMensa (options?: Options): Promise<CanteenPlan[]> {
   const source = resolveSource(options)
   if (source == null) {
     throw new Error('options.source invalid')
@@ -60,10 +59,9 @@ async function fetch (options?: Options): Promise<CanteenPlan[]> {
     case 'simplesite':
       return fetchSimpleSite(mergedOptions as SimpleSiteOptions)
     case 'jsonapi':
-      return fetchJSON(mergedOptions as JsonApiOptions)
+      return fetchJson(mergedOptions as JsonApiOptions)
   }
 }
 
-fetch.requestSessionCookie = requestSessionCookie
-
-export = fetch
+// re-export session cookie function
+export { requestSessionCookie } from './src/cookies/request-session-cookie'

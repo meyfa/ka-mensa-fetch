@@ -1,6 +1,6 @@
 import legend from '../../data/legend.json'
-import isTrimmed from '../helper-is-trimmed'
-import checkDuplicates from '../helper-check-duplicates'
+import { isTrimmed } from '../helper-is-trimmed'
+import { checkDuplicates } from '../helper-check-duplicates'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

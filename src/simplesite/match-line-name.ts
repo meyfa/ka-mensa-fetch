@@ -34,7 +34,7 @@ const LINE_IDS_MAPPING: Map<string, Map<string, string>> = (() => {
  * @param {string} name The human-readable line name.
  * @returns {?string} The line id.
  */
-export default function matchLineName (canteenId: string, name: string): string | undefined {
+export function matchLineName (canteenId: string, name: string): string | undefined {
   // sanity check canteenId
   const lineNameToIdMap = LINE_IDS_MAPPING.get(canteenId)
   if (lineNameToIdMap == null) {

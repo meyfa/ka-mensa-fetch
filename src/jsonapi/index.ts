@@ -1,6 +1,6 @@
-import request, { METADATA_ENDPOINT, PLANS_ENDPOINT } from './jsonapi-request'
-import parseMetadata from './jsonapi-parse-metadata'
-import parsePlans from './jsonapi-parse-plans'
+import { request, METADATA_ENDPOINT, PLANS_ENDPOINT } from './jsonapi-request'
+import { parseMetadata } from './jsonapi-parse-metadata'
+import { parsePlans } from './jsonapi-parse-plans'
 import { JsonApiOptions } from '../types/options'
 import { CanteenPlan } from '../types/canteen-plan'
 
@@ -14,7 +14,7 @@ import { CanteenPlan } from '../types/canteen-plan'
  * @param {object} options The fetcher options.
  * @returns {Promise<object[]>} Parsed results.
  */
-export default async function fetch (options: JsonApiOptions): Promise<CanteenPlan[]> {
+export async function fetch (options: JsonApiOptions): Promise<CanteenPlan[]> {
   const auth = options?.auth
   if (auth == null) {
     throw new Error('auth option is required')

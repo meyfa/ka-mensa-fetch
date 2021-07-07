@@ -1,4 +1,4 @@
-import buildCanteenLookup from '../../src/jsonapi/build-canteen-lookup'
+import { buildCanteenLookup } from '../../src/jsonapi/build-canteen-lookup'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

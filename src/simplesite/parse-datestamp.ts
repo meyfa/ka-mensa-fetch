@@ -1,4 +1,4 @@
-import DateSpec from '../types/date-spec'
+import { DateSpec } from '../types/date-spec'
 
 // CONSTANTS
 
@@ -51,7 +51,7 @@ function guessYear (refYear: number, refMonth: number, month: number): number {
  * @param {Date} reference The reference date for year guessing.
  * @returns {?object} An object containing integers: day, month, year.
  */
-export default function parseDatestamp (str: string, reference: Date): DateSpec | undefined {
+export function parseDatestamp (str: string, reference: Date): DateSpec | undefined {
   const match = str.match(DATE_REGEXP)
   if (match == null) {
     return undefined

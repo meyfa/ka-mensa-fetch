@@ -86,7 +86,7 @@ function mergeLine (first: Line, second?: Line): Line {
  * @param {?(object[])} extend The overriding canteen data.
  * @returns {Map} The lookup table.
  */
-export default function buildCanteenLookup (base: Canteen[], extend?: Canteen[]): Map<string, MappedCanteen> {
+export function buildCanteenLookup (base: Canteen[], extend?: Canteen[]): Map<string, MappedCanteen> {
   const baseMap = toCanteenMap(base)
   if (extend == null) return baseMap
   const extendMap = toCanteenMap(extend)

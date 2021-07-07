@@ -1,4 +1,4 @@
-import mergeWhitespace from '../../src/util/merge-whitespace'
+import { mergeWhitespace } from '../../src/util/merge-whitespace'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

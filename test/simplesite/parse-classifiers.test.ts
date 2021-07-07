@@ -1,4 +1,4 @@
-import parseClassifiers from '../../src/simplesite/parse-classifiers'
+import { parseClassifiers } from '../../src/simplesite/parse-classifiers'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
