@@ -220,6 +220,41 @@ Promise resolution value (shortened):
 </details>
 
 
+### TypeScript Types
+
+This library includes strong typing for its objects.
+The following types are available:
+
+```ts
+import {
+
+  // types as they appear in data/canteens.json
+  Line,
+  Canteen,
+
+  // types as they appear in data/legend.json
+  LegendItem,
+
+  // types as they appear in fetch results
+  // (plans contain lines, which contain meals)
+  CanteenPlan,
+  CanteenLine,
+  CanteenMeal,
+  
+  // these types are used whenever dates are needed
+  DateSpec,
+  datelike,
+  
+  // types used for specifying fetcher options
+  Options,
+  SimpleSiteOptions,
+  JsonApiOptions,
+  AuthConfig
+
+} from 'ka-mensa-fetch'
+```
+
+
 ### Caching
 
 Because `ka-mensa-fetch` accesses sources not meant for automated processing,
