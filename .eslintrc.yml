@@ -4,3 +4,10 @@ extends:
 
 parserOptions:
   project: './tsconfig.eslint.json'
+
+rules:
+  # require JSDoc on every standard location, and also on classes, interfaces and enums
+  jsdoc/require-jsdoc: [ 'error', { contexts: [ 'ClassDeclaration', 'TSInterfaceDeclaration', 'TSEnumDeclaration' ] } ]
+  jsdoc/require-param-type: off
+  jsdoc/require-returns-type: off
+  jsdoc/no-types: error

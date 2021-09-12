@@ -11,7 +11,7 @@ export class LazyMockAdapter {
    * Obtain the MockAdapter, initializing it if necessary.
    * Subsequent calls will return the same instance until restore() is called.
    *
-   * @returns {object} The Axios MockAdapter.
+   * @returns The Axios MockAdapter.
    */
   get (): MockAdapter {
     if (this.mock == null) {
@@ -22,8 +22,6 @@ export class LazyMockAdapter {
 
   /**
    * Restore Axios to normal functionality and clean up the MockAdapter.
-   *
-   * @returns {void}
    */
   restore (): void {
     if (this.mock != null) this.mock.restore()

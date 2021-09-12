@@ -14,8 +14,8 @@ const DIST_PACKAGE_JSON = path.join(__dirname, 'dist', 'package.json')
 /**
  * Remove 'dist', '/dist' or './dist' prefix from a string, if it exists.
  *
- * @param {string} string The source string.
- * @returns {string} The string with prefix removed.
+ * @param string The source string.
+ * @returns The string with prefix removed.
  */
 function removeDistPrefix (string) {
   return string.replace(/^(\/|\.\/)?dist\//g, '')

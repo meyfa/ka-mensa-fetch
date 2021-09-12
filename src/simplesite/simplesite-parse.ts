@@ -14,10 +14,10 @@ import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan'
 /**
  * Given a day-specific table, parse all lines contents.
  *
- * @param {object} $ Cheerio reference.
- * @param {object} $table The table containing line info.
- * @param {string} canteenId The id of the canteen currently being parsed.
- * @returns {object[]} Parsed line contents.
+ * @param $ Cheerio reference.
+ * @param $table The table containing line info.
+ * @param canteenId The id of the canteen currently being parsed.
+ * @returns Parsed line contents.
  */
 function parseLines ($: CheerioAPI, $table: Cheerio<Element>, canteenId: string): CanteenLine[] {
   const $rows = $table.children('tbody').children('tr')
@@ -29,10 +29,10 @@ function parseLines ($: CheerioAPI, $table: Cheerio<Element>, canteenId: string)
  *
  * Returns undefined if unexpected content is encountered.
  *
- * @param {object} $ Cheerio reference.
- * @param {object} $row The table row containing the line.
- * @param {string} canteenId The id of the canteen currently being parsed.
- * @returns {?object} Parsed line content.
+ * @param $ Cheerio reference.
+ * @param $row The table row containing the line.
+ * @param canteenId The id of the canteen currently being parsed.
+ * @returns Parsed line content.
  */
 function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): CanteenLine | undefined {
   const $cells = $row.children()
@@ -68,9 +68,9 @@ function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): C
 /**
  * Parse meal info from the day-and-line-specific table.
  *
- * @param {object} $ Cheerio reference.
- * @param {object} $table The table containing all meals for the line.
- * @returns {object[]} Parsed meals.
+ * @param $ Cheerio reference.
+ * @param $table The table containing all meals for the line.
+ * @returns Parsed meals.
  */
 function parseMeals ($: CheerioAPI, $table: Cheerio<Element>): CanteenMeal[] {
   const $rows = $table.children('tbody').children('tr')
@@ -83,9 +83,9 @@ function parseMeals ($: CheerioAPI, $table: Cheerio<Element>): CanteenMeal[] {
  *
  * Returns undefined if unexpected content is encountered.
  *
- * @param {object} $ Cheerio reference.
- * @param {object} $row The table row containing the meal.
- * @returns {?object} Parsed meal object.
+ * @param $ Cheerio reference.
+ * @param $row The table row containing the meal.
+ * @returns Parsed meal object.
  */
 function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefined {
   const $cells = $row.children()
@@ -122,10 +122,10 @@ function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefi
  * The array entries differ only by their date and the lines array, i.e. canteen
  * is fixed.
  *
- * @param {string} html The HTML string to parse.
- * @param {string} canteenId The canteen id, e.g. 'adenauerring'.
- * @param {Date} referenceDate The date of plan acquisition, for reference.
- * @returns {object[]} The parse results.
+ * @param html The HTML string to parse.
+ * @param canteenId The canteen id, e.g. 'adenauerring'.
+ * @param referenceDate The date of plan acquisition, for reference.
+ * @returns The parse results.
  */
 export function parse (html: string, canteenId: string, referenceDate: Date): CanteenPlan[] {
   const $ = cheerio.load(html)

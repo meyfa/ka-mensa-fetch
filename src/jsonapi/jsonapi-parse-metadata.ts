@@ -18,8 +18,8 @@ export interface UnparsedMetadata {
  * Parse the given JSON to retrieve a canteen and line mapping, structured
  * exactly like 'data/canteens.json'.
  *
- * @param {object} json The JSON general data to parse.
- * @returns {object[]} The parse results.
+ * @param json The JSON general data to parse.
+ * @returns The parse results.
  */
 export function parseMetadata (json: UnparsedMetadata): Canteen[] {
   const canteens: Canteen[] = []

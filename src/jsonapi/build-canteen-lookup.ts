@@ -1,4 +1,4 @@
-import { Line, Canteen } from '../types/canteen'
+import { Canteen, Line } from '../types/canteen'
 
 // TYPES
 
@@ -16,8 +16,8 @@ export interface MappedCanteen {
 /**
  * Convert the canteen array into a canteen Map.
  *
- * @param {object[]} array The canteens array.
- * @returns {Map} The generated Map.
+ * @param array The canteens array.
+ * @returns The generated Map.
  */
 function toCanteenMap (array: Canteen[]): Map<string, MappedCanteen> {
   return new Map(array.map(canteen => {
@@ -35,9 +35,9 @@ function toCanteenMap (array: Canteen[]): Map<string, MappedCanteen> {
  *
  * The lines Map is deeply merged.
  *
- * @param {object} first The first canteen object.
- * @param {?object} second The second canteen object.
- * @returns {object} The merged canteen object.
+ * @param first The first canteen object.
+ * @param second The second canteen object.
+ * @returns The merged canteen object.
  */
 function mergeCanteen (first: MappedCanteen, second?: MappedCanteen): MappedCanteen {
   if (second == null) return first
@@ -59,9 +59,9 @@ function mergeCanteen (first: MappedCanteen, second?: MappedCanteen): MappedCant
  * Merge a pair of line objects into one, using the first as the base for every
  * property and optionally overriding those using the second.
  *
- * @param {object} first The first line object.
- * @param {?object} second The second line object.
- * @returns {object} The merged line object.
+ * @param first The first line object.
+ * @param second The second line object.
+ * @returns The merged line object.
  */
 function mergeLine (first: Line, second?: Line): Line {
   if (second == null) return first
@@ -82,9 +82,9 @@ function mergeLine (first: Line, second?: Line): Line {
  * If a second set of data is supplied, it will recursively override properties
  * of the first set.
  *
- * @param {object[]} base The base canteen data.
- * @param {?(object[])} extend The overriding canteen data.
- * @returns {Map} The lookup table.
+ * @param base The base canteen data.
+ * @param extend The overriding canteen data.
+ * @returns The lookup table.
  */
 export function buildCanteenLookup (base: Canteen[], extend?: Canteen[]): Map<string, MappedCanteen> {
   const baseMap = toCanteenMap(base)

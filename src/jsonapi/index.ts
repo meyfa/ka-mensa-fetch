@@ -1,4 +1,4 @@
-import { request, METADATA_ENDPOINT, PLANS_ENDPOINT } from './jsonapi-request'
+import { METADATA_ENDPOINT, PLANS_ENDPOINT, request } from './jsonapi-request'
 import { parseMetadata } from './jsonapi-parse-metadata'
 import { parsePlans } from './jsonapi-parse-plans'
 import { JsonApiOptions } from '../types/options'
@@ -11,8 +11,8 @@ import { CanteenPlan } from '../types/canteen-plan'
  * - auth: object (user, password) for authentication with the API.
  * - parallel: whether to run all network requests in parallel. Default: false
  *
- * @param {object} options The fetcher options.
- * @returns {Promise<object[]>} Parsed results.
+ * @param options The fetcher options.
+ * @returns Parsed results.
  */
 export async function fetch (options: JsonApiOptions): Promise<CanteenPlan[]> {
   const auth = options?.auth

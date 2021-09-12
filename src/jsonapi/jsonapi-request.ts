@@ -6,29 +6,21 @@ import { AuthConfig } from '../types/options'
 
 /**
  * URL of the JSON API general endpoint.
- *
- * @type {string}
  */
 export const METADATA_ENDPOINT = 'https://www.sw-ka.de/json_interface/general/'
 
 /**
  * URL of the JSON API canteen endpoint.
- *
- * @type {string}
  */
 export const PLANS_ENDPOINT = 'https://www.sw-ka.de/json_interface/canteen/'
 
 /**
  * Conservative request timeout in milliseconds.
- *
- * @type {number}
  */
 const REQUEST_TIMEOUT = 30 * 1000 // 30s
 
 /**
  * Conservative number for maximum response length in bytes.
- *
- * @type {number}
  */
 const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
@@ -37,9 +29,9 @@ const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 /**
  * Make a request to the specified JSON API endpoint.
  *
- * @param {object} auth Authentication (user, password) for the API.
- * @param {string} endpoint The endpoint (METADATA_ENDPOINT, PLANS_ENDPOINT).
- * @returns {Promise<object>} Resolves to JSON object on success.
+ * @param auth Authentication (user, password) for the API.
+ * @param endpoint The endpoint (METADATA_ENDPOINT, PLANS_ENDPOINT).
+ * @returns Resolves to JSON object on success.
  */
 export async function request (auth: AuthConfig, endpoint: string): Promise<object> {
   if (endpoint !== METADATA_ENDPOINT && endpoint !== PLANS_ENDPOINT) {
