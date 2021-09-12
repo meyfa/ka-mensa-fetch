@@ -5,10 +5,9 @@ import ExpectStatic = Chai.ExpectStatic
  * A function is used to convert each entry into a string that represents that entries identity.
  * In other words, two entries are considered duplicates iff the function returns the same string for both of them.
  *
- * @param {function} expect The Chai expect function.
- * @param {Iterable} iterable The iterable to check.
- * @param {function} accessProp To-String-Converter for the iterable's entries.
- * @returns {void}
+ * @param expect The Chai expect function.
+ * @param iterable The iterable to check.
+ * @param accessProp To-String-Converter for the iterable's entries.
  */
 export function checkDuplicates<T> (expect: ExpectStatic, iterable: Iterable<T>, accessProp: (item: T) => string): void {
   const counts: Map<string, number> = new Map()

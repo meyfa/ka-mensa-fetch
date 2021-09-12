@@ -8,8 +8,8 @@ import { CanteenPlan } from './src/types/canteen-plan'
 /**
  * Convert a string for the source option into normalized form, i.e. to one of the valid source values.
  *
- * @param {?string} source The source value passed by the user.
- * @returns {?string} The source value to use.
+ * @param source The source value passed by the user.
+ * @returns The source value to use.
  */
 function resolveSource (source: 'simplesite' | 'jsonapi' | undefined): 'simplesite' | 'jsonapi' | undefined {
   // Note that with TypeScript, this is completely unneeded. We keep it here for JavaScript users.
@@ -51,9 +51,9 @@ export async function fetchMensa (source: 'jsonapi', options: JsonApiOptions): P
  * requested. It may also contain additional or even completely different plans.
  * Handle with care.
  *
- * @param {string} source Where to fetch from ('simplesite' or 'jsonapi'). Default is 'simplesite'.
- * @param {?object} options The fetcher options.
- * @returns {Promise<object[]>} Resolves to a set of meal plans.
+ * @param source Where to fetch from ('simplesite' or 'jsonapi'). Default is 'simplesite'.
+ * @param options The fetcher options.
+ * @returns Resolves to a set of meal plans.
  */
 export async function fetchMensa (source: 'simplesite' | 'jsonapi' = 'simplesite', options?: Options): Promise<CanteenPlan[]> {
   const resolvedSource = resolveSource(source)

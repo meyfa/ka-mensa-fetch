@@ -1,14 +1,10 @@
 import moment from 'moment'
 import { datelike } from '../types/date-spec'
 
-// TYPES
-
-// EXPORTS
-
 /**
  * Get the current calendar week.
  *
- * @returns {number} The current week.
+ * @returns The current week.
  */
 export function getCurrentWeek (): number {
   return moment().isoWeek()
@@ -18,8 +14,8 @@ export function getCurrentWeek (): number {
  * Check whether the given date can be fetched. A date can be fetched if it is
  * neither too far in the past nor too far in the future.
  *
- * @param {object} date The date to check.
- * @returns {boolean} Whether the date is supported.
+ * @param date The date to check.
+ * @returns Whether the date is supported.
  */
 export function isDateSupported (date: datelike): boolean {
   const now = moment()
@@ -32,8 +28,8 @@ export function isDateSupported (date: datelike): boolean {
  * Convert an array of date specifications into a Set of calendar week
  * numbers.
  *
- * @param {object[]} dates Array of date specifications.
- * @returns {Set<number>} Week numbers for the given dates.
+ * @param dates Array of date specifications.
+ * @returns Week numbers for the given dates.
  */
 export function convertToWeeks (dates: datelike[]): Set<number> {
   return new Set(dates.map(d => moment(d).isoWeek()))
