@@ -17,6 +17,22 @@ const REQUEST_TIMEOUT = 30 * 1000 // 30s
  */
 const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
+// UTILITY METHODS
+
+/**
+ * Ensure the given argument is of type 'string', throwing if it isn't.
+ *
+ * @param data The response data.
+ * @returns The same response data, but strongly typed as a string.
+ */
+function asString (data: unknown): string {
+  if (typeof data !== 'string') {
+    throw new Error('expected request result to be a string, got ' + typeof data)
+  }
+
+  return data
+}
+
 // MAIN EXPORT
 
 /**
@@ -48,9 +64,5 @@ export async function request (canteenId: string, weekId: string | number, sessi
     maxContentLength: REQUEST_MAX_LENGTH
   })
 
-  if (typeof response.data !== 'string') {
-    throw new Error('expected request result to be a string, got ' + typeof response.data)
-  }
-
-  return response.data
+  return asString(response.data)
 }

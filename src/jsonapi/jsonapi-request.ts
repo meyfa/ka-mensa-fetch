@@ -24,6 +24,23 @@ const REQUEST_TIMEOUT = 30 * 1000 // 30s
  */
 const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
+// UTILITY METHODS
+
+/**
+ * Ensure the given argument is of type 'object' and is not null, throwing if it isn't.
+ *
+ * @param data The response data.
+ * @returns The same response data, but strongly typed as an object.
+ */
+function asObject (data: unknown): object {
+  if (typeof data !== 'object' || data == null) {
+    const actualType = data == null ? 'null' : typeof data
+    throw new Error('expected request result to be an object, got ' + actualType)
+  }
+
+  return data
+}
+
 // MAIN EXPORT
 
 /**
@@ -47,10 +64,5 @@ export async function request (auth: AuthConfig, endpoint: string): Promise<obje
     maxContentLength: REQUEST_MAX_LENGTH
   })
 
-  if (typeof response.data !== 'object' || response.data == null) {
-    const actualType = response.data == null ? 'null or undefined' : typeof response.data
-    throw new Error('expected request result to be an object, got ' + actualType)
-  }
-
-  return response.data
+  return asObject(response.data)
 }
