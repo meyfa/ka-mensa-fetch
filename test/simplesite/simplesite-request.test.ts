@@ -42,4 +42,22 @@ describe('simplesite/simplesite-request', function () {
     return expect(request('test-canteen', 11, 'qux42baz'))
       .to.eventually.be.fulfilled
   })
+
+  it('throws if JSON data is returned', function () {
+    lazyMock.get().onAny().replyOnce(200, { foo: 'bar' })
+    return expect(request('test-canteen', 11))
+      .to.eventually.be.rejected
+  })
+
+  it('throws if null is returned', function () {
+    lazyMock.get().onAny().replyOnce(200, null)
+    return expect(request('test-canteen', 11))
+      .to.eventually.be.rejected
+  })
+
+  it('throws if undefined is returned', function () {
+    lazyMock.get().onAny().replyOnce(200, undefined)
+    return expect(request('test-canteen', 11))
+      .to.eventually.be.rejected
+  })
 })
