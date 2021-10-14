@@ -47,5 +47,10 @@ export async function request (auth: AuthConfig, endpoint: string): Promise<obje
     maxContentLength: REQUEST_MAX_LENGTH
   })
 
+  if (typeof response.data !== 'object' || response.data == null) {
+    const actualType = response.data == null ? 'null or undefined' : typeof response.data
+    throw new Error('expected request result to be an object, got ' + actualType)
+  }
+
   return response.data
 }

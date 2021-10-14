@@ -19,24 +19,25 @@ describe('simplesite/simplesite-request', function () {
         c: 'test-canteen',
         kw: 11
       })
-      return [200, { some: { data: 42 } }]
+      return [200, 'page content']
     })
     return expect(request('test-canteen', 11))
       .to.eventually.be.fulfilled
   })
 
   it('returns data as-is', function () {
+    const data = JSON.stringify({ some: { data: 42 } })
     lazyMock.get().onAny().replyOnce(() => {
-      return [200, { some: { data: 42 } }]
+      return [200, data]
     })
     return expect(request('test-canteen', 11))
-      .to.eventually.deep.equal({ some: { data: 42 } })
+      .to.eventually.deep.equal(data)
   })
 
   it('includes session cookie if provided', function () {
     lazyMock.get().onAny().replyOnce(config => {
       expect(config.headers).to.have.property('Cookie').that.equals('platoCMS=qux42baz')
-      return [200, { some: { data: 42 } }]
+      return [200, 'page content']
     })
     return expect(request('test-canteen', 11, 'qux42baz'))
       .to.eventually.be.fulfilled
