@@ -43,6 +43,12 @@ describe('jsonapi/jsonapi-request', function () {
       return expect(request({ user: 'a', password: 'b' }, METADATA_ENDPOINT))
         .to.eventually.deep.equal({ some: { data: 42 } })
     })
+
+    it('throws if non-json data is returned', function () {
+      lazyMock.get().onAny().replyOnce(200, 'textual page content')
+      return expect(request({ user: 'a', password: 'b' }, METADATA_ENDPOINT))
+        .to.eventually.be.rejected
+    })
   })
 
   describe('with #PLANS_ENDPOINT', function () {
@@ -66,6 +72,12 @@ describe('jsonapi/jsonapi-request', function () {
       })
       return expect(request({ user: 'a', password: 'b' }, PLANS_ENDPOINT))
         .to.eventually.deep.equal({ some: { data: 42 } })
+    })
+
+    it('throws if non-json data is returned', function () {
+      lazyMock.get().onAny().replyOnce(200, 'textual page content')
+      return expect(request({ user: 'a', password: 'b' }, PLANS_ENDPOINT))
+        .to.eventually.be.rejected
     })
   })
 })
