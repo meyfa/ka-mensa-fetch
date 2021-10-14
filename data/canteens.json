@@ -28,7 +28,15 @@
         "id": "l45",
         "name": "Linie 4/5",
         "alternativeNames": [
+          "Linie 4",
           "Linie 4/5 G&G-Gerichte To-Go"
+        ]
+      },
+      {
+        "id": "l5",
+        "name": "Linie 5",
+        "alternativeNames": [
+          "Linie 5 To-Go"
         ]
       },
       {
