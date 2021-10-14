@@ -1,3 +1,4 @@
+import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
 /**
@@ -15,7 +16,7 @@ export class LazyMockAdapter {
    */
   get (): MockAdapter {
     if (this.mock == null) {
-      this.mock = new MockAdapter(require('axios'), { onNoMatch: 'throwException' })
+      this.mock = new MockAdapter(axios, { onNoMatch: 'throwException' })
     }
     return this.mock
   }
