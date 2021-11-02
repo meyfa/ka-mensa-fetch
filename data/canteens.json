@@ -41,7 +41,10 @@
       },
       {
         "id": "schnitzelbar",
-        "name": "Schnitzelbar"
+        "name": "Schnitzelbar",
+        "alternativeNames": [
+          "Schnitzel-Burger-Bar"
+        ]
       },
       {
         "id": "update",
