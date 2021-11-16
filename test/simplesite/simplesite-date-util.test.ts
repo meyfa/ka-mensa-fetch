@@ -16,19 +16,19 @@ describe('simplesite/simplesite-date-util', function () {
   describe('#isDateSupported()', function () {
     it('returns true for start of current week', function () {
       // use start of week
-      const date = moment().isoWeekday(1).hour(0).minute(0).second(0).millisecond(0)
+      const date = moment().isoWeekday(1).hour(0).minute(0).second(0).millisecond(0).toDate()
       expect(dateUtil.isDateSupported(date)).to.equal(true)
     })
 
     it('returns false for dates before start of current week', function () {
       // use start of week, then go one millisecond earlier
-      const date = moment().isoWeekday(1).hour(0).minute(0).second(0).millisecond(-1)
+      const date = moment().isoWeekday(1).hour(0).minute(0).second(0).millisecond(-1).toDate()
       expect(dateUtil.isDateSupported(date)).to.equal(false)
     })
 
     it('returns false for dates too far into the future', function () {
       // add a few weeks
-      const date = moment().add(8, 'weeks')
+      const date = moment().add(8, 'weeks').toDate()
       expect(dateUtil.isDateSupported(date)).to.equal(false)
     })
   })
