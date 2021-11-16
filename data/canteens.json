@@ -8,7 +8,8 @@
         "name": "Linie 1",
         "alternativeNames": [
           "Linie 1 To-Go",
-          "Linie 1 BOOK A MENSA"
+          "Linie 1 BOOK A MENSA",
+          "Linie 1 Gut & Günstig"
         ]
       },
       {
@@ -48,7 +49,10 @@
       },
       {
         "id": "update",
-        "name": "L6 Update"
+        "name": "L6 Update",
+        "alternativeNames": [
+          "Linie 6"
+        ]
       },
       {
         "id": "abend",
@@ -83,7 +87,8 @@
         "alternativeNames": [
           "[pizza]werk Pizza 11:30-14:30 Uhr To-Go",
           "[pizza]werk Pizza 11:30-13:30 Uhr To-Go",
-          "[pizza]werk Pizza 11-14 Uhr To-Go"
+          "[pizza]werk Pizza 11-14 Uhr To-Go",
+          "[pizza]werk Pizza 11-14 Uhr"
         ]
       },
       {
@@ -126,7 +131,10 @@
       },
       {
         "id": "curryqueen",
-        "name": "[Kœri]werk"
+        "name": "[Kœri]werk",
+        "alternativeNames": [
+          "[kœri]werk"
+        ]
       }
     ]
   },
@@ -194,7 +202,10 @@
       },
       {
         "id": "curryqueen",
-        "name": "[Kœri]werk"
+        "name": "[Kœri]werk",
+        "alternativeNames": [
+          "[kœri]werk"
+        ]
       }
     ]
   },
