@@ -18,6 +18,7 @@
         "alternativeNames": [
           "Linie 2 To-Go",
           "Linie 2 BOOK A MENSA",
+          "Linie 2 Gut & Günstig",
           "Linie 2 vegane Linie"
         ]
       },
@@ -37,7 +38,8 @@
         "id": "l5",
         "name": "Linie 5",
         "alternativeNames": [
-          "Linie 5 To-Go"
+          "Linie 5 To-Go",
+          "Linie 5 Vegane Linie"
         ]
       },
       {
