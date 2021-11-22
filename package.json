@@ -12,8 +12,8 @@
     "clean": "rimraf dist",
     "compile": "tsc && copyfiles -u 1 \"data/**/*\" dist/data && copyfiles LICENSE README.md dist && node setup-package.js",
     "build": "npm run clean && npm run compile",
-    "lint": "eslint --ignore-path .gitignore .",
-    "lint-fix": "eslint --fix --ignore-path .gitignore .",
+    "lint": "eslint --ignore-path .gitignore . && tsc --noEmit",
+    "lint-fix": "eslint --fix --ignore-path .gitignore . && tsc --noEmit",
     "test": "mocha --require ts-node/register --recursive \"test/**/*.test.*\"",
     "coverage": "nyc --reporter=lcov --all --include \"src/**/*.ts\" npm test",
     "prepack": "echo \"Must pack/publish from ./dist\" && exit 1"
