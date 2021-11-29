@@ -34,7 +34,6 @@ describe('simplesite/match-line-name', function () {
   })
 
   it('matches alternative names', function () {
-    expect(matchLineName('adenauerring', 'Cafeteria')).to.equal('heisstheke')
-    expect(matchLineName('adenauerring', 'Cafeteria 11-14 Uhr')).to.equal('nmtisch')
+    expect(matchLineName('adenauerring', '[kœri]werk 11-14 Uhr')).to.equal('aktion')
   })
 })
