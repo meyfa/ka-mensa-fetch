@@ -74,14 +74,14 @@
         "name": "Cafeteria Heiße Theke",
         "alternativeNames": [
           "Cafeteria",
-          "Cafeteria 11-14 Uhr To-Go"
+          "Cafeteria 11-14 Uhr"
         ]
       },
       {
         "id": "nmtisch",
         "name": "Cafeteria ab 14:30",
         "alternativeNames": [
-          "Cafeteria 11-14 Uhr"
+          "Cafeteria 11-14 Uhr To-Go"
         ]
       },
       {
