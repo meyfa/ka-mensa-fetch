@@ -145,6 +145,40 @@ describe('simplesite/simplesite-parse', function () {
     ])
   })
 
+  it('parses lines with no meal content', function () {
+    // This markup has never been observed in the wild, the table was always present, even if it was empty.
+    // Nonetheless, we have to test this in case it ever happens.
+    const str = '<!DOCTYPE html><html><body>' +
+      '<div id="platocontent">' +
+      '<h1>Mensa Am Adenauerring</h1>' +
+      '<h1>Mi 12.08.</h1><table>' +
+      '  <tr><td>Linie 1</td><td></td></tr>' +
+      '  <tr><td>Linie 2</td><td></td></tr>' +
+      '</table>' +
+      '</div>' +
+      '</body></html>'
+    const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
+    expect(obj).to.deep.equal([
+      {
+        id: 'adenauerring',
+        name: 'Mensa Am Adenauerring',
+        date: { year: 2020, month: 7, day: 12 },
+        lines: [
+          {
+            id: 'l1',
+            name: 'Linie 1',
+            meals: []
+          },
+          {
+            id: 'l2',
+            name: 'Linie 2',
+            meals: []
+          }
+        ]
+      }
+    ])
+  })
+
   it('parses meals', function () {
     const str = '<!DOCTYPE html><html><body>' +
       '<div id="platocontent">' +
