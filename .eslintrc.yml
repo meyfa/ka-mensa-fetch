@@ -11,3 +11,9 @@ rules:
   jsdoc/require-param-type: off
   jsdoc/require-returns-type: off
   jsdoc/no-types: error
+
+overrides:
+  - files: 'test/**/*.test.*'
+    rules:
+      no-unused-expressions: off
+      '@typescript-eslint/no-unused-expressions': off
