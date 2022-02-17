@@ -15,7 +15,7 @@
     "lint": "eslint --ignore-path .gitignore . && tsc --noEmit",
     "lint-fix": "eslint --fix --ignore-path .gitignore . && tsc --noEmit",
     "test": "mocha --require ts-node/register --recursive \"test/**/*.test.*\"",
-    "coverage": "nyc --reporter=lcov --all --include \"src/**/*.ts\" npm test",
+    "coverage": "c8 --reporter=lcov --reporter=text --all --include src --exclude \"src/types/\" npm test",
     "prepack": "echo \"Must pack/publish from ./dist\" && exit 1"
   },
   "repository": {
@@ -45,6 +45,7 @@
     "@types/node": "16.11.25",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "axios-mock-adapter": "1.20.0",
+    "c8": "7.11.0",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
     "copyfiles": "2.4.1",
@@ -55,7 +56,6 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "5.2.0",
     "mocha": "9.2.0",
-    "nyc": "15.1.0",
     "rimraf": "3.0.2",
     "ts-node": "10.5.0",
     "typescript": "4.5.5"
