@@ -63,9 +63,9 @@ export async function fetchMensa (source: 'simplesite' | 'jsonapi' = 'simplesite
 
   switch (resolvedSource) {
     case 'simplesite':
-      return fetchSimpleSite(options as SimpleSiteOptions)
+      return await fetchSimpleSite(options as SimpleSiteOptions)
     case 'jsonapi':
-      return fetchJson(options as JsonApiOptions)
+      return await fetchJson(options as JsonApiOptions)
   }
 }
 

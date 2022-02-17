@@ -21,7 +21,7 @@ export function isDateSupported (date: datelike): boolean {
   const now = moment()
   const m = moment(date)
   // week must not be in the past and not too far in the future
-  return m.isSameOrAfter(now, 'isoWeek') as boolean && m.diff(now, 'weeks') <= 6
+  return m.isSameOrAfter(now, 'isoWeek') && m.diff(now, 'weeks') <= 6
 }
 
 /**
