@@ -318,7 +318,6 @@ also has an id and a display name.
   <summary>Code example</summary>
 
 ```js
-// need to enable JSON imports in TypeScript config
 import { canteens } from 'ka-mensa-fetch'
 console.log(canteens)
 ```
