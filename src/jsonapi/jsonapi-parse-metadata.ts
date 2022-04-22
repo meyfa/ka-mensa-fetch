@@ -16,7 +16,7 @@ export interface UnparsedMetadata {
 
 /**
  * Parse the given JSON to retrieve a canteen and line mapping, structured
- * exactly like 'data/canteens.json'.
+ * exactly like the canteens dataset.
  *
  * @param json The JSON general data to parse.
  * @returns The parse results.

@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { canteens } from '../data.js'
+import { canteens } from '../data/canteens.js'
 import { buildCanteenLookup, MappedCanteen } from './build-canteen-lookup.js'
 import { DateSpec } from '../types/date-spec.js'
 import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
@@ -185,7 +185,7 @@ function parseLines (canteen: MappedCanteen, lineMapping: any): CanteenLine[] {
  *
  * @param json The JSON canteen data to parse.
  * @param referenceDate The date of plan acquisition, for reference.
- * @param metadata A supplementary 'canteens.json'-like structure.
+ * @param metadata A supplementary canteens-dataset-like structure.
  * @returns The parse results.
  */
 export function parsePlans (json: any, referenceDate: Date, metadata?: Canteen[]): CanteenPlan[] {

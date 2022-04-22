@@ -1,4 +1,4 @@
-import { canteens } from '../data.js'
+import { canteens } from '../data/canteens.js'
 import { request } from './simplesite-request.js'
 import { parse } from './simplesite-parse.js'
 import { convertToWeeks, getCurrentWeek, isDateSupported } from './simplesite-date-util.js'

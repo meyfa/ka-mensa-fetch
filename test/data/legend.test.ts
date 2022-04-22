@@ -1,4 +1,4 @@
-import { legend } from '../../src/data.js'
+import { legend } from '../../src/data/legend.js'
 import { isTrimmed } from '../helper-is-trimmed.js'
 import { checkDuplicates } from '../helper-check-duplicates.js'
 
@@ -6,7 +6,7 @@ import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 
-describe('data: legend.json', function () {
+describe('data/legend', function () {
   it('has proper schema', function () {
     expect(legend).to.be.an('array')
     for (const entry of legend) {

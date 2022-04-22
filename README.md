@@ -76,7 +76,7 @@ import { fetchMensa } from 'ka-mensa-fetch'
 Additional options for 'simplesite' source:
 
 - `canteens: string[]`: Array of canteen ids for which plans are wanted.
-  See `data/canteens.json` for possible values.
+  See `src/data/canteens.ts` for possible values.
 - `dates: object[]`:
   Array of date specifiers for which plans are wanted. They can have any one of
   the following forms (remember, JavaScript uses 0-indexed months):
@@ -230,11 +230,11 @@ The following types are available:
 ```ts
 import {
 
-  // types as they appear in data/canteens.json
+  // types for canteen declarations (src/data/canteens.ts)
   Line,
   Canteen,
 
-  // types as they appear in data/legend.json
+  // types for legend declaration (src/data/legend.ts)
   LegendItem,
 
   // types as they appear in fetch results
@@ -319,7 +319,7 @@ also has an id and a display name.
 
 ```js
 // need to enable JSON imports in TypeScript config
-import canteens from 'ka-mensa-fetch/data/canteens.json'
+import { canteens } from 'ka-mensa-fetch'
 console.log(canteens)
 ```
 
@@ -350,8 +350,7 @@ A list of meal qualifiers / additives / warnings / etc.
   <summary>Code example</summary>
 
 ```js
-// need to enable JSON imports in TypeScript config
-import legend from 'ka-mensa-fetch/data/legend.json'
+import { legend } from 'ka-mensa-fetch'
 console.log(legend)
 ```
 
