@@ -1,4 +1,4 @@
-import { legend } from '../../src/data.js'
+import { legend } from '../../src/data/legend.js'
 import { isTrimmed } from '../helper-is-trimmed.js'
 import { checkDuplicates } from '../helper-check-duplicates.js'
 

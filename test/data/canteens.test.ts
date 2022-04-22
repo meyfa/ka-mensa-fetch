@@ -1,4 +1,4 @@
-import { canteens } from '../../src/data.js'
+import { canteens } from '../../src/data/canteens.js'
 import { isTrimmed } from '../helper-is-trimmed.js'
 import { checkDuplicates } from '../helper-check-duplicates.js'
 

@@ -78,3 +78,7 @@ export { LegendItem } from './src/types/legend.js'
 export { CanteenPlan, CanteenLine, CanteenMeal } from './src/types/canteen-plan.js'
 export { DateSpec, datelike } from './src/types/date-spec.js'
 export { Options, SimpleSiteOptions, JsonApiOptions, AuthConfig } from './src/types/options.js'
+
+// re-export data
+export { canteens } from './src/data/canteens.js'
+export { legend } from './src/data/legend.js'

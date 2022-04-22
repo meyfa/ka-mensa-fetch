@@ -1,4 +1,4 @@
-import { canteens } from '../data.js'
+import { canteens } from '../data/canteens.js'
 
 // CONSTANTS
 
