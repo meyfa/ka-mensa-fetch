@@ -6,17 +6,16 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/**/*"
+    "dist"
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "compile": "tsc && copyfiles -u 1 \"data/**/*\" dist/data && copyfiles LICENSE README.md dist && node setup-package.js",
-    "build": "npm run clean && npm run compile",
+    "build": "npm run clean && tsc",
     "lint": "eslint --ignore-path .gitignore . && tsc --noEmit",
     "lint-fix": "eslint --fix --ignore-path .gitignore . && tsc --noEmit",
     "test": "mocha --require ts-node/register --recursive \"test/**/*.test.*\"",
     "coverage": "c8 --reporter=lcov --reporter=text --all --include src --exclude \"src/types/\" npm test",
-    "prepack": "echo \"Must pack/publish from ./dist\" && exit 1"
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -48,7 +47,6 @@
     "c8": "7.11.2",
     "chai": "4.3.6",
     "chai-as-promised": "7.1.1",
-    "copyfiles": "2.4.1",
     "eslint": "7.32.0",
     "eslint-config-standard-with-typescript": "21.0.1",
     "eslint-plugin-import": "2.26.0",
