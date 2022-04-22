@@ -19,7 +19,8 @@
           "Linie 2 To-Go",
           "Linie 2 BOOK A MENSA",
           "Linie 2 Gut & Günstig",
-          "Linie 2 vegane Linie"
+          "Linie 2 vegane Linie",
+          "Vegane Linie"
         ]
       },
       {
@@ -47,7 +48,7 @@
         "name": "Schnitzelbar",
         "alternativeNames": [
           "Schnitzel-Burger-Bar",
-          "Vegane Linie"
+          "Schnitzel-/ Burgerbar"
         ]
       },
       {
