@@ -1,4 +1,4 @@
-import { parseMetadata } from '../../src/jsonapi/jsonapi-parse-metadata'
+import { parseMetadata } from '../../src/jsonapi/jsonapi-parse-metadata.js'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

@@ -1,5 +1,5 @@
-import { requestSessionCookie } from '../../src/cookies/request-session-cookie'
-import { LazyMockAdapter } from '../helper-lazymockadapter'
+import { requestSessionCookie } from '../../src/cookies/request-session-cookie.js'
+import { LazyMockAdapter } from '../helper-lazymockadapter.js'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

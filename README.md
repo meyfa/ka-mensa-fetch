@@ -33,6 +33,8 @@ The entire project is written in JavaScript+TypeScript and is composed as follow
 
 Make sure Node and NPM are available on your system, then use
 `npm i ka-mensa-fetch` to install it into your project's dependencies.
+Please note that it is packaged as an ECMAScript module and is incompatible
+with CommonJS.
 
 TypeScript typings are available directly as part of the package.
 

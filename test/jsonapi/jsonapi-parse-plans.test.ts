@@ -1,4 +1,4 @@
-import { parsePlans } from '../../src/jsonapi/jsonapi-parse-plans'
+import { parsePlans } from '../../src/jsonapi/jsonapi-parse-plans.js'
 
 import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'

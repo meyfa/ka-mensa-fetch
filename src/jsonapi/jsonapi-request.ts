@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-import { AuthConfig } from '../types/options'
+import { AuthConfig } from '../types/options.js'
 
 // CONSTANTS
 

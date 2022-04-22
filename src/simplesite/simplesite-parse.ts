@@ -1,13 +1,10 @@
 import cheerio, { Cheerio, CheerioAPI, Element } from 'cheerio'
-
-import { mergeWhitespace } from '../util/merge-whitespace'
-
-import { parseDatestamp } from './parse-datestamp'
-import { parseClassifiers } from './parse-classifiers'
-import { parseNameAndAdditives } from './parse-name-and-additives'
-
-import { matchLineName } from './match-line-name'
-import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan'
+import { mergeWhitespace } from '../util/merge-whitespace.js'
+import { parseDatestamp } from './parse-datestamp.js'
+import { parseClassifiers } from './parse-classifiers.js'
+import { parseNameAndAdditives } from './parse-name-and-additives.js'
+import { matchLineName } from './match-line-name.js'
+import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
 
 // METHODS
 

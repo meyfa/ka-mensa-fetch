@@ -1,4 +1,4 @@
-import { Canteen, Line } from '../types/canteen'
+import { Canteen, Line } from '../types/canteen.js'
 
 /**
  * The structure that might be returned by the JSON API.
