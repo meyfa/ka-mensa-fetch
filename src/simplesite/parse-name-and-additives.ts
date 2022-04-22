@@ -1,4 +1,4 @@
-import { mergeWhitespace } from '../util/merge-whitespace'
+import { mergeWhitespace } from '../util/merge-whitespace.js'
 
 // CONSTANTS
 

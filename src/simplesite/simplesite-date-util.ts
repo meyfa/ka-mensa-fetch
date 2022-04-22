@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { datelike } from '../types/date-spec'
+import { datelike } from '../types/date-spec.js'
 
 /**
  * Get the current calendar week.

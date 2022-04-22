@@ -1,4 +1,4 @@
-import { Canteen, Line } from '../types/canteen'
+import { Canteen, Line } from '../types/canteen.js'
 
 // TYPES
 

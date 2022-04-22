@@ -1,8 +1,8 @@
-import { METADATA_ENDPOINT, PLANS_ENDPOINT, request } from './jsonapi-request'
-import { parseMetadata } from './jsonapi-parse-metadata'
-import { parsePlans } from './jsonapi-parse-plans'
-import { JsonApiOptions } from '../types/options'
-import { CanteenPlan } from '../types/canteen-plan'
+import { METADATA_ENDPOINT, PLANS_ENDPOINT, request } from './jsonapi-request.js'
+import { parseMetadata } from './jsonapi-parse-metadata.js'
+import { parsePlans } from './jsonapi-parse-plans.js'
+import { JsonApiOptions } from '../types/options.js'
+import { CanteenPlan } from '../types/canteen-plan.js'
 
 /**
  * Fetch the JSON API plan and parse it.

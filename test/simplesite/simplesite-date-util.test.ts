@@ -1,4 +1,4 @@
-import * as dateUtil from '../../src/simplesite/simplesite-date-util'
+import * as dateUtil from '../../src/simplesite/simplesite-date-util.js'
 import moment from 'moment'
 
 import chai, { expect } from 'chai'

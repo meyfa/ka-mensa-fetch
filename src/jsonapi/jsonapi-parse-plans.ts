@@ -1,10 +1,9 @@
 import moment from 'moment'
-
-import canteens from '../../data/canteens.json'
-import { buildCanteenLookup, MappedCanteen } from './build-canteen-lookup'
-import { DateSpec } from '../types/date-spec'
-import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan'
-import { Canteen } from '../types/canteen'
+import { canteens } from '../data.js'
+import { buildCanteenLookup, MappedCanteen } from './build-canteen-lookup.js'
+import { DateSpec } from '../types/date-spec.js'
+import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
+import { Canteen } from '../types/canteen.js'
 
 // CONSTANTS
 

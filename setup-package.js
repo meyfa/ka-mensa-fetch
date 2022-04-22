@@ -1,12 +1,13 @@
-'use strict'
-
 /*
  * This file is used as an additional build step before publishing,
  * to adapt the package.json to be suitable for publishing from './dist'.
  */
 
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const ORIGINAL_PACKAGE_JSON = path.join(__dirname, 'package.json')
 const DIST_PACKAGE_JSON = path.join(__dirname, 'dist', 'package.json')

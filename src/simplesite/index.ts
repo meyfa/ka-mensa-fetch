@@ -1,9 +1,9 @@
-import canteens from '../../data/canteens.json'
-import { request } from './simplesite-request'
-import { parse } from './simplesite-parse'
-import { convertToWeeks, getCurrentWeek, isDateSupported } from './simplesite-date-util'
-import { CanteenPlan } from '../types/canteen-plan'
-import { SimpleSiteOptions } from '../types/options'
+import { canteens } from '../data.js'
+import { request } from './simplesite-request.js'
+import { parse } from './simplesite-parse.js'
+import { convertToWeeks, getCurrentWeek, isDateSupported } from './simplesite-date-util.js'
+import { CanteenPlan } from '../types/canteen-plan.js'
+import { SimpleSiteOptions } from '../types/options.js'
 
 // CONSTANTS
 
