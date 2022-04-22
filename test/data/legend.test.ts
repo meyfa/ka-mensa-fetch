@@ -6,7 +6,7 @@ import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 
-describe('data: legend.json', function () {
+describe('data/legend', function () {
   it('has proper schema', function () {
     expect(legend).to.be.an('array')
     for (const entry of legend) {
