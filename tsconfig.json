@@ -8,9 +8,7 @@
     "declaration": true,
     "outDir": "./dist"
   },
-  "exclude": [
-    "test",
-    "dist",
-    "node_modules"
+  "include": [
+    "src"
   ]
 }
