@@ -1,7 +1,7 @@
-import { fetch as fetchSimpleSite } from './src/simplesite/index.js'
-import { fetch as fetchJson } from './src/jsonapi/index.js'
-import { JsonApiOptions, Options, SimpleSiteOptions } from './src/types/options.js'
-import { CanteenPlan } from './src/types/canteen-plan.js'
+import { fetch as fetchSimpleSite } from './simplesite/index.js'
+import { fetch as fetchJson } from './jsonapi/index.js'
+import { JsonApiOptions, Options, SimpleSiteOptions } from './types/options.js'
+import { CanteenPlan } from './types/canteen-plan.js'
 
 // HELPER FUNCTIONS
 
@@ -70,15 +70,15 @@ export async function fetchMensa (source: 'simplesite' | 'jsonapi' = 'simplesite
 }
 
 // re-export session cookie function
-export { requestSessionCookie } from './src/cookies/request-session-cookie.js'
+export { requestSessionCookie } from './cookies/request-session-cookie.js'
 
 // re-export types
-export { Line, Canteen } from './src/types/canteen.js'
-export { LegendItem } from './src/types/legend.js'
-export { CanteenPlan, CanteenLine, CanteenMeal } from './src/types/canteen-plan.js'
-export { DateSpec, datelike } from './src/types/date-spec.js'
-export { Options, SimpleSiteOptions, JsonApiOptions, AuthConfig } from './src/types/options.js'
+export { Line, Canteen } from './types/canteen.js'
+export { LegendItem } from './types/legend.js'
+export { CanteenPlan, CanteenLine, CanteenMeal } from './types/canteen-plan.js'
+export { DateSpec, datelike } from './types/date-spec.js'
+export { Options, SimpleSiteOptions, JsonApiOptions, AuthConfig } from './types/options.js'
 
 // re-export data
-export { canteens } from './src/data/canteens.js'
-export { legend } from './src/data/legend.js'
+export { canteens } from './data/canteens.js'
+export { legend } from './data/legend.js'
