@@ -4,24 +4,60 @@ import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 
+/**
+ * Create a full HTML document for the given page content. The document will be pretty close to what the real website
+ * would show.
+ *
+ * @param canteenName The canteen name to be used as the page title.
+ * @param content The main page content (usually the dates and associated plan tables).
+ * @returns The HTML document string.
+ */
+function wrapContent (canteenName: string, content: string): string {
+  // This is not a complete page layout, but it's close enough.
+  return `<!DOCYTPE html>
+    <html lang="de">
+    <body class="plato hochschulgastronomie">
+      <div class="page_wrapper">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div id="platocontent" class="platocontent">
+                  <article>
+                    <div class="article-div">
+                      <h1 class="mensa_fullname">${canteenName}</h1>
+                      <h1>${canteenName}</h1>
+                      Preise für Studenten
+                      <p><style></style></p>
+                      ${content}
+                      <b>Legende</b><br>
+                      (1) mit Farbstoff<br>
+                      <b>Freiwillige Angaben</b><br>
+                      [R] enthält Rindfleisch
+                    </div>
+                  </article>
+                </div>
+              </td>
+              <td>
+                <div id="platomargin" class="platomargin"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </body>
+    </html>`
+}
+
 describe('simplesite/simplesite-parse', function () {
   it('can handle empty plan', function () {
-    const str = '<!DOCYTPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>Mensa Am Adenauerring</h1>' +
-      '</div>' +
-      '</body></html>'
+    const str = wrapContent('Mensa Am Adenauerring', '')
     const obj = parse(str, 'adenauerring', new Date())
     expect(obj).to.deep.equal([])
   })
 
   it('extracts canteen name from first h1', function () {
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>name-here</h1>' +
-      '<h1>Mi 12.08.</h1><table></table>' +
-      '</div>' +
-      '</body></html>'
+    const str = wrapContent('name-here', '<h1>Mi 12.08.</h1><table></table>')
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
       {
@@ -36,14 +72,12 @@ describe('simplesite/simplesite-parse', function () {
   it('is resilient to fake headlines in content-block', function () {
     // sometimes other content is prepended to the view, and that content might
     // contain h1 tags
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<div><h1>fake1</h1></div>' +
-      '<div><h1>fake2</h1></div>' +
-      '<h1>name-here</h1>' +
-      '<h1>Mi 12.08.</h1><table></table>' +
-      '</div>' +
-      '</body></html>'
+    const str = wrapContent('name-here', '<h1>Mi 12.08.</h1><table></table>')
+      .replace('<div class="article-div">', (
+        '<div><h1>fake1</h1></div>' +
+        '<div><h1>fake2</h1></div>' +
+        '<div class="article-div">'
+      ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
       {
@@ -56,14 +90,11 @@ describe('simplesite/simplesite-parse', function () {
   })
 
   it('deduces dates', function () {
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>name-here</h1>' +
+    const str = wrapContent('name-here', (
       '<h1>Di 11.08.</h1><table></table>' +
       '<h1>Mi 12.08.</h1><table></table>' +
-      '<h1>Do 13.08.</h1><table></table>' +
-      '</div>' +
-      '</body></html>'
+      '<h1>Do 13.08.</h1><table></table>'
+    ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
       {
@@ -88,41 +119,33 @@ describe('simplesite/simplesite-parse', function () {
   })
 
   it('does not include plans with invalid dates', function () {
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>name-here</h1>' +
-      '<h1>foo bar.baz.</h1><table></table>' +
-      '</div>' +
-      '</body></html>'
+    const str = wrapContent('name-here', (
+      '<h1>foo bar.baz.</h1><table></table>'
+    ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([])
   })
 
   it('ignores empty rows in line table', function () {
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>Mensa Am Adenauerring</h1>' +
-      '<h1>Mi 12.08.</h1><table><tr></tr><tr></tr><tr></tr></table>' +
-      '</div>' +
-      '</body></html>'
+    const str = wrapContent('name-here', (
+      '<h1>Mi 12.08.</h1><table><tr></tr><tr></tr><tr></tr></table>'
+    ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj[0].lines).to.deep.equal([])
   })
 
   it('parses closed lines', function () {
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>Mensa Am Adenauerring</h1>' +
-      '<h1>Mi 12.08.</h1><table>' +
+    const str = wrapContent('Mensa Am Adenauerring', (
+      '<h1>Mi 12.08.</h1>' +
+      '<table>' +
       '  <tr><td>Linie 1</td><td><table>' +
       '    <tr><td><div><b>Geschlossen:</b> 01.08.-31.08.</div></td></tr>' +
       '  </table></td></tr>' +
       '  <tr><td>Linie 2</td><td><table>' +
       '    <tr><td><div><b>Geschlossen:</b> 01.08.-31.08.</div></td></tr>' +
       '  </table></td></tr>' +
-      '</table>' +
-      '</div>' +
-      '</body></html>'
+      '</table>'
+    ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
       {
@@ -148,15 +171,12 @@ describe('simplesite/simplesite-parse', function () {
   it('parses lines with no meal content', function () {
     // This markup has never been observed in the wild, the table was always present, even if it was empty.
     // Nonetheless, we have to test this in case it ever happens.
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>Mensa Am Adenauerring</h1>' +
+    const str = wrapContent('Mensa Am Adenauerring', (
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>Linie 1</td><td></td></tr>' +
       '  <tr><td>Linie 2</td><td></td></tr>' +
-      '</table>' +
-      '</div>' +
-      '</body></html>'
+      '</table>'
+    ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
       {
@@ -180,18 +200,15 @@ describe('simplesite/simplesite-parse', function () {
   })
 
   it('parses meals', function () {
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>Mensa Am Adenauerring</h1>' +
+    const str = wrapContent('Mensa Am Adenauerring', (
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>[kœri]werk</td><td><table>' +
       '    <tr><td>[R]</td><td><span><b>Kalb</b> (Sn,Se,We)<span></td><td><span>2,00 &euro;</span></td></tr>' +
       '    <tr><td>[VG]</td><td><span><b>vegan</b> (So,Sn,Se,We)<span></td><td><span>2,00 &euro;</span></td></tr>' +
       '    <tr><td>[VG]</td><td><span><b>Frites</b><span></td><td><span>1,20 &euro;</span></td></tr>' +
       '  </table></td></tr>' +
-      '</table>' +
-      '</div>' +
-      '</body></html>'
+      '</table>'
+    ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
       {
@@ -220,16 +237,13 @@ describe('simplesite/simplesite-parse', function () {
   })
 
   it('includes lines with unknown names', function () {
-    const str = '<!DOCTYPE html><html><body>' +
-      '<div id="platocontent">' +
-      '<h1>Mensa Am Adenauerring</h1>' +
+    const str = wrapContent('Mensa Am Adenauerring', (
       '<h1>Mi 12.08.</h1><table>' +
       '  <tr><td>unknown-line-name</td><td><table>' +
       '    <tr><td>[VG]</td><td><span><b>Frites</b><span></td><td><span>1,20 &euro;</span></td></tr>' +
       '  </table></td></tr>' +
-      '</table>' +
-      '</div>' +
-      '</body></html>'
+      '</table>'
+    ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
     expect(obj).to.deep.equal([
       {

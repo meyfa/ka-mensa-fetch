@@ -380,10 +380,11 @@ This is relatively reliable as long as there are no structural changes.
 
 The URL used is the following:
 
-`https://www.sw-ka.de/de/essen/?view=ok&STYLE=popup_plain&c=adenauerring&p=1&kw=49`
+`https://www.sw-ka.de/de/hochschulgastronomie/speiseplan/mensa_adenauerring/?view=ok&STYLE=popup_plain&c=adenauerring&p=1&kw=49`
 
-Here, `adenauerring` is the canteen id and `kw=49` indicates that the plan for
-the 49th calendar week is requested (weeks _probably_ following ISO 8601).
+Here, `adenauerring` (appears twice!) is the canteen id and `kw=49` indicates
+that the plan for the 49th calendar week is requested. The calendar weeks
+likely follow ISO-8601.
 
 Unfortunately, the `p` parameter representing price category (1 for students,
 2 for guests, 3 for employees, 4 for school children) has no effect. This
@@ -396,9 +397,9 @@ It requires authentication, which is why it is not the default source.
 
 Endpoints:
 
-1. `https://www.sw-ka.de/json_interface/general/` - used for obtaining
+1. `https://www.sw-ka.de/en/json_interface/general/` - used for obtaining
   up-to-date canteen and line names
-2. `https://www.sw-ka.de/json_interface/canteen/` - used for obtaining the meal
+2. `https://www.sw-ka.de/en/json_interface/canteen/` - used for obtaining the meal
   plans
 
 There are no (known) parameters. The API returns all data from the beginning of

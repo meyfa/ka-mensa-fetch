@@ -5,7 +5,7 @@ import axios, { AxiosRequestHeaders } from 'axios'
 /**
  * URL of the simplified web view.
  */
-const BASE_URL = 'https://www.sw-ka.de/de/essen/'
+const BASE_URL = 'https://www.sw-ka.de/de/hochschulgastronomie/speiseplan/'
 
 /**
  * Conservative request timeout in milliseconds.
@@ -49,7 +49,7 @@ export async function request (canteenId: string, weekId: string | number, sessi
     headers.Cookie = `platoCMS=${sessionCookie}`
   }
 
-  const response = await axios.get(BASE_URL, {
+  const response = await axios.get(`${BASE_URL}mensa_${canteenId}/`, {
     params: {
       STYLE: 'popup_plain',
       view: 'ok',
