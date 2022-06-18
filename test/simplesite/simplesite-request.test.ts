@@ -11,7 +11,7 @@ describe('simplesite/simplesite-request', function () {
 
   it('sends request as expected', function () {
     lazyMock.get().onAny().replyOnce(config => {
-      expect(config.url).to.equal('https://www.sw-ka.de/de/essen/')
+      expect(config.url).to.equal('https://www.sw-ka.de/de/hochschulgastronomie/speiseplan/mensa_test-canteen/')
       expect(config.method).to.equal('get')
       expect(config.params).to.deep.equal({
         STYLE: 'popup_plain',

@@ -126,15 +126,16 @@ function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefi
  */
 export function parse (html: string, canteenId: string, referenceDate: Date): CanteenPlan[] {
   const $ = cheerio.load(html)
-  const $titles = $('#platocontent > h1')
+  const $titles = $('#platocontent .article-div > h1')
 
-  // canteen name is stored in first <h1>
+  // The canteen name is stored in the first <h1>.
   const canteenName = $titles.first().text()
 
-  // remaining <h1> elements store plan dates
-  return $titles.slice(1, 6).map((_, el) => {
+  // The remaining <h1> elements may contain plan dates, but also potentially other things.
+  return $titles.slice(1).map((_, el) => {
     const dateElement = $(el)
     const date = parseDatestamp(dateElement.text(), referenceDate)
+    // This <h1> may have been some other meaningless title, and not a date.
     if (date != null) {
       return {
         id: canteenId,
