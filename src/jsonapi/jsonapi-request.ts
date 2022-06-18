@@ -6,12 +6,12 @@ import { AuthConfig } from '../types/options.js'
 /**
  * URL of the JSON API general endpoint.
  */
-export const METADATA_ENDPOINT = 'https://www.sw-ka.de/json_interface/general/'
+export const METADATA_ENDPOINT = 'https://www.sw-ka.de/en/json_interface/general/'
 
 /**
  * URL of the JSON API canteen endpoint.
  */
-export const PLANS_ENDPOINT = 'https://www.sw-ka.de/json_interface/canteen/'
+export const PLANS_ENDPOINT = 'https://www.sw-ka.de/en/json_interface/canteen/'
 
 /**
  * Conservative request timeout in milliseconds.

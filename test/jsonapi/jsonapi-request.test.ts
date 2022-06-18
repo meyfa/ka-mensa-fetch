@@ -24,7 +24,7 @@ describe('jsonapi/jsonapi-request', function () {
   describe('with #METADATA_ENDPOINT', function () {
     it('sends request as expected', function () {
       lazyMock.get().onAny().replyOnce(config => {
-        expect(config.url).to.equal('https://www.sw-ka.de/json_interface/general/')
+        expect(config.url).to.equal('https://www.sw-ka.de/en/json_interface/general/')
         expect(config.method).to.equal('get')
         expect(config.auth).to.deep.equal({
           username: 'a',
@@ -54,7 +54,7 @@ describe('jsonapi/jsonapi-request', function () {
   describe('with #PLANS_ENDPOINT', function () {
     it('sends request as expected', function () {
       lazyMock.get().onAny().replyOnce(config => {
-        expect(config.url).to.equal('https://www.sw-ka.de/json_interface/canteen/')
+        expect(config.url).to.equal('https://www.sw-ka.de/en/json_interface/canteen/')
         expect(config.method).to.equal('get')
         expect(config.auth).to.deep.equal({
           username: 'a',
