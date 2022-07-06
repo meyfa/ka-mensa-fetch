@@ -140,7 +140,7 @@ export function parse (html: string, canteenId: string, referenceDate: Date): Ca
       return {
         id: canteenId,
         name: canteenName,
-        date: date,
+        date,
         lines: parseLines($, dateElement.next('table'), canteenId)
       }
     }

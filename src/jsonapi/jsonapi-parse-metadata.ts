@@ -40,7 +40,7 @@ export function parseMetadata (json: UnparsedMetadata): Canteen[] {
     canteens.push({
       id: canteenId,
       name: json.mensa[canteenId].name ?? '',
-      lines: lines
+      lines
     })
   }
 
