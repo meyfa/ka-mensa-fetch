@@ -48,19 +48,8 @@ You can call the fetcher as follows:
 ```js
 import { fetchMensa } from 'ka-mensa-fetch'
 
-const promise = fetchMensa(/* source, options */)
-promise.then(plans => console.log(plans))
-```
-
-or in an async context:
-
-```js
-import { fetchMensa } from 'ka-mensa-fetch'
-
-;(async () => {
-  const plans = await fetchMensa(/* source, options */)
-  console.log(plans)
-})()
+const plans = await fetchMensa(/* source, options */)
+console.log(plans)
 ```
 
 **Arguments:**
@@ -281,18 +270,16 @@ implemented in `ka-mensa-fetch`, to be used as follows:
 ```js
 import { fetchMensa, requestSessionCookie } from 'ka-mensa-fetch'
 
-;(async () => {
-  const session = await requestSessionCookie()
-  if (!session) {
-    console.error('could not retrieve session cookie')
-  }
+const session = await requestSessionCookie()
+if (!session) {
+  console.error('could not retrieve session cookie')
+}
 
-  const plans = await fetchMensa('simplesite', {
-    sessionCookie: session  // !!!
-  })
+const plans = await fetchMensa('simplesite', {
+  sessionCookie: session  // !!!
+})
 
-  console.log(plans)
-})()
+console.log(plans)
 ```
 
 Multiple requests can be made with the same session cookie. Its lifetime is
