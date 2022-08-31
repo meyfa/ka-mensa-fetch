@@ -92,14 +92,14 @@ describe('jsonapi/build-canteen-lookup', function () {
     const extend = [
       {
         id: 'a',
+        name: 'A',
         lines: [
           { id: 'a1', name: 'A1-override' }
         ]
       }
     ]
 
-    // TODO fix type of extend
-    const result = buildCanteenLookup(base, extend as any)
+    const result = buildCanteenLookup(base, extend)
 
     const a = result.get('a') as any
     expect(a.id).to.equal('a')
