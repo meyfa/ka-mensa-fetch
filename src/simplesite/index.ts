@@ -5,14 +5,10 @@ import { convertToWeeks, getCurrentWeek, isDateSupported } from './simplesite-da
 import { CanteenPlan } from '../types/canteen-plan.js'
 import { SimpleSiteOptions } from '../types/options.js'
 
-// CONSTANTS
-
 /**
  * Array of known canteen ids.
  */
 const CANTEEN_IDS = Object.freeze(canteens.map(c => c.id))
-
-// HELPER METHODS
 
 /**
  * Fetch a single instance of the plan and parse it.
@@ -28,8 +24,6 @@ async function fetchSingle (canteenId: string, weekId: string | number, sessionC
 
   return parse(html, canteenId, reference)
 }
-
-// MAIN EXPORT
 
 /**
  * Fetch a set of plans from the simple web view.

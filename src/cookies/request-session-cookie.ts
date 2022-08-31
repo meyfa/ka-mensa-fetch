@@ -1,10 +1,6 @@
 import axios from 'axios'
 
-// TYPES
-
 type Headers = Record<string, string | string[]>
-
-// CONSTANTS
 
 /**
  * URL to request for obtaining the cookie.
@@ -31,8 +27,6 @@ const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/201
  */
 const COOKIE_REGEXP = /platoCMS=(\w+);/
 
-// METHODS
-
 /**
  * Find the session cookie from the given headers object.
  *
@@ -56,8 +50,6 @@ function findCookie (headers?: Headers): string | undefined {
 
   return undefined
 }
-
-// MAIN EXPORT
 
 /**
  * Obtain a session cookie from the sw-ka website. The cookie value is returned.

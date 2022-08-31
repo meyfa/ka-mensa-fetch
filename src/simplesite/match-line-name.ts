@@ -1,7 +1,5 @@
 import { canteens } from '../data/canteens.js'
 
-// CONSTANTS
-
 /**
  * Normalize the given canteen name for indexing into the lookup Map.
  *
@@ -30,8 +28,6 @@ const LINE_IDS_MAPPING: Map<string, Map<string, string>> = (() => {
 
   return mapping
 })()
-
-// MAIN EXPORT
 
 /**
  * Match a line name for the given canteen, determining its id.

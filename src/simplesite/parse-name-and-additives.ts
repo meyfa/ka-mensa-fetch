@@ -1,15 +1,11 @@
 import { mergeWhitespace } from '../util/merge-whitespace.js'
 
-// CONSTANTS
-
 /**
  * RegExp for separating name and additives list from one another, e.g.
  * "Nasi Goreng (So,Sn,Se,We)".
  * First group: name, second group: comma-separated list of additives.
  */
 const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\(\s*(\w{1,3}(?:\s*,\s*\w{1,3})*)\s*\)\s*$/
-
-// MAIN EXPORT
 
 /**
  * Given a string like "Nasi Goreng (So,Sn,Se,We)", determine the meal name and

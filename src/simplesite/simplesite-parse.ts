@@ -6,8 +6,6 @@ import { parseNameAndAdditives } from './parse-name-and-additives.js'
 import { matchLineName } from './match-line-name.js'
 import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
 
-// METHODS
-
 /**
  * Given a day-specific table, parse all lines contents.
  *
@@ -104,8 +102,6 @@ function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefi
     additives
   }
 }
-
-// MAIN EXPORT
 
 /**
  * Parse the given HTML for the given canteen id. Returns an array of objects
