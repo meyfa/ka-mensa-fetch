@@ -144,7 +144,7 @@ export const canteens: Canteen[] = [
   },
   {
     id: 'x1moltkestrasse',
-    name: 'Caféteria Moltkestraße 30',
+    name: 'Menseria Moltkestraße 30',
     lines: [
       {
         id: 'gut',
@@ -172,7 +172,7 @@ export const canteens: Canteen[] = [
   },
   {
     id: 'gottesaue',
-    name: 'Mensa Schloss Gottesaue',
+    name: 'Menseria Schloss Gottesaue',
     lines: [
       {
         id: 'wahl1',
@@ -216,11 +216,17 @@ export const canteens: Canteen[] = [
     lines: [
       {
         id: 'gut1',
-        name: 'Gut & Günstig 1'
+        name: 'Gut & Günstig 1',
+        alternativeNames: [
+          'Wahlessen 1'
+        ]
       },
       {
         id: 'gut2',
-        name: 'Gut & Günstig 2'
+        name: 'Gut & Günstig 2',
+        alternativeNames: [
+          'Wahlessen 2'
+        ]
       }
     ]
   }
