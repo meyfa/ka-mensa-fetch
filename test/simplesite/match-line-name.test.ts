@@ -36,4 +36,10 @@ describe('simplesite/match-line-name', function () {
   it('matches alternative names', function () {
     expect(matchLineName('adenauerring', '[kœri]werk 11-14 Uhr')).to.equal('aktion')
   })
+
+  it('matches case-insensitively', function () {
+    expect(matchLineName('adenauerring', 'linie 1')).to.equal('l1')
+    expect(matchLineName('adenauerring', 'LinIE 1')).to.equal('l1')
+    expect(matchLineName('adenauerring', '[kœri]werk 11-14 UHR')).to.equal('aktion')
+  })
 })

@@ -3,6 +3,16 @@ import { canteens } from '../data/canteens.js'
 // CONSTANTS
 
 /**
+ * Normalize the given canteen name for indexing into the lookup Map.
+ *
+ * @param name The human-readable name.
+ * @returns The normalized name, potentially less pretty, but also with less entropy.
+ */
+function normalizeLineNameForLookup (name: string): string {
+  return name.trim().toLocaleLowerCase(['de-DE', 'en-US'])
+}
+
+/**
  * A Map from canteen ids to Maps from line names to line ids.
  * I.e. schema: (canteenId => (lineName => lineId))
  */
@@ -13,7 +23,7 @@ const LINE_IDS_MAPPING: Map<string, Map<string, string>> = (() => {
     const lineMapping = new Map()
     for (const line of canteen.lines) {
       const allNames = [line.name, ...(line.alternativeNames ?? [])]
-      allNames.forEach(name => lineMapping.set(name, line.id))
+      allNames.forEach(name => lineMapping.set(normalizeLineNameForLookup(name), line.id))
     }
     mapping.set(canteen.id, lineMapping)
   }
@@ -38,5 +48,5 @@ export function matchLineName (canteenId: string, name: string): string | undefi
   if (lineNameToIdMap == null) {
     return undefined
   }
-  return lineNameToIdMap.get(name.trim())
+  return lineNameToIdMap.get(normalizeLineNameForLookup(name))
 }
