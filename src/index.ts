@@ -3,8 +3,6 @@ import { fetch as fetchJson } from './jsonapi/index.js'
 import { JsonApiOptions, Options, SimpleSiteOptions } from './types/options.js'
 import { CanteenPlan } from './types/canteen-plan.js'
 
-// HELPER FUNCTIONS
-
 /**
  * Convert a string for the source option into normalized form, i.e. to one of the valid source values.
  *
@@ -17,8 +15,6 @@ function resolveSource (source: 'simplesite' | 'jsonapi' | undefined): 'simplesi
   if (normalized === 'simplesite' || normalized === 'jsonapi') return normalized
   return undefined
 }
-
-// MAIN EXPORT
 
 // undefined source: use simplesite
 export async function fetchMensa (): Promise<CanteenPlan[]>

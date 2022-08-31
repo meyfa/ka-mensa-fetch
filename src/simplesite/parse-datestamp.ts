@@ -1,14 +1,10 @@
 import { DateSpec } from '../types/date-spec.js'
 
-// CONSTANTS
-
 /**
  * RegExp for parsing date strings of the following form: "Mo 02.12.".
  * First group: day (1..31), second group: month (1..12).
  */
 const DATE_REGEXP = /^\s*(?:Mo|Di|Mi|Do|Fr|Sa|So)\s*(\d+)\.(\d+)\.\s*$/
-
-// METHODS
 
 /**
  * Guess year information from a reference date and the month alone.
@@ -35,8 +31,6 @@ function guessYear (refYear: number, refMonth: number, month: number): number {
     return month < 4 ? refYear + 1 : refYear
   }
 }
-
-// MAIN EXPORT
 
 /**
  * Parse a datestamp string of the form "Mo 02.12." with respect to a reference

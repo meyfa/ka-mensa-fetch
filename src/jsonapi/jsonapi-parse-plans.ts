@@ -5,8 +5,6 @@ import { DateSpec } from '../types/date-spec.js'
 import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
 import { Canteen } from '../types/canteen.js'
 
-// CONSTANTS
-
 /**
  * A mapping from keys as found in the JSON data, to classifier short notation
  * as used on the website.
@@ -22,8 +20,6 @@ const CLASSIFIER_MAPPING: Readonly<Record<string, string>> = Object.freeze({
   veg: 'VEG',
   mensa_vit: 'MV'
 })
-
-// METHODS
 
 /**
  * Given a Unix timestamp that denotes start of day in German local time,
@@ -122,8 +118,6 @@ function getAdditives (mealData: { add: string[] }): string[] {
   return mealData.add.filter(str => str != null && str !== '')
 }
 
-// NESTED LAYER PARSING
-
 /**
  * @param referenceDate The date of plan acquisition, for reference.
  * @param canteen The canteen object to which the plans are related.
@@ -169,8 +163,6 @@ function parseLines (canteen: MappedCanteen, lineMapping: any): CanteenLine[] {
   }
   return lines
 }
-
-// MAIN EXPORT
 
 /**
  * Parse the given JSON for all meals it contains, except those entries too far

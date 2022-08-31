@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { AuthConfig } from '../types/options.js'
 
-// CONSTANTS
-
 /**
  * URL of the JSON API general endpoint.
  */
@@ -23,8 +21,6 @@ const REQUEST_TIMEOUT = 30 * 1000 // 30s
  */
 const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
-// UTILITY METHODS
-
 /**
  * Ensure the given argument is of type 'object' and is not null, throwing if it isn't.
  *
@@ -39,8 +35,6 @@ function asObject (data: unknown): object {
 
   return data
 }
-
-// MAIN EXPORT
 
 /**
  * Make a request to the specified JSON API endpoint.

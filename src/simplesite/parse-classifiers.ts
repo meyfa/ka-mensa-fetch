@@ -1,12 +1,8 @@
-// CONSTANTS
-
 /**
  * RegExp for matching a classifier list e.g. "[VEG,LAB]".
  * First group: comma-separated list of classifiers.
  */
 const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/
-
-// MAIN EXPORT
 
 /**
  * Parse a classifiers string into its components

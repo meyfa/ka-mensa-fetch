@@ -1,7 +1,5 @@
 import axios, { AxiosRequestHeaders } from 'axios'
 
-// CONSTANTS
-
 /**
  * URL of the simplified web view.
  */
@@ -17,8 +15,6 @@ const REQUEST_TIMEOUT = 30 * 1000 // 30s
  */
 const REQUEST_MAX_LENGTH = 1024 * 1024 // 1 MiB
 
-// UTILITY METHODS
-
 /**
  * Ensure the given argument is of type 'string', throwing if it isn't.
  *
@@ -32,8 +28,6 @@ function asString (data: unknown): string {
 
   return data
 }
-
-// MAIN EXPORT
 
 /**
  * Retrieve the HTML view for the given canteen and week id.

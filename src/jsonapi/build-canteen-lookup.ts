@@ -1,7 +1,5 @@
 import { Canteen, Line } from '../types/canteen.js'
 
-// TYPES
-
 /**
  * A Canteen object but using a Map for mapping line id's to Line objects-
  */
@@ -10,8 +8,6 @@ export interface MappedCanteen {
   name: string
   lines: Map<string, Line>
 }
-
-// METHODS
 
 /**
  * Convert the canteen array into a canteen Map.
@@ -67,8 +63,6 @@ function mergeLine (first: Line, second?: Line): Line {
   if (second == null) return first
   return { ...first, ...second }
 }
-
-// MAIN EXPORT
 
 /**
  * Convert one or two sets of canteen data (id, name, lines array) into a Map
