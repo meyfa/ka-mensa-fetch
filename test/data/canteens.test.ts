@@ -56,12 +56,14 @@ describe('data/canteens', function () {
     }
   })
 
-  it('does not have duplicate line names in canteens', function () {
+  it('does not have duplicate line names in canteens (case-insensitive)', function () {
     for (const entry of canteens) {
       const allNames: string[] = []
       for (const line of entry.lines) {
-        allNames.push(line.name)
-        allNames.push(...(line.alternativeNames ?? []))
+        allNames.push(line.name.toLocaleLowerCase(['de-DE', 'en-US']))
+        if (line.alternativeNames != null) {
+          allNames.push(...line.alternativeNames.map(name => name.toLocaleLowerCase(['de-DE', 'en-US'])))
+        }
       }
       checkDuplicates(expect, allNames, name => name)
     }

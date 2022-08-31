@@ -138,10 +138,7 @@ export const canteens: Canteen[] = [
       },
       {
         id: 'curryqueen',
-        name: '[Kœri]werk',
-        alternativeNames: [
-          '[kœri]werk'
-        ]
+        name: '[Kœri]werk'
       }
     ]
   },
@@ -209,10 +206,7 @@ export const canteens: Canteen[] = [
       },
       {
         id: 'curryqueen',
-        name: '[Kœri]werk',
-        alternativeNames: [
-          '[kœri]werk'
-        ]
+        name: '[Kœri]werk'
       }
     ]
   },
