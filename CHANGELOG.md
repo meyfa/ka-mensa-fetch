@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.0](https://github.com/meyfa/ka-mensa-fetch/compare/v3.0.2...v3.1.0) (2022-08-31)
+
+
+### Features
+
+* **data:** Update canteen and line names ([#125](https://github.com/meyfa/ka-mensa-fetch/issues/125)) ([e3c40bc](https://github.com/meyfa/ka-mensa-fetch/commit/e3c40bc87d425c1e31f5b20b326a7220ec50582f))
+* Perform line name matching case-insensitively ([#123](https://github.com/meyfa/ka-mensa-fetch/issues/123)) ([e856efd](https://github.com/meyfa/ka-mensa-fetch/commit/e856efd8d953a8051ee4ae3ca599db6b54232648))
+
 ## [3.0.2](https://github.com/meyfa/ka-mensa-fetch/compare/v3.0.1...v3.0.2) (2022-06-18)
 
 ### Bug Fixes
