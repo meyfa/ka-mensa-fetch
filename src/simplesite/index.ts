@@ -45,7 +45,7 @@ export async function fetch (options: SimpleSiteOptions): Promise<CanteenPlan[]>
   const sessionCookie = options.sessionCookie
   const parallel = options.parallel ?? false
 
-  const promises: Array<Promise<any>> = []
+  const promises: Array<Promise<CanteenPlan[]>> = []
 
   for (const week of weeks) {
     for (const id of ids) {
@@ -55,6 +55,5 @@ export async function fetch (options: SimpleSiteOptions): Promise<CanteenPlan[]>
     }
   }
 
-  // TODO: replace with Array.protoype.flat once Node 10 is EOL
-  return [].concat(...(await Promise.all(promises)))
+  return (await Promise.all(promises)).flat()
 }
