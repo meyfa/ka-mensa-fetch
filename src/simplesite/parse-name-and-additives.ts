@@ -1,4 +1,4 @@
-import { mergeWhitespace } from '../util/merge-whitespace.js'
+import { mergeWhitespace } from '../util/normalization.js'
 
 /**
  * RegExp for separating name and additives list from one another, e.g.

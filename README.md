@@ -357,6 +357,22 @@ Output (shortened):
 
 </details>
 
+### Match Functions
+
+Backwards-lookup of ids may be required in cases where only human-readable
+names are available. This functionality is used internally by the `simplesite`
+data source but also exposed as an export:
+
+```js
+import { matchCanteenByName, matchLineByName } from 'ka-mensa-fetch'
+
+console.log(matchCanteenByName('Mensa Am Adenauerring'))
+// logs 'adenauerring' - the id used in the JSON API for that canteen
+
+console.log(matchLineByName('adenauerring', '[pizza]werk Pizza 11-14 Uhr'))
+// logs 'pizza' - the id used in the JSON API for that line
+```
+
 
 ## Data Sources
 

@@ -75,6 +75,8 @@ export { CanteenPlan, CanteenLine, CanteenMeal } from './types/canteen-plan.js'
 export { DateSpec, datelike } from './types/date-spec.js'
 export { Options, SimpleSiteOptions, JsonApiOptions, AuthConfig } from './types/options.js'
 
-// re-export data
+// re-export data and utilities
 export { canteens } from './data/canteens.js'
 export { legend } from './data/legend.js'
+export { matchCanteenByName } from './data/match-canteen-by-name.js'
+export { matchLineByName } from './data/match-line-by-name.js'
