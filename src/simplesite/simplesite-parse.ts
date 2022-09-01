@@ -3,7 +3,7 @@ import { mergeWhitespace } from '../util/merge-whitespace.js'
 import { parseDatestamp } from './parse-datestamp.js'
 import { parseClassifiers } from './parse-classifiers.js'
 import { parseNameAndAdditives } from './parse-name-and-additives.js'
-import { matchLineName } from './match-line-name.js'
+import { matchLineByName } from '../data/match-line-by-name.js'
 import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
 
 /**
@@ -41,7 +41,7 @@ function parseLine ($: CheerioAPI, $row: Cheerio<Element>, canteenId: string): C
 
   const name = mergeWhitespace($cells.eq(0).text())
   // use null when id undefined, for better JSON output
-  const id = matchLineName(canteenId, name) ?? null
+  const id = matchLineByName(canteenId, name) ?? null
 
   const $mealsTable = $cells.eq(1).children('table')
   if ($mealsTable.length === 1) {
