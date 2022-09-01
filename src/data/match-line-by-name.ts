@@ -1,15 +1,5 @@
 import { canteens } from './canteens.js'
-import { mergeWhitespace } from '../util/merge-whitespace.js'
-
-/**
- * Normalize the given line name for indexing into the lookup Map.
- *
- * @param name The human-readable name.
- * @returns The normalized name, potentially less pretty, but also with less entropy.
- */
-function normalizeLineNameForLookup (name: string): string {
-  return mergeWhitespace(name.trim()).toLocaleLowerCase(['de-DE', 'en-US'])
-}
+import { normalizeNameForMatching } from '../util/normalization.js'
 
 /**
  * A Map from canteen ids to Maps from line names to line ids.
@@ -22,7 +12,7 @@ const LINE_IDS_MAPPING: Map<string, Map<string, string>> = (() => {
     const lineMapping = new Map()
     for (const line of canteen.lines) {
       const allNames = [line.name, ...(line.alternativeNames ?? [])]
-      allNames.forEach(name => lineMapping.set(normalizeLineNameForLookup(name), line.id))
+      allNames.forEach(name => lineMapping.set(normalizeNameForMatching(name), line.id))
     }
     mapping.set(canteen.id, lineMapping)
   }
@@ -45,5 +35,5 @@ export function matchLineByName (canteenId: string, name: string): string | unde
   if (lineNameToIdMap == null) {
     return undefined
   }
-  return lineNameToIdMap.get(normalizeLineNameForLookup(name))
+  return lineNameToIdMap.get(normalizeNameForMatching(name))
 }

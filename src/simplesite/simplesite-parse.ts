@@ -1,5 +1,5 @@
 import cheerio, { Cheerio, CheerioAPI, Element } from 'cheerio'
-import { mergeWhitespace } from '../util/merge-whitespace.js'
+import { mergeWhitespace } from '../util/normalization.js'
 import { parseDatestamp } from './parse-datestamp.js'
 import { parseClassifiers } from './parse-classifiers.js'
 import { parseNameAndAdditives } from './parse-name-and-additives.js'
