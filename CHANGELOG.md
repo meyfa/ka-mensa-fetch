@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/meyfa/ka-mensa-fetch/compare/v3.1.0...v3.2.0) (2022-09-01)
+
+
+### Features
+
+* Export matchCanteenByName() and matchLineByName() ([#129](https://github.com/meyfa/ka-mensa-fetch/issues/129)) ([bc624ac](https://github.com/meyfa/ka-mensa-fetch/commit/bc624acb53837cdde5e17dbdce66d218bb4c7da5))
+
 ## [3.1.0](https://github.com/meyfa/ka-mensa-fetch/compare/v3.0.2...v3.1.0) (2022-08-31)
 
 
