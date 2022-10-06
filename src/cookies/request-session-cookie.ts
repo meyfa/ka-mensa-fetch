@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-type Headers = Record<string, string | string[]>
+import axios, { AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios'
 
 /**
  * URL to request for obtaining the cookie.
@@ -33,7 +31,7 @@ const COOKIE_REGEXP = /platoCMS=(\w+);/
  * @param headers The response headers object.
  * @returns The cookie if present.
  */
-function findCookie (headers?: Headers): string | undefined {
+function findCookie (headers?: AxiosResponseHeaders | RawAxiosResponseHeaders): string | undefined {
   const setCookie = headers != null ? headers['set-cookie'] : undefined
   if (setCookie == null) {
     return undefined
@@ -42,7 +40,7 @@ function findCookie (headers?: Headers): string | undefined {
   const setCookieArray = Array.isArray(setCookie) ? setCookie : [setCookie]
 
   for (const item of setCookieArray) {
-    const match = item.match(COOKIE_REGEXP)
+    const match = item.toString().match(COOKIE_REGEXP)
     if (match != null) {
       return match[1]
     }

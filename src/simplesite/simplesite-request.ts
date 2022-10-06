@@ -1,4 +1,4 @@
-import axios, { AxiosRequestHeaders } from 'axios'
+import axios, { RawAxiosRequestHeaders } from 'axios'
 
 /**
  * URL of the simplified web view.
@@ -38,7 +38,7 @@ function asString (data: unknown): string {
  * @returns Resolves to HTML code on success (unprocessed).
  */
 export async function request (canteenId: string, weekId: string | number, sessionCookie?: string): Promise<string> {
-  const headers: AxiosRequestHeaders = {}
+  const headers: RawAxiosRequestHeaders = {}
   if (sessionCookie != null && sessionCookie !== '') {
     headers.Cookie = `platoCMS=${sessionCookie}`
   }
