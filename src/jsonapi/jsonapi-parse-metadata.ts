@@ -4,14 +4,10 @@ import { Canteen, Line } from '../types/canteen.js'
  * The structure that might be returned by the JSON API.
  */
 export interface UnparsedMetadata {
-  mensa?: {
-    [key: string]: {
-      name?: string
-      lines?: {
-        [key: string]: string
-      }
-    }
-  }
+  mensa?: Record<string, {
+    name?: string
+    lines?: Record<string, string>
+  }>
 }
 
 /**
