@@ -48,7 +48,7 @@
     "chai": "4.3.7",
     "chai-as-promised": "7.1.1",
     "eslint": "8.34.0",
-    "eslint-plugin-jsdoc": "39.3.6",
+    "eslint-plugin-jsdoc": "39.9.1",
     "mocha": "10.2.0",
     "rimraf": "4.1.1",
     "ts-node": "10.9.1",
