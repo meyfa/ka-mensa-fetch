@@ -104,7 +104,7 @@ function getFormattedPrice (mealData: { price_1?: number, info?: string }): stri
  * @param mealData The meal entry.
  * @returns An array of classifiers for the given meal.
  */
-function getClassifiers (mealData: { [key: string]: any }): string[] {
+function getClassifiers (mealData: Record<string, any>): string[] {
   return Object.keys(CLASSIFIER_MAPPING).filter(classifier => mealData[classifier])
     .map(classifier => CLASSIFIER_MAPPING[classifier])
 }
