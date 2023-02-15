@@ -1,4 +1,4 @@
-import cheerio, { Cheerio, CheerioAPI, Element } from 'cheerio'
+import { Cheerio, CheerioAPI, Element, load } from 'cheerio'
 import { mergeWhitespace } from '../util/normalization.js'
 import { parseDatestamp } from './parse-datestamp.js'
 import { parseClassifiers } from './parse-classifiers.js'
@@ -121,7 +121,7 @@ function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefi
  * @returns The parse results.
  */
 export function parse (html: string, canteenId: string, referenceDate: Date): CanteenPlan[] {
-  const $ = cheerio.load(html)
+  const $ = load(html)
   const $titles = $('#platocontent .article-div > h1')
 
   // The canteen name is stored in the first <h1>.
