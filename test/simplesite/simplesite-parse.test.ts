@@ -1,8 +1,5 @@
+import assert from 'node:assert'
 import { parse } from '../../src/simplesite/simplesite-parse.js'
-
-import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
 
 /**
  * Create a full HTML document for the given page content. The document will be pretty close to what the real website
@@ -53,13 +50,13 @@ describe('simplesite/simplesite-parse', function () {
   it('can handle empty plan', function () {
     const str = wrapContent('Mensa Am Adenauerring', '')
     const obj = parse(str, 'adenauerring', new Date())
-    expect(obj).to.deep.equal([])
+    assert.deepStrictEqual(obj, [])
   })
 
   it('extracts canteen name from first h1', function () {
     const str = wrapContent('name-here', '<h1>Mi 12.08.</h1><table></table>')
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'name-here',
@@ -79,7 +76,7 @@ describe('simplesite/simplesite-parse', function () {
         '<div class="article-div">'
       ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'name-here',
@@ -96,7 +93,7 @@ describe('simplesite/simplesite-parse', function () {
       '<h1>Do 13.08.</h1><table></table>'
     ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'name-here',
@@ -123,7 +120,7 @@ describe('simplesite/simplesite-parse', function () {
       '<h1>foo bar.baz.</h1><table></table>'
     ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([])
+    assert.deepStrictEqual(obj, [])
   })
 
   it('ignores empty rows in line table', function () {
@@ -131,7 +128,7 @@ describe('simplesite/simplesite-parse', function () {
       '<h1>Mi 12.08.</h1><table><tr></tr><tr></tr><tr></tr></table>'
     ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj[0].lines).to.deep.equal([])
+    assert.deepStrictEqual(obj[0].lines, [])
   })
 
   it('parses closed lines', function () {
@@ -147,7 +144,7 @@ describe('simplesite/simplesite-parse', function () {
       '</table>'
     ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'Mensa Am Adenauerring',
@@ -178,7 +175,7 @@ describe('simplesite/simplesite-parse', function () {
       '</table>'
     ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'Mensa Am Adenauerring',
@@ -210,7 +207,7 @@ describe('simplesite/simplesite-parse', function () {
       '</table>'
     ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'Mensa Am Adenauerring',
@@ -245,7 +242,7 @@ describe('simplesite/simplesite-parse', function () {
       '</table>'
     ))
     const obj = parse(str, 'adenauerring', new Date(2020, 7, 12))
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'Mensa Am Adenauerring',

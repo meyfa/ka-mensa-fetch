@@ -1,27 +1,31 @@
+import assert from 'node:assert'
 import { canteens } from '../../src/data/canteens.js'
 import { isTrimmed } from '../helper-is-trimmed.js'
 import { checkDuplicates } from '../helper-check-duplicates.js'
 
-import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
-
 describe('data/canteens', function () {
   it('has proper schema', function () {
-    expect(canteens).to.be.an('array')
+    assert.ok(Array.isArray(canteens))
     for (const entry of canteens) {
-      expect(entry).to.be.an('object').with.keys(['id', 'name', 'lines'])
-      expect(entry.id).to.be.a('string')
-      expect(entry.name).to.be.a('string')
-      expect(entry.lines).to.be.an('array')
+      assert.strictEqual(typeof entry, 'object')
+      assert.deepStrictEqual(Object.keys(entry).sort(), ['id', 'name', 'lines'].sort())
+      assert.strictEqual(typeof entry.id, 'string')
+      assert.strictEqual(typeof entry.name, 'string')
+      assert.ok(Array.isArray(entry.lines))
       for (const line of entry.lines) {
-        expect(line).to.be.an('object').that.includes.all.keys(['id', 'name'])
-        expect(line.id).to.be.a('string')
-        expect(line.name).to.be.a('string')
+        assert.strictEqual(typeof line, 'object')
+        const lineKeys = Object.keys(line)
+        if (lineKeys.includes('alternativeNames')) {
+          assert.deepStrictEqual(lineKeys.sort(), ['id', 'name', 'alternativeNames'].sort())
+        } else {
+          assert.deepStrictEqual(lineKeys.sort(), ['id', 'name'].sort())
+        }
+        assert.strictEqual(typeof line.id, 'string')
+        assert.strictEqual(typeof line.name, 'string')
         if (line.alternativeNames != null) {
-          expect(line.alternativeNames).to.be.an('array')
+          assert.ok(Array.isArray(line.alternativeNames))
           for (const alt of line.alternativeNames) {
-            expect(alt).to.be.a('string')
+            assert.strictEqual(typeof alt, 'string')
           }
         }
       }
@@ -30,29 +34,29 @@ describe('data/canteens', function () {
 
   it('does not have strings with leading/trailing whitespace', function () {
     for (const entry of canteens) {
-      expect(entry.id).to.satisfy(isTrimmed)
-      expect(entry.name).to.satisfy(isTrimmed)
+      assert.ok(isTrimmed(entry.id))
+      assert.ok(isTrimmed(entry.name))
       for (const line of entry.lines) {
-        expect(line.id).to.satisfy(isTrimmed)
-        expect(line.name).to.satisfy(isTrimmed)
+        assert.ok(isTrimmed(line.id))
+        assert.ok(isTrimmed(line.name))
         for (const alt of (line.alternativeNames ?? [])) {
-          expect(alt).to.satisfy(isTrimmed)
+          assert.ok(isTrimmed(alt))
         }
       }
     }
   })
 
   it('does not have duplicate canteen ids', function () {
-    checkDuplicates(expect, canteens, canteen => canteen.id)
+    checkDuplicates(canteens, canteen => canteen.id)
   })
 
   it('does not have duplicate canteen names', function () {
-    checkDuplicates(expect, canteens, canteen => canteen.name)
+    checkDuplicates(canteens, canteen => canteen.name)
   })
 
   it('does not have duplicate line ids in canteens', function () {
     for (const entry of canteens) {
-      checkDuplicates(expect, entry.lines, line => line.id)
+      checkDuplicates(entry.lines, line => line.id)
     }
   })
 
@@ -65,7 +69,7 @@ describe('data/canteens', function () {
           allNames.push(...line.alternativeNames.map(name => name.toLocaleLowerCase(['de-DE', 'en-US'])))
         }
       }
-      checkDuplicates(expect, allNames, name => name)
+      checkDuplicates(allNames, name => name)
     }
   })
 })

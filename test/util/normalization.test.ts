@@ -1,39 +1,36 @@
+import assert from 'node:assert'
 import { mergeWhitespace, normalizeNameForMatching } from '../../src/util/normalization.js'
-
-import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
 
 describe('util/normalization', function () {
   describe('mergeWhitespace()', function () {
     it('leaves empty string intact', function () {
-      expect(mergeWhitespace('')).to.equal('')
+      assert.strictEqual(mergeWhitespace(''), '')
     })
 
     it('leaves single spaces intact', function () {
-      expect(mergeWhitespace(' foo bar baz ')).to.equal(' foo bar baz ')
+      assert.strictEqual(mergeWhitespace(' foo bar baz '), ' foo bar baz ')
     })
 
     it('merges consecutive spaces', function () {
-      expect(mergeWhitespace('  foo     bar  ')).to.equal(' foo bar ')
+      assert.strictEqual(mergeWhitespace('  foo     bar  '), ' foo bar ')
     })
   })
 
   describe('normalizeNameForMatching()', function () {
     it('consolidates whitespace', function () {
-      expect(normalizeNameForMatching('foo\n\nbar')).to.equal('foo bar')
-      expect(normalizeNameForMatching('foo \nbar')).to.equal('foo bar')
-      expect(normalizeNameForMatching('foo    bar')).to.equal('foo bar')
+      assert.strictEqual(normalizeNameForMatching('foo\n\nbar'), 'foo bar')
+      assert.strictEqual(normalizeNameForMatching('foo \nbar'), 'foo bar')
+      assert.strictEqual(normalizeNameForMatching('foo    bar'), 'foo bar')
     })
 
     it('trims leading/trailing whitespace', function () {
-      expect(normalizeNameForMatching(' foo bar')).to.equal('foo bar')
-      expect(normalizeNameForMatching('foo bar ')).to.equal('foo bar')
-      expect(normalizeNameForMatching(' \n foo bar \n ')).to.equal('foo bar')
+      assert.strictEqual(normalizeNameForMatching(' foo bar'), 'foo bar')
+      assert.strictEqual(normalizeNameForMatching('foo bar '), 'foo bar')
+      assert.strictEqual(normalizeNameForMatching(' \n foo bar \n '), 'foo bar')
     })
 
     it('lowercases', function () {
-      expect(normalizeNameForMatching('FOOoo baR')).to.equal('foooo bar')
+      assert.strictEqual(normalizeNameForMatching('FOOoo baR'), 'foooo bar')
     })
   })
 })

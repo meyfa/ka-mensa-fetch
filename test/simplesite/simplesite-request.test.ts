@@ -1,19 +1,16 @@
+import assert from 'node:assert'
 import { request } from '../../src/simplesite/simplesite-request.js'
 import { LazyMockAdapter } from '../helper-lazymockadapter.js'
-
-import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
 
 describe('simplesite/simplesite-request', function () {
   const lazyMock = new LazyMockAdapter()
   afterEach(() => lazyMock.restore())
 
-  it('sends request as expected', function () {
+  it('sends request as expected', async function () {
     lazyMock.get().onAny().replyOnce(config => {
-      expect(config.url).to.equal('https://www.sw-ka.de/de/hochschulgastronomie/speiseplan/mensa_test-canteen/')
-      expect(config.method).to.equal('get')
-      expect(config.params).to.deep.equal({
+      assert.strictEqual(config.url, 'https://www.sw-ka.de/de/hochschulgastronomie/speiseplan/mensa_test-canteen/')
+      assert.strictEqual(config.method, 'get')
+      assert.deepStrictEqual(config.params, {
         STYLE: 'popup_plain',
         view: 'ok',
         c: 'test-canteen',
@@ -21,43 +18,38 @@ describe('simplesite/simplesite-request', function () {
       })
       return [200, 'page content']
     })
-    return expect(request('test-canteen', 11))
-      .to.eventually.be.fulfilled
+    await assert.doesNotReject(request('test-canteen', 11))
   })
 
-  it('returns data as-is', function () {
+  it('returns data as-is', async function () {
     const data = JSON.stringify({ some: { data: 42 } })
     lazyMock.get().onAny().replyOnce(() => {
       return [200, data]
     })
-    return expect(request('test-canteen', 11))
-      .to.eventually.deep.equal(data)
+    assert.deepStrictEqual(await request('test-canteen', 11), data)
   })
 
-  it('includes session cookie if provided', function () {
+  it('includes session cookie if provided', async function () {
     lazyMock.get().onAny().replyOnce(config => {
-      expect(config.headers).to.have.property('Cookie').that.equals('platoCMS=qux42baz')
+      assert.ok(config.headers)
+      assert.strictEqual(config.headers.Cookie, 'platoCMS=qux42baz')
       return [200, 'page content']
     })
-    return expect(request('test-canteen', 11, 'qux42baz'))
-      .to.eventually.be.fulfilled
+    await assert.doesNotReject(request('test-canteen', 11, 'qux42baz'))
   })
 
-  it('throws if JSON data is returned', function () {
+  it('throws if JSON data is returned', async function () {
     lazyMock.get().onAny().replyOnce(200, { foo: 'bar' })
-    return expect(request('test-canteen', 11))
-      .to.eventually.be.rejected
+    await assert.rejects(request('test-canteen', 11))
   })
 
-  it('throws if null is returned', function () {
+  it('throws if null is returned', async function () {
     lazyMock.get().onAny().replyOnce(200, null)
-    return expect(request('test-canteen', 11))
-      .to.eventually.be.rejected
+    await assert.rejects(request('test-canteen', 11))
   })
 
-  it('throws if undefined is returned', function () {
+  it('throws if undefined is returned', async function () {
     lazyMock.get().onAny().replyOnce(200, undefined)
-    return expect(request('test-canteen', 11))
-      .to.eventually.be.rejected
+    await assert.rejects(request('test-canteen', 11))
   })
 })
