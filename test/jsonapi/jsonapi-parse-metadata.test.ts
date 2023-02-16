@@ -1,14 +1,11 @@
+import assert from 'node:assert'
 import { parseMetadata } from '../../src/jsonapi/jsonapi-parse-metadata.js'
-
-import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
 
 describe('jsonapi/jsonapi-parse-metadata', function () {
   it('can handle empty root', function () {
     const data = {}
     const obj = parseMetadata(data)
-    expect(obj).to.deep.equal([])
+    assert.deepStrictEqual(obj, [])
   })
 
   it('can handle empty mensa object', function () {
@@ -16,7 +13,7 @@ describe('jsonapi/jsonapi-parse-metadata', function () {
       mensa: {}
     }
     const obj = parseMetadata(data)
-    expect(obj).to.deep.equal([])
+    assert.deepStrictEqual(obj, [])
   })
 
   it('sets canteen id and name', function () {
@@ -27,7 +24,7 @@ describe('jsonapi/jsonapi-parse-metadata', function () {
       }
     }
     const obj = parseMetadata(data)
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       { id: 'adenauerring', name: 'A', lines: [] },
       { id: 'moltke', name: 'M', lines: [] }
     ])
@@ -47,7 +44,7 @@ describe('jsonapi/jsonapi-parse-metadata', function () {
       }
     }
     const obj = parseMetadata(data)
-    expect(obj).to.deep.equal([
+    assert.deepStrictEqual(obj, [
       {
         id: 'adenauerring',
         name: 'A',

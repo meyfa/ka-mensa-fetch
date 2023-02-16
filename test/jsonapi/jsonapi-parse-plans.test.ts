@@ -1,14 +1,11 @@
+import assert from 'node:assert'
 import { parsePlans } from '../../src/jsonapi/jsonapi-parse-plans.js'
-
-import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
 
 describe('jsonapi/jsonapi-parse-plans', function () {
   it('can handle empty plan', function () {
     const data = {}
     const obj = parsePlans(data, new Date(2020, 7, 11))
-    expect(obj).to.deep.equal([])
+    assert.deepStrictEqual(obj, [])
   })
 
   it('can handle empty canteen objects', function () {
@@ -17,7 +14,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       moltke: {}
     }
     const obj = parsePlans(data, new Date(2020, 7, 11))
-    expect(obj).to.deep.equal([])
+    assert.deepStrictEqual(obj, [])
   })
 
   it('can handle closed lines and nodata', function () {
@@ -30,8 +27,9 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 10))
-    expect(obj).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].lines).to.deep.equal([
+    assert.ok(Array.isArray(obj))
+    assert.strictEqual(obj.length, 1)
+    assert.deepStrictEqual(obj[0].lines, [
       {
         id: 'l1',
         name: 'Linie 1',
@@ -54,14 +52,15 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 10))
-    expect(obj).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].date).to.deep.equal({
+    assert.ok(Array.isArray(obj))
+    assert.strictEqual(obj.length, 1)
+    assert.deepStrictEqual(obj[0].date, {
       day: 11,
       month: 7,
       year: 2020
     })
-    expect(obj[0].id).to.equal('adenauerring')
-    expect(obj[0].name).to.equal('Mensa Am Adenauerring')
+    assert.strictEqual(obj[0].id, 'adenauerring')
+    assert.strictEqual(obj[0].name, 'Mensa Am Adenauerring')
   })
 
   it('uses overridden canteen name if provided', function () {
@@ -74,9 +73,10 @@ describe('jsonapi/jsonapi-parse-plans', function () {
     }
     const metadata = [{ id: 'adenauerring', name: 'override', lines: [] }]
     const obj = parsePlans(data, new Date(2020, 7, 10), metadata)
-    expect(obj).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].id).to.equal('adenauerring')
-    expect(obj[0].name).to.equal('override')
+    assert.ok(Array.isArray(obj))
+    assert.strictEqual(obj.length, 1)
+    assert.strictEqual(obj[0].id, 'adenauerring')
+    assert.strictEqual(obj[0].name, 'override')
   })
 
   it('parses line id, includes line name', function () {
@@ -88,10 +88,10 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 10))
-    expect(obj).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].lines).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].lines[0].id).to.equal('l1')
-    expect(obj[0].lines[0].name).to.equal('Linie 1')
+    assert.ok(Array.isArray(obj))
+    assert.strictEqual(obj.length, 1)
+    assert.strictEqual(obj[0].lines[0].id, 'l1')
+    assert.strictEqual(obj[0].lines[0].name, 'Linie 1')
   })
 
   it('uses overridden line name if provided', function () {
@@ -108,10 +108,12 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       lines: [{ id: 'l1', name: 'override' }]
     }]
     const obj = parsePlans(data, new Date(2020, 7, 11), metadata)
-    expect(obj).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].lines).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].lines[0].id).to.equal('l1')
-    expect(obj[0].lines[0].name).to.equal('override')
+    assert.ok(Array.isArray(obj))
+    assert.strictEqual(obj.length, 1)
+    assert.ok(Array.isArray(obj[0].lines))
+    assert.strictEqual(obj[0].lines.length, 1)
+    assert.strictEqual(obj[0].lines[0].id, 'l1')
+    assert.strictEqual(obj[0].lines[0].name, 'override')
   })
 
   it('formats meal name correctly', function () {
@@ -144,12 +146,15 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     })
     const obj1 = parsePlans(makeData('foo bar', ''), new Date(2020, 7, 10))
-    expect(obj1).to.be.an('array').with.lengthOf(1)
-    expect(obj1[0].lines).to.be.an('array').with.lengthOf(1)
-    expect(obj1[0].lines[0].meals).to.be.an('array').with.lengthOf(1)
-    expect(obj1[0].lines[0].meals[0].name).to.equal('foo bar')
+    assert.ok(Array.isArray(obj1))
+    assert.strictEqual(obj1.length, 1)
+    assert.ok(Array.isArray(obj1[0].lines))
+    assert.strictEqual(obj1[0].lines.length, 1)
+    assert.ok(Array.isArray(obj1[0].lines[0].meals))
+    assert.strictEqual(obj1[0].lines[0].meals.length, 1)
+    assert.strictEqual(obj1[0].lines[0].meals[0].name, 'foo bar')
     const obj2 = parsePlans(makeData('foo bar', 'baz qux'), new Date(2020, 7, 10))
-    expect(obj2[0].lines[0].meals[0].name).to.equal('foo bar baz qux')
+    assert.strictEqual(obj2[0].lines[0].meals[0].name, 'foo bar baz qux')
   })
 
   it('formats meal price with info', function () {
@@ -183,9 +188,9 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     })
     const obj1 = parsePlans(makeData(1.73, ''), new Date(2020, 7, 10))
-    expect(obj1[0].lines[0].meals[0].price).to.equal('1,73 €')
+    assert.strictEqual(obj1[0].lines[0].meals[0].price, '1,73 €')
     const obj2 = parsePlans(makeData(1.73, 'ab'), new Date(2020, 7, 10))
-    expect(obj2[0].lines[0].meals[0].price).to.equal('(ab) 1,73 €')
+    assert.strictEqual(obj2[0].lines[0].meals[0].price, '(ab) 1,73 €')
   })
 
   it('uses empty string for price of 0', function () {
@@ -219,7 +224,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 10))
-    expect(obj[0].lines[0].meals[0].price).to.equal('')
+    assert.strictEqual(obj[0].lines[0].meals[0].price, '')
   })
 
   it('detects classifiers', function () {
@@ -252,7 +257,11 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 10))
-    expect(obj[0].lines[0].meals[0].classifiers).to.have.members(['B', 'MV', 'VG'])
+    const classifiers = obj[0].lines[0].meals[0].classifiers
+    assert.strictEqual(classifiers.length, 3)
+    assert.ok(classifiers.includes('B'))
+    assert.ok(classifiers.includes('MV'))
+    assert.ok(classifiers.includes('VG'))
   })
 
   it('includes additives', function () {
@@ -285,7 +294,10 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 10))
-    expect(obj[0].lines[0].meals[0].additives).to.have.members(['Ei', 'Fi'])
+    const additives = obj[0].lines[0].meals[0].additives
+    assert.strictEqual(additives.length, 2)
+    assert.ok(additives.includes('Ei'))
+    assert.ok(additives.includes('Fi'))
   })
 
   it('does not include unreliable data', function () {
@@ -306,13 +318,14 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 11))
-    expect(obj).to.be.an('array').with.lengthOf(2)
-    expect(obj[0].date).to.deep.equal({
+    assert.ok(Array.isArray(obj))
+    assert.strictEqual(obj.length, 2)
+    assert.deepStrictEqual(obj[0].date, {
       day: 11,
       month: 7,
       year: 2020
     })
-    expect(obj[1].date).to.deep.equal({
+    assert.deepStrictEqual(obj[1].date, {
       day: 12,
       month: 7,
       year: 2020
@@ -328,7 +341,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 11))
-    expect(obj).to.deep.equal([])
+    assert.deepStrictEqual(obj, [])
   })
 
   it('ignores unknown line ids', function () {
@@ -340,7 +353,8 @@ describe('jsonapi/jsonapi-parse-plans', function () {
       }
     }
     const obj = parsePlans(data, new Date(2020, 7, 11))
-    expect(obj).to.be.an('array').with.lengthOf(1)
-    expect(obj[0].lines).to.deep.equal([])
+    assert.ok(Array.isArray(obj))
+    assert.strictEqual(obj.length, 1)
+    assert.deepStrictEqual(obj[0].lines, [])
   })
 })

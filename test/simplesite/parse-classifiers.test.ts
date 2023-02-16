@@ -1,19 +1,16 @@
+import assert from 'node:assert'
 import { parseClassifiers } from '../../src/simplesite/parse-classifiers.js'
-
-import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
 
 describe('simplesite/parse-classifiers', function () {
   it("returns [] for empty input ('')", function () {
-    return expect(parseClassifiers('')).to.deep.equal([])
+    assert.deepStrictEqual(parseClassifiers(''), [])
   })
 
   it("returns [] for empty brackets ('[]')", function () {
-    return expect(parseClassifiers('[]')).to.deep.equal([])
+    assert.deepStrictEqual(parseClassifiers('[]'), [])
   })
 
   it('splits bracket contents', function () {
-    return expect(parseClassifiers('[FOO,BAR]')).to.deep.equal(['FOO', 'BAR'])
+    assert.deepStrictEqual(parseClassifiers('[FOO,BAR]'), ['FOO', 'BAR'])
   })
 })
