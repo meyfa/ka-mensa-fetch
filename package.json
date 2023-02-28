@@ -44,7 +44,7 @@
     "axios-mock-adapter": "1.21.2",
     "c8": "7.12.0",
     "eslint": "8.34.0",
-    "eslint-plugin-jsdoc": "39.9.1",
+    "eslint-plugin-jsdoc": "40.0.0",
     "mocha": "10.2.0",
     "rimraf": "4.1.1",
     "ts-node": "10.9.1",
