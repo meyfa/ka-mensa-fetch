@@ -25,6 +25,7 @@ jobs:
     strategy:
       matrix:
         node-version:
+          - 20
           - 18
           - 16
           - 14
