@@ -69,11 +69,11 @@ export async function fetchMensa (source: 'simplesite' | 'jsonapi' = 'simplesite
 export { requestSessionCookie } from './cookies/request-session-cookie.js'
 
 // re-export types
-export { Line, Canteen } from './types/canteen.js'
-export { LegendItem } from './types/legend.js'
-export { CanteenPlan, CanteenLine, CanteenMeal } from './types/canteen-plan.js'
-export { DateSpec, datelike } from './types/date-spec.js'
-export { Options, SimpleSiteOptions, JsonApiOptions, AuthConfig } from './types/options.js'
+export type { Line, Canteen } from './types/canteen.js'
+export type { LegendItem } from './types/legend.js'
+export type { CanteenPlan, CanteenLine, CanteenMeal } from './types/canteen-plan.js'
+export type { DateSpec, datelike } from './types/date-spec.js'
+export type { Options, SimpleSiteOptions, JsonApiOptions, AuthConfig } from './types/options.js'
 
 // re-export data and utilities
 export { canteens } from './data/canteens.js'

@@ -9,7 +9,7 @@ import assert from 'node:assert'
  * @param accessProp To-String-Converter for the iterable's entries.
  */
 export function checkDuplicates<T> (iterable: Iterable<T>, accessProp: (item: T) => string): void {
-  const counts: Map<string, number> = new Map()
+  const counts = new Map<string, number>()
   for (const entry of iterable) {
     const prop = accessProp(entry)
     counts.set(prop, (counts.get(prop) ?? 0) + 1)
