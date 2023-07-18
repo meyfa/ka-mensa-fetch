@@ -1,5 +1,24 @@
 # Changelog
 
+## [4.0.0](https://github.com/meyfa/ka-mensa-fetch/compare/v3.2.0...v4.0.0) (2023-07-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drop support for Node.js older than v18.16.1 ([#198](https://github.com/meyfa/ka-mensa-fetch/issues/198))
+
+### Bug Fixes
+
+* **deps:** Bump dependencies ([#200](https://github.com/meyfa/ka-mensa-fetch/issues/200)) ([50e38ae](https://github.com/meyfa/ka-mensa-fetch/commit/50e38aebbdf305c564c90045bc0c515246505d13))
+* **deps:** update dependency axios to v1 ([#139](https://github.com/meyfa/ka-mensa-fetch/issues/139)) ([d46252d](https://github.com/meyfa/ka-mensa-fetch/commit/d46252df00279f1cc5f224777e01ab6c3c7e6fbe))
+* Export types with "export type" for clarity ([#197](https://github.com/meyfa/ka-mensa-fetch/issues/197)) ([efb96e6](https://github.com/meyfa/ka-mensa-fetch/commit/efb96e6e2f5d883faf5bb4c625c9bf290cee71d3))
+* Use non-deprecated Cheerio load function ([#162](https://github.com/meyfa/ka-mensa-fetch/issues/162)) ([5081869](https://github.com/meyfa/ka-mensa-fetch/commit/5081869e798140d869b9ad873c9cbba91428d041))
+
+
+### Miscellaneous Chores
+
+* Drop support for Node.js older than v18.16.1 ([#198](https://github.com/meyfa/ka-mensa-fetch/issues/198)) ([81d6da3](https://github.com/meyfa/ka-mensa-fetch/commit/81d6da3870bb0d78da16fb859a166bb249d6d463))
+
 ## [3.2.0](https://github.com/meyfa/ka-mensa-fetch/compare/v3.1.0...v3.2.0) (2022-09-01)
 
 
