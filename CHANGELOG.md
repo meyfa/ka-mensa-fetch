@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.0...v4.0.1) (2023-07-23)
+
+
+### Miscellaneous Chores
+
+* Publish with provenance ([#201](https://github.com/meyfa/ka-mensa-fetch/issues/201)) ([292f592](https://github.com/meyfa/ka-mensa-fetch/commit/292f5927db6b9d6da7265059176602903c3603e6))
+
 ## [4.0.0](https://github.com/meyfa/ka-mensa-fetch/compare/v3.2.0...v4.0.0) (2023-07-18)
 
 
