@@ -37,7 +37,7 @@
     "node": ">=18.16.1"
   },
   "devDependencies": {
-    "@meyfa/eslint-config": "4.0.0",
+    "@meyfa/eslint-config": "4.0.1",
     "@types/mocha": "10.0.1",
     "@types/node": "18.16.19",
     "axios-mock-adapter": "1.21.5",
