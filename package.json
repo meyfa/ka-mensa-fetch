@@ -41,7 +41,7 @@
     "@types/mocha": "10.0.1",
     "@types/node": "18.17.4",
     "axios-mock-adapter": "1.21.5",
-    "c8": "8.0.0",
+    "c8": "8.0.1",
     "eslint": "8.48.0",
     "eslint-plugin-jsdoc": "46.4.4",
     "mocha": "10.2.0",
