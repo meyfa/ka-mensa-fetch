@@ -49,8 +49,8 @@ export function parseDatestamp (str: string, reference: Date): DateSpec | undefi
     return undefined
   }
 
-  const day = parseInt(match[1], 10)
-  const month = parseInt(match[2], 10) - 1
+  const day = Number.parseInt(match[1], 10)
+  const month = Number.parseInt(match[2], 10) - 1
 
   // plausibility check
   if (day < 1 || day > 31 || month < 0 || month > 11) {

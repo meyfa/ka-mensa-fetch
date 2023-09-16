@@ -127,7 +127,7 @@ function getAdditives (mealData: { add: string[] }): string[] {
 function parseDays (referenceDate: Date, canteen: MappedCanteen, planMapping: any): CanteenPlan[] {
   const days: CanteenPlan[] = []
   for (const unixTimestamp of Object.keys(planMapping)) {
-    const date = convertTimestampToDateObject(parseInt(unixTimestamp, 10))
+    const date = convertTimestampToDateObject(Number.parseInt(unixTimestamp, 10))
     if (!isReliable(date, referenceDate)) {
       continue
     }
