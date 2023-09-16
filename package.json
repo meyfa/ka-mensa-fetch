@@ -40,7 +40,7 @@
     "@meyfa/eslint-config": "5.0.0",
     "@types/mocha": "10.0.1",
     "@types/node": "18.17.17",
-    "axios-mock-adapter": "1.21.5",
+    "axios-mock-adapter": "1.22.0",
     "c8": "8.0.0",
     "eslint": "8.49.0",
     "eslint-plugin-jsdoc": "46.5.1",
