@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.2](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.1...v4.0.2) (2023-11-17)
+
+
+### Bug Fixes
+
+* Bump axios dependency range ([#230](https://github.com/meyfa/ka-mensa-fetch/issues/230)) ([4e90575](https://github.com/meyfa/ka-mensa-fetch/commit/4e905752ee782d121ab97f75cd41647483a5eed8))
+
 ## [4.0.1](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.0...v4.0.1) (2023-07-23)
 
 
