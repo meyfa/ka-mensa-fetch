@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.3](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.2...v4.0.3) (2024-07-01)
+
+
+### Bug Fixes
+
+* Do not rely on .article-div ([#262](https://github.com/meyfa/ka-mensa-fetch/issues/262)) ([8ec5533](https://github.com/meyfa/ka-mensa-fetch/commit/8ec5533a06ff2b686c3b0f58767a9ac24446da9e))
+
 ## [4.0.2](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.1...v4.0.2) (2023-11-17)
 
 
