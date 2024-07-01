@@ -122,7 +122,7 @@ function parseMeal ($: CheerioAPI, $row: Cheerio<Element>): CanteenMeal | undefi
  */
 export function parse (html: string, canteenId: string, referenceDate: Date): CanteenPlan[] {
   const $ = load(html)
-  const $titles = $('#platocontent .article-div > h1')
+  const $titles = $('#platocontent h1')
 
   // The canteen name is stored in the first <h1>.
   const canteenName = $titles.first().text()
