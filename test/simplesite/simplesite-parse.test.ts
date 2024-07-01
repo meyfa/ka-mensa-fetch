@@ -20,19 +20,15 @@ function wrapContent (canteenName: string, content: string): string {
             <tr>
               <td>
                 <div id="platocontent" class="platocontent">
-                  <article>
-                    <div class="article-div">
-                      <h1 class="mensa_fullname">${canteenName}</h1>
-                      <h1>${canteenName}</h1>
-                      Preise für Studenten
-                      <p><style></style></p>
-                      ${content}
-                      <b>Legende</b><br>
-                      (1) mit Farbstoff<br>
-                      <b>Freiwillige Angaben</b><br>
-                      [R] enthält Rindfleisch
-                    </div>
-                  </article>
+                  <h1 class="mensa_fullname">${canteenName}</h1>
+                  <h1>${canteenName}</h1>
+                  Preise für Studierende
+                  <p><style></style></p>
+                  ${content}
+                  <b>Legende</b><br>
+                  (1) mit Farbstoff<br>
+                  <b>Freiwillige Angaben</b><br>
+                  [R] enthält Rindfleisch
                 </div>
               </td>
               <td>
