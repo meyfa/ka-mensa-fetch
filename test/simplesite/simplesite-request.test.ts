@@ -31,7 +31,7 @@ describe('simplesite/simplesite-request', function () {
 
   it('includes session cookie if provided', async function () {
     lazyMock.get().onAny().replyOnce(config => {
-      assert.ok(config.headers)
+      assert.ok(config.headers != null)
       assert.strictEqual(config.headers.Cookie, 'platoCMS=qux42baz')
       return [200, 'page content']
     })
