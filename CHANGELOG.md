@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.4](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.3...v4.0.4) (2024-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.7.4 [security] ([#275](https://github.com/meyfa/ka-mensa-fetch/issues/275)) ([1cc7297](https://github.com/meyfa/ka-mensa-fetch/commit/1cc729795b1275d34ba38bb97f00f4a2683c06ba))
+
 ## [4.0.3](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.2...v4.0.3) (2024-07-01)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "ka-mensa-fetch",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Karlsruhe (KIT) Mensa meal plan fetcher",
   "type": "module",
   "main": "dist/index.js",
@@ -39,13 +39,13 @@
   "devDependencies": {
     "@meyfa/eslint-config": "7.0.0",
     "@types/mocha": "10.0.7",
-    "@types/node": "20.14.15",
+    "@types/node": "20.14.11",
     "axios-mock-adapter": "2.0.0",
     "c8": "10.1.2",
     "eslint": "8.57.0",
     "mocha": "10.7.3",
     "ts-node": "10.9.2",
-    "typescript": "5.5.4"
+    "typescript": "5.5.3"
   },
   "dependencies": {
     "axios": "^1.6.2",
