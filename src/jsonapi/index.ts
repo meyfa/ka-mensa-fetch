@@ -16,6 +16,7 @@ import { CanteenPlan } from '../types/canteen-plan.js'
  */
 export async function fetch (options: JsonApiOptions): Promise<CanteenPlan[]> {
   const auth = options.auth
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (auth == null) {
     throw new Error('auth option is required')
   }
