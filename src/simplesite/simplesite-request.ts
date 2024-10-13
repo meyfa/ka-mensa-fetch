@@ -53,7 +53,7 @@ export async function request (canteenId: string, weekId: string | number, sessi
     headers,
     responseType: 'text',
     // to avoid JSON parsing, which, unfortunately, is not done automatically based on responseType
-    transformResponse: res => res,
+    transformResponse: (res) => res,
     timeout: REQUEST_TIMEOUT,
     maxContentLength: REQUEST_MAX_LENGTH
   })

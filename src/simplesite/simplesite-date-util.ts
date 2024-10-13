@@ -32,5 +32,5 @@ export function isDateSupported (date: datelike): boolean {
  * @returns Week numbers for the given dates.
  */
 export function convertToWeeks (dates: datelike[]): Set<number> {
-  return new Set(dates.map(d => moment(d).isoWeek()))
+  return new Set(dates.map((d) => moment(d).isoWeek()))
 }

@@ -194,7 +194,6 @@ describe('jsonapi/jsonapi-parse-plans', function () {
   })
 
   it('uses empty string for price of 0', function () {
-    // eslint-disable-next-line camelcase
     const data = {
       adenauerring: {
         1597096800: {

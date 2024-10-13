@@ -7,7 +7,7 @@ describe('simplesite/simplesite-request', function () {
   afterEach(() => lazyMock.restore())
 
   it('sends request as expected', async function () {
-    lazyMock.get().onAny().replyOnce(config => {
+    lazyMock.get().onAny().replyOnce((config) => {
       assert.strictEqual(config.url, 'https://www.sw-ka.de/de/hochschulgastronomie/speiseplan/mensa_test-canteen/')
       assert.strictEqual(config.method, 'get')
       assert.deepStrictEqual(config.params, {
@@ -30,7 +30,7 @@ describe('simplesite/simplesite-request', function () {
   })
 
   it('includes session cookie if provided', async function () {
-    lazyMock.get().onAny().replyOnce(config => {
+    lazyMock.get().onAny().replyOnce((config) => {
       assert.ok(config.headers != null)
       assert.strictEqual(config.headers.Cookie, 'platoCMS=qux42baz')
       return [200, 'page content']

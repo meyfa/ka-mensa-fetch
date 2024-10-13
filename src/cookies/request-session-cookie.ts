@@ -40,7 +40,7 @@ function findCookie (headers?: AxiosResponseHeaders | RawAxiosResponseHeaders): 
   const setCookieArray = Array.isArray(setCookie) ? setCookie : [setCookie]
 
   for (const item of setCookieArray) {
-    const match = item.toString().match(COOKIE_REGEXP)
+    const match = COOKIE_REGEXP.exec(item.toString())
     if (match != null) {
       return match[1]
     }

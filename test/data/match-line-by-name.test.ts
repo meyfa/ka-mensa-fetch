@@ -10,19 +10,19 @@ describe('data/match-line-by-name', function () {
     assert.strictEqual(matchLineByName('adenauerring', 'Unbekannte Linie'), undefined)
   })
 
-  it("matches 'Linie 1' (adenauerring)", function () {
+  it('matches \'Linie 1\' (adenauerring)', function () {
     assert.strictEqual(matchLineByName('adenauerring', 'Linie 1'), 'l1')
   })
 
-  it("matches '[pizza]werk Salate / Vorspeisen' (adenauerring)", function () {
+  it('matches \'[pizza]werk Salate / Vorspeisen\' (adenauerring)', function () {
     assert.strictEqual(matchLineByName('adenauerring', '[pizza]werk Salate / Vorspeisen'), 'salat_dessert')
   })
 
-  it("matches '[kœri]werk' (adenauerring)", function () {
+  it('matches \'[kœri]werk\' (adenauerring)', function () {
     assert.strictEqual(matchLineByName('adenauerring', '[kœri]werk'), 'aktion')
   })
 
-  it("matches 'Gut & Günstig' (x1moltkestrasse)", function () {
+  it('matches \'Gut & Günstig\' (x1moltkestrasse)', function () {
     assert.strictEqual(matchLineByName('x1moltkestrasse', 'Gut & Günstig'), 'gut')
   })
 

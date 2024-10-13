@@ -7,7 +7,7 @@ describe('cookies/request-session-cookie', function () {
   afterEach(() => lazyMock.restore())
 
   it('sends request to https://www.sw-ka.de/*', async function () {
-    lazyMock.get().onAny().replyOnce(config => {
+    lazyMock.get().onAny().replyOnce((config) => {
       assert.ok(config.url?.startsWith('https://www.sw-ka.de/') === true)
       return [200, 'test-response']
     })
@@ -53,7 +53,7 @@ describe('cookies/request-session-cookie', function () {
   it('sends a Firefox user agent', async function () {
     // this is required because sw-ka does not reliably set cookies in other browsers
 
-    lazyMock.get().onAny().replyOnce(config => {
+    lazyMock.get().onAny().replyOnce((config) => {
       assert.ok(config.headers != null)
       assert.ok(typeof config.headers['User-Agent'] === 'string')
       assert.match(config.headers['User-Agent'], /Mozilla/)
