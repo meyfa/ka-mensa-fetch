@@ -115,6 +115,7 @@ function getClassifiers (mealData: Record<string, any>): string[] {
  * @returns An array of additives for the given meal.
  */
 function getAdditives (mealData: { add: string[] }): string[] {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return mealData.add.filter((str) => str != null && str !== '')
 }
 

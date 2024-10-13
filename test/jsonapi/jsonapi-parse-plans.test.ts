@@ -158,7 +158,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
   })
 
   it('formats meal price with info', function () {
-    // eslint-disable-next-line camelcase, @typescript-eslint/naming-convention
+    // eslint-disable-next-line camelcase
     const makeData = (price_1: number, info: string): object => ({
       adenauerring: {
         1597096800: {
@@ -177,6 +177,7 @@ describe('jsonapi/jsonapi-parse-plans', function () {
               veg: false,
               mensa_vit: false,
               info,
+              // eslint-disable-next-line camelcase
               price_1,
               price_2: 2.2,
               price_3: 2.2,
