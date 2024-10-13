@@ -6,11 +6,11 @@ describe('data/match-canteen-by-name', function () {
     assert.strictEqual(matchCanteenByName('Unbekannte Mensa'), undefined)
   })
 
-  it("matches 'Mensa Am Adenauerring", function () {
+  it('matches \'Mensa Am Adenauerring', function () {
     assert.strictEqual(matchCanteenByName('Mensa Am Adenauerring'), 'adenauerring')
   })
 
-  it("matches 'Menseria Moltkestraße 30'", function () {
+  it('matches \'Menseria Moltkestraße 30\'', function () {
     assert.strictEqual(matchCanteenByName('Menseria Moltkestraße 30'), 'x1moltkestrasse')
   })
 

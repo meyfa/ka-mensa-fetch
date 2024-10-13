@@ -12,7 +12,7 @@ const CLASSIFIERS_REGEXP = /^\s*\[([\w,]+)\]\s*$/
  * @returns The classifiers array.
  */
 export function parseClassifiers (str: string): string[] {
-  const match = str.match(CLASSIFIERS_REGEXP)
+  const match = CLASSIFIERS_REGEXP.exec(str)
   if (match != null) {
     return match[1].split(/\s*,\s*/)
   }

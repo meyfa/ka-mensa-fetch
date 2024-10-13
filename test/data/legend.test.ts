@@ -22,6 +22,6 @@ describe('data/legend', function () {
   })
 
   it('does not have duplicate short values', function () {
-    checkDuplicates(legend, entry => entry.short)
+    checkDuplicates(legend, (entry) => entry.short)
   })
 })

@@ -16,8 +16,8 @@ export interface MappedCanteen {
  * @returns The generated Map.
  */
 function toCanteenMap (array: Canteen[]): Map<string, MappedCanteen> {
-  return new Map(array.map(canteen => {
-    const lineMap = new Map(canteen.lines.map(line => [line.id, line]))
+  return new Map(array.map((canteen) => {
+    const lineMap = new Map(canteen.lines.map((line) => [line.id, line]))
     return [canteen.id, {
       ...canteen,
       lines: lineMap

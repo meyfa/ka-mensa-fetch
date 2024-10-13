@@ -18,7 +18,7 @@ describe('jsonapi/jsonapi-request', function () {
 
   describe('with #METADATA_ENDPOINT', function () {
     it('sends request as expected', async function () {
-      lazyMock.get().onAny().replyOnce(config => {
+      lazyMock.get().onAny().replyOnce((config) => {
         assert.strictEqual(config.url, 'https://www.sw-ka.de/en/json_interface/general/')
         assert.strictEqual(config.method, 'get')
         assert.deepStrictEqual(config.auth, {
@@ -45,7 +45,7 @@ describe('jsonapi/jsonapi-request', function () {
 
   describe('with #PLANS_ENDPOINT', function () {
     it('sends request as expected', async function () {
-      lazyMock.get().onAny().replyOnce(config => {
+      lazyMock.get().onAny().replyOnce((config) => {
         assert.strictEqual(config.url, 'https://www.sw-ka.de/en/json_interface/canteen/')
         assert.strictEqual(config.method, 'get')
         assert.deepStrictEqual(config.auth, {

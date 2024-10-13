@@ -47,16 +47,16 @@ describe('data/canteens', function () {
   })
 
   it('does not have duplicate canteen ids', function () {
-    checkDuplicates(canteens, canteen => canteen.id)
+    checkDuplicates(canteens, (canteen) => canteen.id)
   })
 
   it('does not have duplicate canteen names', function () {
-    checkDuplicates(canteens, canteen => canteen.name)
+    checkDuplicates(canteens, (canteen) => canteen.name)
   })
 
   it('does not have duplicate line ids in canteens', function () {
     for (const entry of canteens) {
-      checkDuplicates(entry.lines, line => line.id)
+      checkDuplicates(entry.lines, (line) => line.id)
     }
   })
 
@@ -66,10 +66,10 @@ describe('data/canteens', function () {
       for (const line of entry.lines) {
         allNames.push(line.name.toLocaleLowerCase(['de-DE', 'en-US']))
         if (line.alternativeNames != null) {
-          allNames.push(...line.alternativeNames.map(name => name.toLocaleLowerCase(['de-DE', 'en-US'])))
+          allNames.push(...line.alternativeNames.map((name) => name.toLocaleLowerCase(['de-DE', 'en-US'])))
         }
       }
-      checkDuplicates(allNames, name => name)
+      checkDuplicates(allNames, (name) => name)
     }
   })
 })

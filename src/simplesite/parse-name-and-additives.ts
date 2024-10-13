@@ -19,7 +19,7 @@ const NAME_ADDITIVES_REGEXP = /^\s*([\s\S]+\S)\s+\(\s*(\w{1,3}(?:\s*,\s*\w{1,3})
  * @returns The resulting name,additives object.
  */
 export function parseNameAndAdditives (str: string): { name: string, additives: string[] } {
-  const match = str.match(NAME_ADDITIVES_REGEXP)
+  const match = NAME_ADDITIVES_REGEXP.exec(str)
   if (match != null) {
     return {
       name: mergeWhitespace(match[1]),

@@ -12,7 +12,7 @@ const LINE_IDS_MAPPING: Map<string, Map<string, string>> = (() => {
     const lineMapping = new Map()
     for (const line of canteen.lines) {
       const allNames = [line.name, ...(line.alternativeNames ?? [])]
-      allNames.forEach(name => lineMapping.set(normalizeNameForMatching(name), line.id))
+      allNames.forEach((name) => lineMapping.set(normalizeNameForMatching(name), line.id))
     }
     mapping.set(canteen.id, lineMapping)
   }

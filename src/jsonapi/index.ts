@@ -15,11 +15,11 @@ import { CanteenPlan } from '../types/canteen-plan.js'
  * @returns Parsed results.
  */
 export async function fetch (options: JsonApiOptions): Promise<CanteenPlan[]> {
-  const auth = options?.auth
+  const auth = options.auth
   if (auth == null) {
     throw new Error('auth option is required')
   }
-  const parallel = options?.parallel ?? false
+  const parallel = options.parallel ?? false
 
   const metadataPromise = request(auth, METADATA_ENDPOINT)
   if (!parallel) await metadataPromise // synchronize

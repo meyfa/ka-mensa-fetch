@@ -105,8 +105,8 @@ function getFormattedPrice (mealData: { price_1?: number, info?: string }): stri
  * @returns An array of classifiers for the given meal.
  */
 function getClassifiers (mealData: Record<string, any>): string[] {
-  return Object.keys(CLASSIFIER_MAPPING).filter(classifier => mealData[classifier])
-    .map(classifier => CLASSIFIER_MAPPING[classifier])
+  return Object.keys(CLASSIFIER_MAPPING).filter((classifier) => mealData[classifier])
+    .map((classifier) => CLASSIFIER_MAPPING[classifier])
 }
 
 /**
@@ -115,7 +115,7 @@ function getClassifiers (mealData: Record<string, any>): string[] {
  * @returns An array of additives for the given meal.
  */
 function getAdditives (mealData: { add: string[] }): string[] {
-  return mealData.add.filter(str => str != null && str !== '')
+  return mealData.add.filter((str) => str != null && str !== '')
 }
 
 /**

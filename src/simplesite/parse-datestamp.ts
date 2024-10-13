@@ -44,7 +44,7 @@ function guessYear (refYear: number, refMonth: number, month: number): number {
  * @returns An object containing integers: day, month, year.
  */
 export function parseDatestamp (str: string, reference: Date): DateSpec | undefined {
-  const match = str.match(DATE_REGEXP)
+  const match = DATE_REGEXP.exec(str)
   if (match == null) {
     return undefined
   }

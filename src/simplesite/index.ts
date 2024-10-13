@@ -8,7 +8,7 @@ import { SimpleSiteOptions } from '../types/options.js'
 /**
  * Array of known canteen ids.
  */
-const CANTEEN_IDS = Object.freeze(canteens.map(c => c.id))
+const CANTEEN_IDS = Object.freeze(canteens.map((c) => c.id))
 
 /**
  * Fetch a single instance of the plan and parse it.
