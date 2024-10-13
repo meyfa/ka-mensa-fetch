@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.0.5](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.4...v4.0.5) (2024-10-13)
+
+
+### Bug Fixes
+
+* Consolidate fetchMensa function type ([#288](https://github.com/meyfa/ka-mensa-fetch/issues/288)) ([bfa5e8f](https://github.com/meyfa/ka-mensa-fetch/commit/bfa5e8f57127c3d724afe707d6571f3d7f92cece))
+* Improve code style for upcoming ESLint config update ([#286](https://github.com/meyfa/ka-mensa-fetch/issues/286)) ([2462834](https://github.com/meyfa/ka-mensa-fetch/commit/24628349e7e3e48e62885689dbafc5678bb074e7))
+
 ## [4.0.4](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.3...v4.0.4) (2024-08-14)
 
 
