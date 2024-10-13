@@ -17,11 +17,7 @@ function resolveSource (source: 'simplesite' | 'jsonapi' | undefined): 'simplesi
 }
 
 // undefined source: use simplesite
-export async function fetchMensa (): Promise<CanteenPlan[]>
-export async function fetchMensa (source: undefined, options?: SimpleSiteOptions): Promise<CanteenPlan[]>
-
-// for simplesite, options are indeed optional
-export async function fetchMensa (source: 'simplesite', options?: SimpleSiteOptions): Promise<CanteenPlan[]>
+export async function fetchMensa (source?: 'simplesite', options?: SimpleSiteOptions): Promise<CanteenPlan[]>
 
 // for jsonapi, options are mandatory due to auth property
 export async function fetchMensa (source: 'jsonapi', options: JsonApiOptions): Promise<CanteenPlan[]>
