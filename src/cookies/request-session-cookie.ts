@@ -1,4 +1,4 @@
-import axios, { AxiosResponseHeaders, RawAxiosResponseHeaders } from 'axios'
+import axios, { type AxiosResponseHeaders, type RawAxiosResponseHeaders } from 'axios'
 
 /**
  * URL to request for obtaining the cookie.

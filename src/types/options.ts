@@ -1,4 +1,4 @@
-import { datelike } from './date-spec.js'
+import type { datelike } from './date-spec.js'
 
 /**
  * Fetcher options object. Depending on the value of source, additional options might be available.

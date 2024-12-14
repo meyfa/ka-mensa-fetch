@@ -1,7 +1,7 @@
 import { fetch as fetchSimpleSite } from './simplesite/index.js'
 import { fetch as fetchJson } from './jsonapi/index.js'
-import { JsonApiOptions, Options, SimpleSiteOptions } from './types/options.js'
-import { CanteenPlan } from './types/canteen-plan.js'
+import type { JsonApiOptions, Options, SimpleSiteOptions } from './types/options.js'
+import type { CanteenPlan } from './types/canteen-plan.js'
 
 /**
  * Convert a string for the source option into normalized form, i.e. to one of the valid source values.

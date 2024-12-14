@@ -1,4 +1,4 @@
-import { LegendItem } from '../types/legend.js'
+import type { LegendItem } from '../types/legend.js'
 
 export const legend: LegendItem[] = [
   {

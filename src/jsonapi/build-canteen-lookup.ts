@@ -1,4 +1,4 @@
-import { Canteen, Line } from '../types/canteen.js'
+import type { Canteen, Line } from '../types/canteen.js'
 
 /**
  * A Canteen object but using a Map for mapping line id's to Line objects-

@@ -1,4 +1,4 @@
-import { Canteen } from '../types/canteen.js'
+import type { Canteen } from '../types/canteen.js'
 
 export const canteens: Canteen[] = [
   {
