@@ -1,4 +1,4 @@
-import { DateSpec } from './date-spec.js'
+import type { DateSpec } from './date-spec.js'
 
 /**
  * An object containing data about a specific meal.

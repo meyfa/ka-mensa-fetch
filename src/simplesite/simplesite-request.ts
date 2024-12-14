@@ -1,4 +1,4 @@
-import axios, { RawAxiosRequestHeaders } from 'axios'
+import axios, { type RawAxiosRequestHeaders } from 'axios'
 
 /**
  * URL of the simplified web view.

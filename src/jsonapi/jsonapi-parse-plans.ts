@@ -1,9 +1,9 @@
 import moment from 'moment'
 import { canteens } from '../data/canteens.js'
-import { buildCanteenLookup, MappedCanteen } from './build-canteen-lookup.js'
-import { DateSpec } from '../types/date-spec.js'
-import { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
-import { Canteen } from '../types/canteen.js'
+import { buildCanteenLookup, type MappedCanteen } from './build-canteen-lookup.js'
+import type { DateSpec } from '../types/date-spec.js'
+import type { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
+import type { Canteen } from '../types/canteen.js'
 
 /**
  * A mapping from keys as found in the JSON data, to classifier short notation

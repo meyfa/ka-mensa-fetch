@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AuthConfig } from '../types/options.js'
+import type { AuthConfig } from '../types/options.js'
 
 /**
  * URL of the JSON API general endpoint.

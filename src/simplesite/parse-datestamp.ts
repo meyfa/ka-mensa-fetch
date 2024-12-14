@@ -1,4 +1,4 @@
-import { DateSpec } from '../types/date-spec.js'
+import type { DateSpec } from '../types/date-spec.js'
 
 /**
  * RegExp for parsing date strings of the following form: "Mo 02.12.".
