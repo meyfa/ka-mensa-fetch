@@ -45,7 +45,7 @@ describe('cookies/request-session-cookie', function () {
         'testCookie1=fail1; path=/',
         'platoCMS=qux42baz; path=/',
         'testCookie2=fail2; path=/'
-      ]
+      ] as any
     })
     assert.strictEqual(await requestSessionCookie(), 'qux42baz')
   })
