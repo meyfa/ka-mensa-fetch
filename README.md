@@ -1,8 +1,6 @@
 # ka-mensa-fetch
 
 [![CI](https://github.com/meyfa/ka-mensa-fetch/actions/workflows/main.yml/badge.svg)](https://github.com/meyfa/ka-mensa-fetch/actions/workflows/main.yml)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/test_coverage)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/68f45907f4ee7210c54f/maintainability)](https://codeclimate.com/github/meyfa/ka-mensa-fetch/maintainability)
 
 
 ## Introduction
@@ -231,11 +229,11 @@ import {
   CanteenPlan,
   CanteenLine,
   CanteenMeal,
-  
+
   // these types are used whenever dates are needed
   DateSpec,
   datelike,
-  
+
   // types used for specifying fetcher options
   Options,
   SimpleSiteOptions,
