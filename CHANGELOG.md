@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.1.0](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.4...v4.1.0) (2025-11-03)
+
+
+### Features
+
+* Enable TS option verbatimModuleSyntax ([#297](https://github.com/meyfa/ka-mensa-fetch/issues/297)) ([c96e951](https://github.com/meyfa/ka-mensa-fetch/commit/c96e951d6abd885c1e27946dbf7476c50bb9a03b))
+
+
+### Bug Fixes
+
+* Consolidate fetchMensa function type ([#288](https://github.com/meyfa/ka-mensa-fetch/issues/288)) ([bfa5e8f](https://github.com/meyfa/ka-mensa-fetch/commit/bfa5e8f57127c3d724afe707d6571f3d7f92cece))
+* **deps:** update dependency axios to v1.8.2 [security] ([#301](https://github.com/meyfa/ka-mensa-fetch/issues/301)) ([c2306d2](https://github.com/meyfa/ka-mensa-fetch/commit/c2306d20a4cb884e9a3b5db3b8067bb575f00695))
+* Improve code style for upcoming ESLint config update ([#286](https://github.com/meyfa/ka-mensa-fetch/issues/286)) ([2462834](https://github.com/meyfa/ka-mensa-fetch/commit/24628349e7e3e48e62885689dbafc5678bb074e7))
+
 ## [4.0.4](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.3...v4.0.4) (2024-08-14)
 
 
