@@ -1,10 +1,13 @@
-import { type Cheerio, type CheerioAPI, type Element, load } from 'cheerio'
+import { type Cheerio, type CheerioAPI, load } from 'cheerio'
 import { mergeWhitespace } from '../util/normalization.js'
 import { parseDatestamp } from './parse-datestamp.js'
 import { parseClassifiers } from './parse-classifiers.js'
 import { parseNameAndAdditives } from './parse-name-and-additives.js'
 import { matchLineByName } from '../data/match-line-by-name.js'
 import type { CanteenLine, CanteenMeal, CanteenPlan } from '../types/canteen-plan.js'
+
+// Workaround for https://github.com/cheeriojs/cheerio/issues/4256
+type Element = ReturnType<CheerioAPI> extends Cheerio<infer E> ? E : never
 
 /**
  * Given a day-specific table, parse all lines contents.
