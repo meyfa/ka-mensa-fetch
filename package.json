@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/meyfa/ka-mensa-fetch#readme",
   "engines": {
-    "node": ">=18.16.1"
+    "node": ">=22.18.0"
   },
   "devDependencies": {
     "@meyfa/eslint-config": "8.0.1",
