@@ -16,7 +16,6 @@ export class LazyMockAdapter {
    */
   get (): MockAdapter {
     if (this.mock == null) {
-      // @ts-expect-error MockAdapter is not typed correctly
       this.mock = new MockAdapter(axios, { onNoMatch: 'throwException' })
     }
     return this.mock
