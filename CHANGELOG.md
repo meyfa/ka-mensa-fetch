@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.1](https://github.com/meyfa/ka-mensa-fetch/compare/v5.0.0...v5.0.1) (2026-05-10)
+
+
+### Bug Fixes
+
+* **deps:** Update axios to 1.16.0 ([#325](https://github.com/meyfa/ka-mensa-fetch/issues/325)) ([191dad5](https://github.com/meyfa/ka-mensa-fetch/commit/191dad577d1ae882fcbc5e93d3a7774a1053059d))
+
 ## [5.0.0](https://github.com/meyfa/ka-mensa-fetch/compare/v4.0.4...v5.0.0) (2026-02-21)
 
 
