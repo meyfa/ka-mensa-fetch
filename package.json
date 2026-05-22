@@ -45,7 +45,7 @@
     "eslint": "9.39.4",
     "mocha": "11.7.6",
     "tsx": "4.22.3",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "dependencies": {
     "axios": "^1.16.0",
